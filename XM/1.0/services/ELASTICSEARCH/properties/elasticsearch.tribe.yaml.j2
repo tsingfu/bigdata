@@ -1,0 +1,46 @@
+cluster:
+  name:   {{cluster_name}} 
+  routing:
+    allocation.node_concurrent_recoveries: 4
+    allocation.disk.threshold_enabled: true
+
+node:
+  data: false
+  master: false
+  name: {{hostname}}
+path:
+  data: {{data_dir}}
+  logs: {{log_dir}}
+
+gateway:
+  recover_after_data_nodes: 3
+  recover_after_time: 15m
+  expected_data_nodes: 0
+
+indices:
+  memory:
+   index_buffer_size: 10%
+  fielddata:
+   cache.size: 25%
+  recovery.max_bytes_per_sec: 900mb
+
+bootstrap.memory_lock: true
+
+
+discovery.zen.ping_timeout: 3s
+discovery.zen.fd.ping_interval: 15s
+discovery.zen.fd.ping_timeout: 60s
+discovery.zen.fd.ping_retries: 5
+
+transport.tcp.compress: true
+
+gateway.recover_after_nodes: 3
+
+node.max_local_storage_nodes: 1
+action.destructive_requires_name: true
+
+
+tribe.hot.cluster.name: {{cluster_name}}
+tribe.blocks.write: true
+tribe.blocks.metadata: true
+tribe.blocks.on_conflict: prefer_hot

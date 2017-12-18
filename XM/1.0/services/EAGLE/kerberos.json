@@ -1,0 +1,38 @@
+{
+  "services": [
+    {
+      "name": "EAGLE",
+      "identities": [
+        {
+          "name": "/smokeuser"
+        },
+        {
+          "name": "eagle_user",
+          "principal": {
+            "value": "${eagle-env/eagle_user}${principal_suffix}@${realm}",
+            "type" : "user",
+            "configuration": "eagle-env/eagle.server.kerberos.principal",
+            "local_username" : "${eagle-env/eagle_user}"
+          },
+          "keytab": {
+            "file": "${keytab_dir}/eagle.server.kerberos.keytab",
+            "owner": {
+              "name": "${eagle-env/eagle_user}",
+              "access": "r"
+            },
+            "group": {
+              "name": "${cluster-env/user_group}",
+              "access": ""
+            },
+            "configuration": "eagle-env/eagle.server.kerberos.keytab"
+          }
+        }
+      ],
+      "components": [
+        {
+          "name": "EAGLE_SERVICE"
+        }
+      ]
+    }
+  ]
+}

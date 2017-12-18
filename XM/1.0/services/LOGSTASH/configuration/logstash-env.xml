@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property require-input="true">
+        <name>logstash_log_dir</name>
+        <value>/var/log/logstash</value>
+        <description>Log directory for logstash</description>
+    </property>
+
+    <property>
+        <name>business_map_content</name>
+        <display-name>business_map.yml template</display-name>
+        <description>This is the jinja template for business_map.yml file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>business_map.yml</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+    <property>
+        <name>indexer_content</name>
+        <display-name>indexer.conf template</display-name>
+        <description>This is the jinja template for indexer.conf file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>indexer.conf</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+    <property>
+        <name>jvm_content</name>
+        <display-name>jvm.options template</display-name>
+        <description>This is the jinja template for jvm.options file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>jvm.options</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+
+    <property>
+        <name>logstash_content</name>
+        <display-name>logstash.yml template</display-name>
+        <description>This is the jinja template for logstash.yml file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>logstash.yml</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+    <property>
+        <name>module_map_content</name>
+        <display-name>module_map.yml template</display-name>
+        <description>This is the jinja template for tribe module_map.yml file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>module_map.yml</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+
+    <property>
+        <name>init_content</name>
+        <display-name>init template</display-name>
+        <description>This is the jinja template for init file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>init.sh</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+    <property>
+        <name>patterns_content</name>
+        <display-name>init template</display-name>
+        <description>This is the jinja template for patterns file</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>patterns</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+</configuration>

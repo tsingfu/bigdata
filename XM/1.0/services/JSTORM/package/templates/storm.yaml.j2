@@ -1,0 +1,4 @@
+
+{% for key, value in configurations|dictsort if not key.startswith('_') %}
+{{key.split('|')[0]}} : {{ escape_yaml_propetry(value) }}
+{% endfor %}

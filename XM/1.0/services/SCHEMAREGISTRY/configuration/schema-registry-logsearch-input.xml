@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_adding_forbidden="true">
+    <property>
+        <name>content</name>
+        <display-name>kafka-feeder-logsearch-input template</display-name>
+        <description>Custom conf properties for logsearch</description>
+        <value>{
+            "input":[
+            {
+            "type":"kafka_feeder",
+            "rowtype":"service",
+            "path":"{{log_dir}}/*.log"
+            }
+
+            ],
+            "filter":[
+            {
+            "filter":"grok",
+            "conditions":{
+            "fields":{
+            "type":[
+            "kafka_feeder"
+            ]
+            }
+            },
+            "log4j_format":"[%d] %p %m (%c:%L)%n",
+            "multiline_pattern":"^(%{TIMESTAMP_ISO8601:logtime})",
+            "message_pattern":"(?m)^%{TIMESTAMP_ISO8601:logtime}%{SPACE}%{LOGLEVEL:level}%{SPACE}%{JAVACLASS:logger_name}%{SPACE}\\(%{JAVAFILE:file}:%{JAVAMETHOD:method}\\(%{INT:line_number}\\)\\)%{SPACE}-%{SPACE}%{GREEDYDATA:log_message}",
+            "post_map_values":{
+            "logtime":{
+            "map_date":{
+            "date_pattern":"yyyy-MM-dd HH:mm:ss,SSS"
+            }
+
+            }
+
+            }
+            }
+            ]
+            }
+        </value>
+        <value-attributes>
+            <type>content</type>
+            <show-property-name>false</show-property-name>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+</configuration>

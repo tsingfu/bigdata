@@ -1,0 +1,714 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_adding_forbidden="true">
+  <property require-input="true">
+    <name>download_url</name>
+    <value>http://yum.example.com/hadoop/hbase-2.0.0-alpha4-bin.tar.gz</value>
+    <description>下载路径</description>
+  </property>
+  <property require-input="true">
+    <name>install_dir</name>
+    <value>/opt/hbase</value>
+    <description>安装目录</description>
+  </property>
+
+  <property require-input="true">
+    <name>phoenix_download_url</name>
+    <value>http://yum.example.com/hadoop/apache-phoenix-4.12.0-HBase-1.2-bin.tar.gz</value>
+    <description>下载路径</description>
+  </property>
+  <property require-input="true">
+    <name>phoenix_install_dir</name>
+    <value>/opt/phoenix-server</value>
+    <description>安装目录</description>
+  </property>
+
+  <property>
+    <name>hbase_log_dir</name>
+    <value>/var/log/hbase</value>
+    <display-name>HBase Log Dir Prefix</display-name>
+    <description>Log Directories for HBase.</description>
+    <value-attributes>
+      <type>directory</type>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_pid_dir</name>
+    <value>/var/run/hbase</value>
+    <display-name>HBase PID Dir</display-name>
+    <description>Pid Directory for HBase.</description>
+    <value-attributes>
+      <type>directory</type>
+      <overridable>false</overridable>
+      <editable-only-at-install>true</editable-only-at-install>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>hbase_regionserver_xmn_ratio</name>
+    <value>0.2</value>
+    <display-name>RegionServers -Xmn in -Xmx ratio</display-name>
+    <description>Percentage of max heap size (-Xmx) which used for young generation heap (-Xmn).</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_user</name>
+    <display-name>HBase User</display-name>
+    <value>hbase</value>
+    <property-type>USER</property-type>
+    <description>HBase User Name.</description>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_max_direct_memory_size</name>
+    <value/>
+    <display-name>HBase off-heap MaxDirectMemorySize</display-name>
+    <description>If not empty, adds '-XX:MaxDirectMemorySize={{hbase_max_direct_memory_size}}m' to HBASE_REGIONSERVER_OPTS.</description>
+    <value-attributes>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>phoenix_sql_enabled</name>
+    <value>false</value>
+    <description>Enable Phoenix SQL</description>
+    <display-name>Enable Phoenix</display-name>
+    <value-attributes>
+      <type>value-list</type>
+      <entries>
+        <entry>
+          <value>true</value>
+          <label>Enabled</label>
+        </entry>
+        <entry>
+          <value>false</value>
+          <label>Disabled</label>
+        </entry>
+      </entries>
+      <selection-cardinality>1</selection-cardinality>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <!-- hbase-env.sh -->
+  <property>
+    <name>content</name>
+    <display-name>hbase-env template</display-name>
+    <description>This is the jinja template for hbase-env.sh file</description>
+    <value>
+# Set environment variables here.
+export HADOOP_HOME=/opt/hadoop
+export HBASE_HOME=/opt/hbase
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HADOOP_HOME/lib/native:/usr/lib64
+export HBASE_LIBRARY_PATH=$HBASE_LIBRARY_PATH:$HBASE_HOME/lib/native:$HADOOP_HOME/lib/native:/usr/lib64
+# The java implementation to use. Java 1.6 required.
+export JAVA_HOME={{java64_home}}
+
+# HBase Configuration directory
+export HBASE_CONF_DIR=${HBASE_CONF_DIR:-{{hbase_conf_dir}}}
+
+# Extra Java CLASSPATH elements. Optional.
+export HBASE_CLASSPATH=${HBASE_CLASSPATH}
+
+if [ -d "/opt/ranger-hbase-plugin" ]; then
+  export HBASE_CLASSPATH=${HBASE_CLASSPATH}:/opt/ranger-hbase-plugin/lib/*
+fi
+
+# The maximum amount of heap to use, in MB. Default is 1000.
+# export HBASE_HEAPSIZE=1000
+
+# Extra Java runtime options.
+# Below are what we set by default. May only work with SUN JVM.
+# For more on why as well as other possible settings,
+# see http://wiki.apache.org/hadoop/PerformanceTuning
+export SERVER_GC_OPTS="-verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:{{log_dir}}/gc.log-`date +'%Y%m%d%H%M'`"
+# Uncomment below to enable java garbage collection logging.
+# export HBASE_OPTS="$HBASE_OPTS -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:$HBASE_HOME/logs/gc-hbase.log"
+
+# Uncomment and adjust to enable JMX exporting
+# See jmxremote.password and jmxremote.access in $JRE_HOME/lib/management to configure remote password access.
+# More details at: http://java.sun.com/javase/6/docs/technotes/guides/management/agent.html
+#
+# export HBASE_JMX_BASE="-Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false"
+# If you want to configure BucketCache, specify '-XX: MaxDirectMemorySize=' with proper direct memory size
+# export HBASE_THRIFT_OPTS="$HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10103"
+# export HBASE_ZOOKEEPER_OPTS="$HBASE_JMX_BASE -Dcom.sun.management.jmxremote.port=10104"
+
+# File naming hosts on which HRegionServers will run. $HBASE_HOME/conf/regionservers by default.
+export HBASE_REGIONSERVERS=${HBASE_CONF_DIR}/regionservers
+
+# Extra ssh options. Empty by default.
+# export HBASE_SSH_OPTS="-o ConnectTimeout=1 -o SendEnv=HBASE_CONF_DIR"
+
+# Where log files are stored. $HBASE_HOME/logs by default.
+export HBASE_LOG_DIR={{log_dir}}
+
+# A string representing this instance of hbase. $USER by default.
+# export HBASE_IDENT_STRING=$USER
+
+# The scheduling priority for daemon processes. See 'man nice'.
+# export HBASE_NICENESS=10
+
+# The directory where pid files are stored. /tmp by default.
+export HBASE_PID_DIR={{pid_dir}}
+
+# Seconds to sleep between slave commands. Unset by default. This
+# can be useful in large clusters, where, e.g., slave rsyncs can
+# otherwise arrive faster than the master can service them.
+# export HBASE_SLAVE_SLEEP=0.1
+
+# Tell HBase whether it should manage it's own instance of Zookeeper or not.
+export HBASE_MANAGES_ZK=false
+
+{% if java_version &lt; 8 %}
+JDK_DEPENDED_OPTS="-XX:PermSize=128m -XX:MaxPermSize=128m"
+{% endif %}
+
+{% if security_enabled %}
+export HBASE_OPTS="$HBASE_OPTS -XX:+UseConcMarkSweepGC -XX:ErrorFile={{log_dir}}/hs_err_pid%p.log -Djava.security.auth.login.config={{client_jaas_config_file}} -Djava.io.tmpdir={{java_io_tmpdir}}"
+export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -Xmx{{master_heapsize}} -Djava.security.auth.login.config={{master_jaas_config_file}} $JDK_DEPENDED_OPTS"
+export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -Xmn{{regionserver_xmn_size}} -XX:CMSInitiatingOccupancyFraction=70 -XX:ReservedCodeCacheSize=256m -Xms{{regionserver_heapsize}} -Xmx{{regionserver_heapsize}}  -Djava.security.auth.login.config={{regionserver_jaas_config_file}} $JDK_DEPENDED_OPTS"
+export PHOENIX_QUERYSERVER_OPTS="$PHOENIX_QUERYSERVER_OPTS -Djava.security.auth.login.config={{queryserver_jaas_config_file}}"
+{% else %}
+export HBASE_OPTS="$HBASE_OPTS -XX:+UseConcMarkSweepGC -XX:ErrorFile={{log_dir}}/hs_err_pid%p.log -Djava.io.tmpdir={{java_io_tmpdir}}"
+export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS -Xmx{{master_heapsize}} $JDK_DEPENDED_OPTS"
+export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS -Xmn{{regionserver_xmn_size}} -XX:CMSInitiatingOccupancyFraction=70 -XX:ReservedCodeCacheSize=256m -Xms{{regionserver_heapsize}} -Xmx{{regionserver_heapsize}} $JDK_DEPENDED_OPTS"
+{% endif %}
+
+# HBase off-heap MaxDirectMemorySize
+export HBASE_REGIONSERVER_OPTS="$HBASE_REGIONSERVER_OPTS {% if hbase_max_direct_memory_size %} -XX:MaxDirectMemorySize={{hbase_max_direct_memory_size}}m {% endif %}"
+export HBASE_MASTER_OPTS="$HBASE_MASTER_OPTS {% if hbase_max_direct_memory_size %} -XX:MaxDirectMemorySize={{hbase_max_direct_memory_size}}m {% endif %}"
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>regionserver_init</name>
+    <display-name>hbase regionserver init template</display-name>
+    <description>This is the jinja template for regionserver init file</description>
+    <value><![CDATA[
+#! /bin/bash
+# This file is used to run multiple instances of certain HBase daemons using init scripts.
+# It replaces the local-regionserver.sh and local-master.sh scripts for Bigtop packages.
+# By default, this script runs a single daemon normally. If offsets are provided, additional
+# daemons are run, identified by the offset in log and pid files, and listening on the default
+# port + the offset. Offsets can be provided as arguments when invoking init scripts directly:
+#
+#     /etc/init.d/hbase-regionserver start 1 2 3 4
+#
+# or you can list the offsets to run in /etc/init.d/regionserver_offsets:
+#
+#    echo "regionserver_OFFSETS='1 2 3 4' >> /etc/default/hbase"
+#    sudo service hbase-$HBASE_DAEMON@ start
+#
+# Offsets specified on the command-line always override the offsets file. If no offsets are
+# specified on the command-line when stopping or restarting daemons, all running instances of the
+# daemon are stopped (regardless of the contents of the offsets file).
+
+# chkconfig: 345 87 13
+# description: Summary: HBase is the Hadoop database. Use it when you need random, realtime read/write access to your Big Data. This project's goal is the hosting of very large tables -- billions of rows X millions of columns -- atop clusters of commodity hardware.
+# processname: HBase
+#
+### BEGIN INIT INFO
+# Provides:          hbase-regionserver
+# Required-Start:    $network $local_fs $remote_fs
+# Required-Stop:     $remote_fs
+# Should-Start:      $named
+# Should-Stop:
+# Default-Start:     3 4 5
+# Default-Stop:      0 1 2 6
+# Short-Description: Hadoop HBase regionserver daemon
+### END INIT INFO
+
+DEFAULTS_DIR=${DEFAULTS_DIR-/etc/default}
+[ -n "${DEFAULTS_DIR}" -a -r ${DEFAULTS_DIR}/hadoop ] && . ${DEFAULTS_DIR}/hadoop
+[ -n "${DEFAULTS_DIR}" -a -r ${DEFAULTS_DIR}/hbase ] && . ${DEFAULTS_DIR}/hbase
+
+
+# Our default HBASE_HOME, HBASE_PID_DIR and HBASE_CONF_DIR
+export HBASE_HOME=${HBASE_HOME:-/opt/hbase}
+export HBASE_PID_DIR=${HBASE_PID_DIR:-/var/run/hbase}
+export HBASE_LOG_DIR=${HBASE_LOG_DIR:-/var/log/hbase}
+
+install -d -m 0755 -o hbase -g hbase ${HBASE_PID_DIR}
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON_SCRIPT=$HBASE_HOME/bin/hbase-daemon.sh
+NAME=hbase-regionserver
+DESC="Hadoop HBase regionserver daemon"
+PID_FILE=$HBASE_PID_DIR/hbase-hbase-regionserver.pid
+CONF_DIR=${HBASE_CONF_DIR:-/etc/hbase}
+
+DODTIME=3                   # Time to wait for the server to die, in seconds
+                            # If this value is set too low you might not
+                            # let some servers to die gracefully and
+                            # 'restart' will not work
+
+UPPERCASE_HBASE_DAEMON=$(echo regionserver | tr '[:lower:]' '[:upper:]')
+
+ALL_DAEMONS_RUNNING=0
+NO_DAEMONS_RUNNING=1
+SOME_OFFSET_DAEMONS_FAILING=2
+INVALID_OFFSETS_PROVIDED=3
+
+# These limits are not easily configurable - they are enforced by HBase
+if [ "regionserver" == "master" ] ; then
+    FIRST_PORT=16000
+    FIRST_INFO_PORT=16010
+    OFFSET_LIMIT=10
+elif [ "regionserver" == "regionserver" ] ; then
+    FIRST_PORT=16200
+    FIRST_INFO_PORT=16300
+    OFFSET_LIMIT=100
+fi
+
+validate_offsets() {
+    for OFFSET in $1; do
+        if [[ ! $OFFSET =~ ^((0)|([1-9][0-9]{0,2}))$ ]]; then
+            echo "ERROR: All offsets must be positive integers (no leading zeros, max $OFFSET_LIMIT)"
+            exit $INVALID_OFFSETS_PROVIDED
+        fi
+        if [ ${OFFSET} -lt 0 ] ; then
+            echo "ERROR: Cannot start regionserver with negative offset" >&2
+            exit $INVALID_OFFSETS_PROVIDED
+        fi
+        if [ ${OFFSET} -ge ${OFFSET_LIMIT} ] ; then
+            echo "ERROR: Cannot start regionserver with offset higher than $OFFSET_LIMIT" >&2
+            exit $INVALID_OFFSETS_PROVIDED
+        fi
+    done
+}
+
+offset_pidfile() {
+    echo $HBASE_PID_DIR/hbase-hbase-$1-regionserver.pid
+}
+
+OFFSETS_FROM_CLI="${*:2}"
+validate_offsets "$OFFSETS_FROM_CLI"
+if [ -n "$(eval echo \${${UPPERCASE_HBASE_DAEMON}_OFFSETS})" ] ; then
+    OFFSETS_FROM_DEFAULT="$(eval echo \${${UPPERCASE_HBASE_DAEMON}_OFFSETS})"
+    validate_offsets "$OFFSETS_FROM_DEFAULT"
+fi
+OFFSET_PID_FILES="`ls $HBASE_PID_DIR/hbase-hbase-*-regionserver.pid 2>/dev/null`"
+if [ -n "$OFFSET_PID_FILES" ] ; then
+    OFFSETS_FROM_PIDS=`echo "$OFFSET_PID_FILES" | sed "s#$HBASE_PID_DIR/hbase-hbase-##" | sed "s#-.*##" | tr '\n' ' '`
+fi
+
+multi_hbase_daemon_check_pidfiles() {
+  if [ -z "$OFFSETS_FROM_PIDS" ] ; then
+    return $NO_DAEMONS_RUNNING
+  fi
+  if [ -n "$OFFSETS_FROM_CLI" ] ; then
+    OFFSETS="$OFFSETS_FROM_CLI"
+  else
+    OFFSETS="$OFFSETS_FROM_PIDS"
+  fi
+
+  RESULT=$ALL_DAEMONS_RUNNING
+  for OFFSET in $OFFSETS; do
+    echo -n "HBase regionserver $OFFSET: "
+    if hbase_check_pidfile `offset_pidfile $OFFSET` ; then
+      echo "running"
+    else
+      echo "not running"
+      RESULT=$SOME_OFFSET_DAEMONS_FAILING
+    fi
+  done
+  return $RESULT
+}
+
+multi_hbase_daemon_stop_pidfiles() {
+  if [ -z "$OFFSETS_FROM_PIDS" ] ; then
+    return $NO_DAEMONS_RUNNING
+  fi
+  if [ -n "$OFFSETS_FROM_CLI" ] ; then
+    OFFSETS="$OFFSETS_FROM_CLI"
+  else
+    OFFSETS="$OFFSETS_FROM_PIDS"
+  fi
+
+  RESULT=$NO_DAEMONS_RUNNING
+  for OFFSET in $OFFSETS; do
+    echo -n "Forcefully stopping HBase regionserver $OFFSET: "
+    PID_FILE=`offset_pidfile $OFFSET`
+    hbase_stop_pidfile $PID_FILE
+    if hbase_check_pidfile $PID_FILE ; then
+      echo "ERROR."
+    else
+      echo "OK."
+      rm -f $PID_FILE
+    fi
+  done
+  return $RESULT
+}
+
+# Starts and stops multiple instances of HBase daemons
+multi_hbase_daemon() {
+    COMMAND=$1
+    OFFSETS="$OFFSETS_FROM_CLI"
+    if [ "$COMMAND" == "start" ] ; then
+        ACTION="Starting"
+        RUNNING="OK"
+        STOPPED="ERROR"
+        if [ -z "$OFFSETS_FROM_CLI" ] ; then
+            OFFSETS="$OFFSETS_FROM_DEFAULT"
+        fi
+    elif [ "$COMMAND" == "stop" ] ; then
+        ACTION="Stopping"
+        RUNNING="ERROR"
+        STOPPED="OK"
+        if [ -z "$OFFSETS_FROM_CLI" ] ; then
+            OFFSETS="$OFFSETS_FROM_PIDS"
+        fi
+    else
+        echo "ERROR: Illegal command: $COMMAND"
+        exit 1
+    fi
+
+    export HBASE_${UPPERCASE_HBASE_DAEMON}_OPTS=" "
+
+    for OFFSET in ${OFFSETS} ; do
+        echo -n "$ACTION regionserver daemon $OFFSET: "
+        export HBASE_IDENT_STRING="hbase-${OFFSET}"
+        LOG_FILE="$HBASE_LOG_DIR/hbase-$HBASE_IDENT_STRING-regionserver-$HOSTNAME.pid"
+        PID_FILE="$HBASE_PID_DIR/hbase-$HBASE_IDENT_STRING-regionserver.pid"
+        HBASE_MULTI_ARGS="-D hbase.regionserver.port=`expr ${FIRST_PORT} + $OFFSET` \
+                          -D hbase.regionserver.info.port=`expr ${FIRST_INFO_PORT} + ${OFFSET}`"
+        hbase_check_pidfile $PID_FILE
+        STATUS=$?
+        if [[ "$STATUS" == "0" && "$COMMAND" == "start" ]] ; then
+            echo "Already running"
+            continue
+        elif [[ "$STATUS" != "0" && "$COMMAND" == "stop" ]] ; then
+            rm -f $PID_FILE
+            echo "Already stopped"
+            continue
+        fi
+        su -s /bin/bash hbase -c "${DAEMON_SCRIPT} ${COMMAND} regionserver ${HBASE_MULTI_ARGS} >> ${LOG_FILE}"
+        if [[ "$COMMAND" == "stop" ]] ; then
+            rm -f $PID_FILE
+        else
+            # The process forks, so creating the PID file is asynchronous
+            sleep 1
+        fi
+        if hbase_check_pidfile $PID_FILE ; then
+            echo "$RUNNING"
+        else
+            echo "$STOPPED"
+        fi
+    done
+    return 0
+}
+
+# Checks if the given pid represents a live process.
+# Returns 0 if the pid is a live process, 1 otherwise
+hbase_is_process_alive() {
+  local pid="$1"
+  ps -fp $pid | grep $pid | grep regionserver > /dev/null 2>&1
+}
+
+# Check if the process associated to a pidfile is running.
+# Return 0 if the pidfile exists and the process is running, 1 otherwise
+hbase_check_pidfile() {
+  local pidfile="$1" # IN
+  local pid
+
+  pid=`cat "$pidfile" 2>/dev/null`
+  if [ "$pid" = '' ]; then
+    # The file probably does not exist or is empty.
+    return 1
+  fi
+
+  set -- $pid
+  pid="$1"
+
+  hbase_is_process_alive $pid
+}
+
+# Kill the process associated to a pidfile
+hbase_stop_pidfile() {
+   local pidfile="$1" # IN
+   local pid
+
+   pid=`cat "$pidfile" 2>/dev/null`
+   if [ "$pid" = '' ]; then
+      # The file probably does not exist or is empty. Success
+      return 0
+   fi
+
+   set -- $pid
+   pid="$1"
+
+   # First try the easy way
+   if hbase_process_kill "$pid" 15; then
+      rm $pidfile
+      return 0
+   fi
+
+   # Otherwise try the hard way
+   if hbase_process_kill "$pid" 9; then
+      rm $pidfile
+      return 0
+   fi
+
+   return 1
+}
+
+hbase_process_kill() {
+    local pid="$1"    # IN
+    local signal="$2" # IN
+    local second
+
+    kill -$signal $pid 2>/dev/null
+
+   # Wait a bit to see if the dirty job has really been done
+    for second in 0 1 2 3 4 5 6 7 8 9 10; do
+        if hbase_is_process_alive "$pid"; then
+         # Success
+            return 0
+        fi
+
+        sleep 1
+    done
+
+   # Timeout
+    return 1
+}
+
+start() {
+    if [ -n "${OFFSETS_FROM_CLI}${OFFSETS_FROM_DEFAULT}" ] ; then
+        if hbase_check_pidfile $PID_FILE ; then
+            echo "$NAME has already been started - cannot start other regionserver daemons."
+            return 1
+        fi
+        multi_hbase_daemon "start"
+        return $?
+    fi
+    multi_hbase_daemon_check_pidfiles > /dev/null
+    if [ "$?" != "$NO_DAEMONS_RUNNING" ] ; then
+      echo "Cannot start $NAME - other regionserver daemons have already been started."
+      return 1
+    fi
+    echo -n "Starting $DESC: "
+    su -s /bin/bash hbase -c "$DAEMON_SCRIPT start regionserver"
+    # The process forks, so creating the PID file is asynchronous
+    sleep 1
+    if hbase_check_pidfile $PID_FILE ; then
+        echo "$NAME."
+        return $ALL_DAEMONS_RUNNING
+    else
+        echo "ERROR."
+        return $NO_DAEMONS_RUNNING
+    fi
+}
+stop() {
+    if [ -n "${OFFSETS_FROM_CLI}${OFFSETS_FROM_PIDS}" ] ; then
+        multi_hbase_daemon "stop"
+        return "$?"
+    fi
+
+    echo -n "Stopping $DESC: "
+    su -s /bin/bash hbase -c "$DAEMON_SCRIPT stop regionserver"
+    if hbase_check_pidfile $PID_FILE ; then
+        echo "ERROR."
+        return 1
+    else
+        echo "$NAME."
+        return 0
+    fi
+}
+
+force_stop() {
+    MULTI_HBASE_DAEMON_STATUS_TEXT=`multi_hbase_daemon_check_pidfiles`
+    MULTI_HBASE_DAEMON_STATUS=$?
+    if [ "$MULTI_HBASE_DAEMON_STATUS" == "$NO_DAEMONS_RUNNING" ] ; then
+        echo -n "Forcefully stopping $DESC: "
+        hbase_stop_pidfile $PID_FILE
+        if hbase_check_pidfile $PID_FILE ; then
+            echo " ERROR."
+        else
+            echo "$NAME."
+        fi
+    else
+        multi_hbase_daemon_stop_pidfiles
+    fi
+}
+
+force_reload() {
+  # check wether $DAEMON is running. If so, restart
+  hbase_check_pidfile $PID_FILE && $0 restart $OFFSETS_FROM_CLI
+}
+
+restart() {
+    echo -n "Restarting $DESC: "
+    $0 stop
+    [ -n "$DODTIME" ] && sleep $DODTIME
+    $0 start $OFFSETS_FROM_CLI
+}
+
+status() {
+    MULTI_HBASE_DAEMON_STATUS_TEXT=`multi_hbase_daemon_check_pidfiles`
+    MULTI_HBASE_DAEMON_STATUS=$?
+    if [ "$MULTI_HBASE_DAEMON_STATUS" == "$NO_DAEMONS_RUNNING" ] ; then
+        echo -n "$NAME is "
+        if hbase_check_pidfile $PID_FILE ;  then
+            echo "running"
+        else
+            echo "not running."
+            return $NO_DAEMONS_RUNNING
+        fi
+    else
+        IFS=''
+        echo $MULTI_HBASE_DAEMON_STATUS_TEXT
+        return $MULTI_HBASE_DAEMON_STATUS
+    fi
+}
+
+condrestart(){
+    status $@ >/dev/null 2>/dev/null
+    DAEMON_STATUS=$?
+    if [ "$DAEMON_STATUS" == "$ALL_DAEMONS_RUNNING" -o "$DAEMON_STATUS" == "$SOME_OFFSET_DAEMONS_FAILING" ] ; then
+        restart $@
+    fi
+}
+
+case "$1" in
+  start)
+        start
+  ;;
+  stop)
+        stop
+  ;;
+  force-stop)
+        force_stop
+  ;;
+  force-reload)
+        force_reload
+  ;;
+  restart)
+        restart
+    ;;
+  condrestart)
+        condrestart
+  ;;
+  status)
+        status
+    ;;
+  *)
+  N=/etc/init.d/$NAME
+  echo "Usage: $N {start|stop|restart|force-reload|status|force-stop|condrestart}" >&2
+  exit 1
+  ;;
+esac
+
+exit $?
+]]>
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>hbase_regionserver_xmn_max</name>
+    <value>4000</value>
+    <description>
+      Sets the upper bound on HBase RegionServers' young generation size.
+      This value is used in case the young generation size (-Xmn) calculated based on the max heapsize (hbase_regionserver_heapsize)
+      and the -Xmn ratio (hbase_regionserver_xmn_ratio) exceeds this value.
+    </description>
+    <display-name>RegionServers maximum value for -Xmn</display-name>
+    <value-attributes>
+      <unit>MB</unit>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+
+  <property>
+    <name>hbase_master_heapsize</name>
+    <value>4096</value>
+    <description>Maximum amount of memory each HBase Master can use.</description>
+    <display-name>HBase Master Maximum Memory</display-name>
+    <value-attributes>
+      <type>int</type>
+      <minimum>0</minimum>
+      <maximum>16384</maximum>
+      <unit>MB</unit>
+      <increment-step>256</increment-step>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_regionserver_heapsize</name>
+    <value>4096</value>
+    <description>Maximum amount of memory each HBase RegionServer can use.</description>
+    <display-name>HBase RegionServer Maximum Memory</display-name>
+    <value-attributes>
+      <type>int</type>
+      <minimum>0</minimum>
+      <maximum>6554</maximum>
+      <unit>MB</unit>
+      <increment-step>256</increment-step>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+
+  <property>
+    <name>hbase_user_nofile_limit</name>
+    <value>1280000</value>
+    <description>Max open files limit setting for HBASE user.</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_user_nproc_limit</name>
+    <value>16000</value>
+    <description>Max number of processes limit setting for HBASE user.</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_java_io_tmpdir</name>
+    <value>/tmp</value>
+    <description>Used in hbase-env.sh as HBASE_OPTS=-Djava.io.tmpdir=java_io_tmpdir</description>
+    <value-attributes>
+      <type>directory</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_principal_name</name>
+    <description>HBase principal name</description>
+    <property-type>KERBEROS_PRINCIPAL</property-type>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_user_keytab</name>
+    <description>HBase keytab path</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hbase_regionserver_shutdown_timeout</name>
+    <value>30</value>
+    <display-name>HBase RegionServer shutdown timeout</display-name>
+    <description>
+      After this number of seconds waiting for graceful stop of HBase Master it will be forced to exit with SIGKILL.
+      The timeout is introduced because there is a known bug when from time to time HBase RegionServer hangs forever on stop if NN safemode is on.
+    </description>
+    <value-attributes>
+      <type>int</type>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+</configuration>

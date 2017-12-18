@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration supports_final="true">
+    <property>
+        <name>parsers</name>
+        <value>bro,snort,yaf</value>
+        <description>Metron parsers to deploy</description>
+        <display-name>Metron Parsers</display-name>
+    </property>
+    <property>
+        <name>parser_error_topic</name>
+        <description>Parser Error Topic</description>
+        <value>indexing</value>
+        <display-name>Parser Error Topic</display-name>
+    </property>
+</configuration>

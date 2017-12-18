@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="true">
+    <property require-input="true">
+        <name>download_url</name>
+        <value>http://yum.example.com/hadoop/r4ml-0.8.tgz</value>
+        <description>下载路径</description>
+    </property>
+    <property require-input="true">
+        <name>install_dir</name>
+        <value>/opt/r4ml</value>
+        <description>安装目录</description>
+    </property>
+    <property>
+        <name>r4ml_user</name>
+        <display-name>r4ml User</display-name>
+        <description>User to run r4ml as</description>
+        <property-type>USER</property-type>
+        <value>r4ml</value>
+        <on-ambari-upgrade add="false"/>
+    </property>
+
+    <!-- Local/offline install R baseurl -->
+    <property>
+        <name>Baseurl for local install of R and R packages dependencies</name>
+        <description>The baseurl of the repository for R and R packages. This is only needed during local or offline
+            install.
+        </description>
+        <value>http://</value>
+        <value-attributes>
+            <overridable>false</overridable>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <!-- .Renviron -->
+    <property>
+        <name>Renviron</name>
+        <description>This is the jinja template for Renviron file</description>
+        <value>
+SPARK_HOME={{spark_home}}
+R4ML_SPARK_DRIVER_MEMORY={{spark_driver_memory}}
+SPARKR_SUBMIT_ARGS={{spark_submit_args}}
+R4ML_YARN_KEYTAB={{yarn_keytab}}
+R4ML_YARN_PRINCIPAL={{yarn_principal}}
+R4ML_SYSML_JAR={{systemml_jar}}
+R_LIBS={{spark_home}}/R/lib:{{r4ml_home}}/R/lib
+        </value>
+        <on-ambari-upgrade add="false"/>
+    </property>
+</configuration>

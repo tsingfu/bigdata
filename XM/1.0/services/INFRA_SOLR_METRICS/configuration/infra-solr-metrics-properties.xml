@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>infra.solr.jmx.url</name>
+    <value>service:jmx:rmi:///jndi/rmi://{infra_solr_local_hostname}:{infra_solr_jmx_port}/jmxrmi</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.node.push.rate</name>
+    <value>20000</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.core.push.rate</name>
+    <value>20000</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.solr.jmx.port</name>
+    <value>{infra_solr_jmx_port}</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.ams.collector.hosts</name>
+    <value>{metrics_collector_hosts}</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.ams.collector.port</name>
+    <value>{metrics_collector_port}</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.ams.collector.protocol</name>
+    <value>{metrics_collector_protocol}</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.core.aggregated</name>
+    <value>true</value>
+    <description></description>
+    <value-attributes>
+      <type>boolean</type>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+
+  <property>
+    <name>infra.solr.metrics.ams.ssl.keystore.path</name>
+    <value>/etc/ambari-infra-solr-metrics/conf/keys/keyStore.jks</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.ams.ssl.keystore.type</name>
+    <value>jks</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>infra.solr.metrics.ams.ssl.keystore.password</name>
+    <value>bigdata</value>
+    <description></description>
+    <value-attributes>
+      <type>password</type>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+
+</configuration>

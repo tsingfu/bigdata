@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<reposinfo>
+  <os family="redhat6">
+    <repo>
+      <baseurl>http://yum.example.com/hadoop/6/</baseurl>
+      <repoid>XM-1.0</repoid>
+      <reponame>XM</reponame>
+    </repo>
+  </os>
+  <os family="redhat7">
+    <repo>
+      <baseurl>http://yum.example.com/hadoop/7/</baseurl>
+      <repoid>XM-1.0</repoid>
+      <reponame>XM</reponame>
+    </repo>
+  </os>
+</reposinfo>

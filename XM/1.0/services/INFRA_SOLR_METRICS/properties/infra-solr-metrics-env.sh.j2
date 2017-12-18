@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export JAVA_HOME="{{java64_home}}"
+export PID_FILE="{{infra_solr_metrics_pidfile}}"
+export LOGFILE="{{infra_solr_metrics_log_dir}}/infra-solr-metrics.out"
+{% if security_enabled -%}
+export INFRA_SOLR_METRICS_OPTS="-Djava.rmi.server.hostname={{infra_solr_local_hostname}} -Djava.security.auth.login.config={{infra_solr_jaas_file}}"
+{% else %}
+export INFRA_SOLR_METRICS_OPTS="-Djava.rmi.server.hostname={{infra_solr_local_hostname}}"
+{% endif %}

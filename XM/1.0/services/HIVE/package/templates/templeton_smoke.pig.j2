@@ -1,0 +1,4 @@
+
+A = load '{{templeton_test_input}}' using PigStorage(':');
+B = foreach A generate \$0 as id; 
+store B into '{{templeton_test_output}}';

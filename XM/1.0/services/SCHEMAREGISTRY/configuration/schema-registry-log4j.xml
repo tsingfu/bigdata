@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="false" supports_adding_forbidden="true">
+    <property>
+        <name>content</name>
+        <display-name>kafka-feeder-log4j template</display-name>
+        <description>Custom log4j.properties</description>
+        <value>log4j.rootLogger=INFO, stdout, logsearch
+
+# Direct log messages to stdout
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=[%d] %p %m (%c:%L)%n
+
+# Direct log messages in log search format
+log4j.appender.logsearch=org.apache.ambari.logsearch.appender.LogsearchRollingFileAppender
+log4j.appender.logsearch.layout=org.apache.ambari.logsearch.appender.LogsearchConversion
+log4j.appender.logsearch.file={{logsearch_file}}
+log4j.appender.logsearch.append=true
+
+log4j.logger.kafka=ERROR, stdout
+log4j.logger.org.apache.zookeeper=ERROR, stdout
+log4j.logger.org.apache.kafka=ERROR, stdout
+log4j.logger.org.I0Itec.zkclient=ERROR, stdout
+log4j.additivity.kafka.server=false
+log4j.additivity.kafka.consumer.ZookeeperConsumerConnector=false
+        </value>
+        <value-attributes>
+            <type>content</type>
+            <show-property-name>false</show-property-name>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+</configuration>

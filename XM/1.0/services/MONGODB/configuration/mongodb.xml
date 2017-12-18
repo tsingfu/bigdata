@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration supports_adding_forbidden="true">
+
+
+    <property>
+        <name>mongos_tcp_port</name>
+        <value>30000</value>
+        <description>
+            Port on which mongos listens for incoming client connections.
+            The Web Status page is always 1000 higher than this port number.
+        </description>
+    </property>
+
+    <property>
+        <name>db_path</name>
+        <value>/data/mongo</value>
+        <description>Path where the mongodb is stored.</description>
+        <value-attributes>
+            <type>directory</type>
+        </value-attributes>
+    </property>
+
+    <property require-input="false">
+        <name>node_group</name>
+        <value></value>
+        <description>node_group is conveniece to scale out mongodb shard node.
+            for example ,pre-cluster contains node1,node2,node3.add new node list,as node4,node5,node6.
+            This value is node1,node2,node3;node4,node5,node6
+        </description>
+        <value-attributes>
+            <empty-value-valid>true</empty-value-valid>
+        </value-attributes>
+    </property>
+    <property>
+        <name>mongod_db_content</name>
+        <value>systemLog:
+            destination: file
+            logAppend: true
+            path: /var/log/mongodb/mongod.log
+            # Where and how to store data.
+            storage:
+            dbPath: {{ db_path }}/shard
+            journal:
+            enabled: true
+            directoryPerDB: true
+            syncPeriodSecs: 60
+            engine: wiredTiger
+            wiredTiger:
+            engineConfig:
+            cacheSizeGB: 1
+            statisticsLogDelaySecs: 0
+            journalCompressor: snappy
+            directoryForIndexes: true
+            collectionConfig:
+            blockCompressor: snappy
+            indexConfig:
+            prefixCompression: true
+            # how the process runs
+            processManagement:
+            fork: true
+            pidFilePath: /var/run/mongodb/mongod.pid
+            # network interfaces
+            net:
+            bindIp: {{ bind_ip }}
+            #sharding:
+            # clusterRole: configsvr
+            #replication:
+            # replSetName: configReplSet
+            #security:
+            #operationProfiling:
+            #replication:
+            #sharding:
+            ## Enterprise-Only Options
+            #auditLog:
+            #snmp:
+        </value>
+        <description>This is the jinja template for mongod.conf file</description>
+    </property>
+    <property>
+        <name>mongod_config_content</name>
+        <value>systemLog:
+            destination: file
+            logAppend: true
+            path: /var/log/mongodb/mongod.log
+            # Where and how to store data.
+            storage:
+            dbPath: {{ db_path }}/config
+            journal:
+            enabled: true
+            directoryPerDB: true
+            syncPeriodSecs: 60
+            engine: wiredTiger
+            wiredTiger:
+            engineConfig:
+            cacheSizeGB: 1
+            statisticsLogDelaySecs: 0
+            journalCompressor: snappy
+            directoryForIndexes: true
+            collectionConfig:
+            blockCompressor: snappy
+            indexConfig:
+            prefixCompression: true
+            processManagement:
+            fork: true
+            pidFilePath: /var/run/mongodb/mongod-config.pid
+
+            # network interfaces
+            net:
+            port: 20000
+            bindIp: {{ bind_ip }}
+            sharding:
+            clusterRole: configsvr
+            #replication:
+            # replSetName: configReplSet
+            #security:
+            #operationProfiling:
+            #replication:
+            #sharding:
+            ## Enterprise-Only Options
+            #auditLog:
+            #snmp:
+        </value>
+        <description>This is the jinja template for mongod-config.conf file</description>
+    </property>
+    <property>
+        <name>mongodb_user</name>
+        <value>mongodb</value>
+        <property-type>USER</property-type>
+        <description>User mongodb runs as</description>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+    <property>
+        <name>user_group</name>
+        <value>mongodb</value>
+        <property-type>GROUP</property-type>
+        <description>user group</description>
+    </property>
+    <property>
+        <name>auth</name>
+        <value>false</value>
+        <description>
+            mongodb auth enabled,before enable auth,you must start mongodb cluster successfuly once.
+        </description>
+        <value-attributes>
+            <type>boolean</type>
+        </value-attributes>
+    </property>
+    <property>
+        <name>mongodb_admin</name>
+        <value>admin</value>
+        <description>mongodb login admin user</description>
+    </property>
+    <property require-input="true">
+        <name>mongodb_password</name>
+        <value></value>
+        <property-type>PASSWORD</property-type>
+        <display-name>Database Password</display-name>
+        <description>mongodb login admin password</description>
+        <value-attributes>
+            <type>password</type>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+</configuration>

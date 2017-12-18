@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<metainfo>
+  <schemaVersion>2.0</schemaVersion>
+  <services>
+    <service>
+      <name>TEZ</name>
+      <displayName>Tez</displayName>
+      <comment>Tez is the next generation Hadoop Query Processing framework written on top of YARN.</comment>
+      <version>0.9.0</version>
+      <components>
+        <component>
+          <name>TEZ_CLIENT</name>
+          <displayName>Tez Client</displayName>
+          <cardinality>1+</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+          <category>CLIENT</category>
+          <commandScript>
+            <script>scripts/tez_client.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+          <configFiles>
+            <configFile>
+              <type>xml</type>
+              <fileName>tez-site.xml</fileName>
+              <dictionaryName>tez-site</dictionaryName>
+            </configFile>
+            <configFile>
+              <type>env</type>
+              <fileName>tez-env.sh</fileName>
+              <dictionaryName>tez-env</dictionaryName>
+            </configFile>
+          </configFiles>
+          <dependencies>
+            <dependency>
+              <name>HDFS/HDFS_CLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+            <dependency>
+              <name>YARN/YARN_CLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+            <dependency>
+              <name>MAPREDUCE2/MAPREDUCE2_CLIENT</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
+        </component>
+      </components>
+
+      <commandScript>
+        <script>scripts/service_check.py</script>
+        <scriptType>PYTHON</scriptType>
+        <timeout>300</timeout>
+      </commandScript>
+
+      <requiredServices>
+        <service>YARN</service>
+      </requiredServices>
+
+      <configuration-dependencies>
+        <config-type>tez-site</config-type>
+        <config-type>tez-env</config-type>
+      </configuration-dependencies>
+
+    </service>
+  </services>
+</metainfo>

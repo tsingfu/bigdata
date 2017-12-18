@@ -1,0 +1,1039 @@
+
+version: 1
+
+dn: dc=example,dc=com
+dc: meizu
+o: meizu,Inc.
+objectclass: dcObject
+objectclass: organization
+objectclass: top
+
+dn: ou=Control,dc=example,dc=com
+objectclass: organizationalUnit
+objectclass: top
+ou: Control
+
+dn: cn=kdc-adm,ou=Control,dc=example,dc=com
+cn: kdc-adm
+objectclass: simpleSecurityObject
+objectclass: organizationalRole
+objectclass: top
+userpassword: {SSHA}KoG7S1QdostmEMxU35mup3bjhVO0XHf2
+
+dn: cn=kdc-srv,ou=Control,dc=example,dc=com
+cn: kdc-srv
+objectclass: simpleSecurityObject
+objectclass: organizationalRole
+objectclass: top
+userpassword: {SSHA}KoG7S1QdostmEMxU35mup3bjhVO0XHf2
+
+dn: cn=Manager,ou=Control,dc=example,dc=com
+cn: Manager
+objectclass: simpleSecurityObject
+objectclass: organizationalRole
+objectclass: top
+userpassword: {SSHA}KoG7S1QdostmEMxU35mup3bjhVO0XHf2
+
+dn: ou=Kerberos,dc=example,dc=com
+objectclass: organizationalUnit
+objectclass: top
+ou: Kerberos
+
+dn: ou=Group,dc=example,dc=com
+objectclass: organizationalUnit
+objectclass: top
+ou: Group
+
+dn: cn=accumulo,ou=Group,dc=example,dc=com
+cn: accumulo
+gidnumber: 1000
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=airflow,ou=Group,dc=example,dc=com
+cn: airflow
+gidnumber: 1001
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=ams,ou=Group,dc=example,dc=com
+cn: ams
+gidnumber: 1002
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=angel,ou=Group,dc=example,dc=com
+cn: angel
+gidnumber: 1003
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=atlas,ou=Group,dc=example,dc=com
+cn: atlas
+gidnumber: 1004
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=druid,ou=Group,dc=example,dc=com
+cn: druid
+gidnumber: 1006
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=eagle,ou=Group,dc=example,dc=com
+cn: eagle
+gidnumber: 1007
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=elasticsearch,ou=Group,dc=example,dc=com
+cn: elasticsearch
+gidnumber: 1008
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=falcon,ou=Group,dc=example,dc=com
+cn: falcon
+gidnumber: 1009
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=flink,ou=Group,dc=example,dc=com
+cn: flink
+gidnumber: 1010
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=flume,ou=Group,dc=example,dc=com
+cn: flume
+gidnumber: 1011
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=hadoop,ou=Group,dc=example,dc=com
+cn: hadoop
+gidnumber: 1012
+memberuid: hdfs
+memberuid: yarn
+memberuid: mapred
+memberuid: zookeeper
+memberuid: hbase
+memberuid: hive
+memberuid: ams
+memberuid: spark-XMcluster
+memberuid: ambari-qa
+memberuid: infra-solr
+memberuid: ranger
+memberuid: tez
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=hbase,ou=Group,dc=example,dc=com
+cn: hbase
+gidnumber: 1013
+memberuid: eagle
+memberuid: kylin
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=hcat,ou=Group,dc=example,dc=com
+cn: hcat
+gidnumber: 1014
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=hdfs,ou=Group,dc=example,dc=com
+cn: hdfs
+gidnumber: 1015
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=hive,ou=Group,dc=example,dc=com
+cn: hive
+gidnumber: 1016
+memberuid: uxip
+memberuid: XMsip
+memberuid: kylin
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=infra-solr,ou=Group,dc=example,dc=com
+cn: infra-solr
+gidnumber: 1017
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=jstorm,ou=Group,dc=example,dc=com
+cn: jstorm
+gidnumber: 1018
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=kafka,ou=Group,dc=example,dc=com
+cn: kafka
+gidnumber: 1019
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=knox,ou=Group,dc=example,dc=com
+cn: knox
+gidnumber: 1020
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=kylin,ou=Group,dc=example,dc=com
+cn: kylin
+gidnumber: 1021
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=livy,ou=Group,dc=example,dc=com
+cn: livy
+gidnumber: 1022
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=logsearch,ou=Group,dc=example,dc=com
+cn: logsearch
+gidnumber: 1023
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=mapred,ou=Group,dc=example,dc=com
+cn: mapred
+gidnumber: 1024
+memberuid: uxip
+memberuid: XMsip
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=ambari-qa,ou=Group,dc=example,dc=com
+cn: ambari-qa
+gidnumber: 1025
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=mongodb,ou=Group,dc=example,dc=com
+cn: mongodb
+gidnumber: 1026
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=XMgame,ou=Group,dc=example,dc=com
+cn: XMgame
+gidnumber: 2002
+memberuid: XMsip
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=XMsip,ou=Group,dc=example,dc=com
+cn: XMsip
+gidnumber: 1027
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=nifi,ou=Group,dc=example,dc=com
+cn: nifi
+gidnumber: 1028
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=pig,ou=Group,dc=example,dc=com
+cn: pig
+gidnumber: 1029
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=presto,ou=Group,dc=example,dc=com
+cn: presto
+gidnumber: 1030
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=ranger,ou=Group,dc=example,dc=com
+cn: ranger
+gidnumber: 1031
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=redis,ou=Group,dc=example,dc=com
+cn: redis
+gidnumber: 1032
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=registry,ou=Group,dc=example,dc=com
+cn: registry
+gidnumber: 1033
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=solr,ou=Group,dc=example,dc=com
+cn: solr
+gidnumber: 1034
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=spark,ou=Group,dc=example,dc=com
+cn: spark
+gidnumber: 1035
+memberuid: uxip
+memberuid: XMsip
+memberuid: spark-XMcluster
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=spark-XMcluster,ou=Group,dc=example,dc=com
+cn: spark-XMcluster
+gidnumber: 1036
+objectclass: posixGroup
+
+dn: cn=storm,ou=Group,dc=example,dc=com
+cn: storm
+gidnumber: 1037
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=streamline,ou=Group,dc=example,dc=com
+cn: streamline
+gidnumber: 1038
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=uxip,ou=Group,dc=example,dc=com
+cn: uxip
+gidnumber: 1039
+memberuid: XMsip
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=yarn,ou=Group,dc=example,dc=com
+cn: yarn
+gidnumber: 1040
+memberuid: uxip
+memberuid: XMsip
+memberuid: mapred
+memberuid: flink
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=zeppelin,ou=Group,dc=example,dc=com
+cn: zeppelin
+gidnumber: 1041
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=zookeeper,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1042
+objectclass: posixGroup
+objectclass: top
+
+
+dn: ou=People,dc=example,dc=com
+objectclass: organizationalUnit
+objectclass: top
+ou: People
+
+dn: uid=accumulo,ou=People,dc=example,dc=com
+cn: accumulo
+gidnumber: 1000
+homedirectory: /home/accumulo
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: accumulo
+uid: accumulo
+uidnumber: 1000
+
+dn: uid=airflow,ou=People,dc=example,dc=com
+cn: airflow
+gidnumber: 1001
+homedirectory: /home/airflow
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: airflow
+uid: airflow
+uidnumber: 1001
+
+dn: uid=ams,ou=People,dc=example,dc=com
+cn: ams
+gidnumber: 1002
+homedirectory: /home/ams
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: ams
+uid: ams
+uidnumber: 1002
+
+dn: uid=angel,ou=People,dc=example,dc=com
+cn: angel
+gidnumber: 1003
+homedirectory: /home/angel
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: angel
+uid: angel
+uidnumber: 1003
+
+dn: uid=atlas,ou=People,dc=example,dc=com
+cn: atlas
+gidnumber: 1004
+homedirectory: /home/atlas
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: atlas
+uid: atlas
+uidnumber: 1004
+
+dn: uid=doctor,ou=People,dc=example,dc=com
+cn: doctor
+gidnumber: 1005
+homedirectory: /home/doctor
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: doctor
+uid: doctor
+uidnumber: 1005
+
+dn: uid=druid,ou=People,dc=example,dc=com
+cn: druid
+gidnumber: 1006
+homedirectory: /home/druid
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: druid
+uid: druid
+uidnumber: 1006
+
+dn: uid=eagle,ou=People,dc=example,dc=com
+cn: eagle
+gidnumber: 1007
+homedirectory: /home/eagle
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: eagle
+uid: eagle
+uidnumber: 1007
+
+dn: uid=elasticsearch,ou=People,dc=example,dc=com
+cn: elasticsearch
+gidnumber: 1008
+homedirectory: /home/elasticsearch
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: elasticsearch
+uid: elasticsearch
+uidnumber: 1008
+
+dn: uid=falcon,ou=People,dc=example,dc=com
+cn: falcon
+gidnumber: 1009
+homedirectory: /home/falcon
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: falcon
+uid: falcon
+uidnumber: 1009
+
+dn: uid=flink,ou=People,dc=example,dc=com
+cn: flink
+gidnumber: 1010
+homedirectory: /home/flink
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: flink
+uid: flink
+uidnumber: 1010
+
+dn: uid=flume,ou=People,dc=example,dc=com
+cn: flume
+gidnumber: 1011
+homedirectory: /home/flume
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: flume
+uid: flume
+uidnumber: 1011
+
+dn: uid=hadoop,ou=People,dc=example,dc=com
+cn: hadoop
+gidnumber: 1012
+homedirectory: /home/hadoop
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: hadoop
+uid: hadoop
+uidnumber: 1012
+
+dn: uid=hbase,ou=People,dc=example,dc=com
+cn: hbase
+gidnumber: 1013
+homedirectory: /home/hbase
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: hbase
+uid: hbase
+uidnumber: 1013
+
+dn: uid=hcat,ou=People,dc=example,dc=com
+cn: hcat
+gidnumber: 1014
+homedirectory: /home/hcat
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: hcat
+uid: hcat
+uidnumber: 1014
+
+dn: uid=hdfs,ou=People,dc=example,dc=com
+cn: hdfs
+gidnumber: 1015
+homedirectory: /home/hdfs
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: hdfs
+uid: hdfs
+uidnumber: 1015
+
+dn: uid=hive,ou=People,dc=example,dc=com
+cn: hive
+gidnumber: 1016
+homedirectory: /home/hive
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: hive
+uid: hive
+uidnumber: 1016
+
+dn: uid=infra-solr,ou=People,dc=example,dc=com
+cn: infra-solr
+gidnumber: 1017
+homedirectory: /home/infra-solr
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: infra-solr
+uid: infra-solr
+uidnumber: 1017
+
+dn: uid=jstorm,ou=People,dc=example,dc=com
+cn: jstorm
+gidnumber: 1018
+homedirectory: /home/jstorm
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: jstorm
+uid: jstorm
+uidnumber: 1018
+
+dn: uid=kafka,ou=People,dc=example,dc=com
+cn: kafka
+gidnumber: 1019
+homedirectory: /home/kafka
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: kafka
+uid: kafka
+uidnumber: 1019
+
+dn: uid=knox,ou=People,dc=example,dc=com
+cn: knox
+gidnumber: 1020
+homedirectory: /home/knox
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: knox
+uid: knox
+uidnumber: 1020
+
+dn: uid=kylin,ou=People,dc=example,dc=com
+cn: kylin
+gidnumber: 1021
+homedirectory: /home/kylin
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: kylin
+uid: kylin
+uidnumber: 1021
+
+dn: uid=livy,ou=People,dc=example,dc=com
+cn: livy
+gidnumber: 1022
+homedirectory: /home/livy
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: livy
+uid: livy
+uidnumber: 1022
+
+dn: uid=logsearch,ou=People,dc=example,dc=com
+cn: logsearch
+gidnumber: 1023
+homedirectory: /home/logsearch
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: logsearch
+uid: logsearch
+uidnumber: 1023
+
+dn: uid=mapred,ou=People,dc=example,dc=com
+cn: mapred
+gidnumber: 1024
+homedirectory: /home/mapred
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: mapred
+uid: mapred
+uidnumber: 1024
+
+dn: uid=ambari-qa,ou=People,dc=example,dc=com
+cn: ambari-qa
+gidnumber: 1025
+homedirectory: /home/ambari-qa
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: ambari-qa
+uid: ambari-qa
+uidnumber: 1025
+
+dn: uid=mongodb,ou=People,dc=example,dc=com
+cn: mongodb
+gidnumber: 1026
+homedirectory: /home/mongodb
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: mongodb
+uid: mongodb
+uidnumber: 1026
+
+dn: uid=XMgame,ou=People,dc=example,dc=com
+cn: XMgame
+gidnumber: 2002
+homedirectory: /home/XMgame
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: XMgame
+uid: XMgame
+uidnumber: 2002
+
+dn: uid=XMsip,ou=People,dc=example,dc=com
+cn: XMsip
+gidnumber: 1027
+homedirectory: /home/XMsip
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: XMsip
+uid: XMsip
+uidnumber: 1027
+
+dn: uid=nifi,ou=People,dc=example,dc=com
+cn: nifi
+gidnumber: 1028
+homedirectory: /home/nifi
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: nifi
+uid: nifi
+uidnumber: 1028
+
+dn: uid=pig,ou=People,dc=example,dc=com
+cn: pig
+gidnumber: 1029
+homedirectory: /home/pig
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: pig
+uid: pig
+uidnumber: 1029
+
+dn: uid=presto,ou=People,dc=example,dc=com
+cn: presto
+gidnumber: 1030
+homedirectory: /home/presto
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: presto
+uid: presto
+uidnumber: 1030
+
+dn: uid=ranger,ou=People,dc=example,dc=com
+cn: ranger
+gidnumber: 1031
+homedirectory: /home/ranger
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: ranger
+uid: ranger
+uidnumber: 1031
+
+dn: uid=redis,ou=People,dc=example,dc=com
+cn: redis
+gidnumber: 1032
+homedirectory: /home/redis
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: redis
+uid: redis
+uidnumber: 1032
+
+dn: uid=registry,ou=People,dc=example,dc=com
+cn: registry
+gidnumber: 1033
+homedirectory: /home/registry
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: registry
+uid: registry
+uidnumber: 1033
+
+dn: uid=solr,ou=People,dc=example,dc=com
+cn: solr
+gidnumber: 1034
+homedirectory: /home/solr
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: solr
+uid: solr
+uidnumber: 1034
+
+dn: uid=spark,ou=People,dc=example,dc=com
+cn: spark
+gidnumber: 1035
+homedirectory: /home/spark
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: spark
+uid: spark
+uidnumber: 1035
+
+dn: uid=spark-XMcluster,ou=People,dc=example,dc=com
+cn: spark-XMcluster
+gidnumber: 1036
+homedirectory: /home/spark-XMcluster
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+sn: spark-XMcluster
+uid: spark-XMcluster
+uidnumber: 1036
+
+dn: uid=storm,ou=People,dc=example,dc=com
+cn: storm
+gidnumber: 1037
+homedirectory: /home/storm
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: storm
+uid: storm
+uidnumber: 1037
+
+dn: uid=streamline,ou=People,dc=example,dc=com
+cn: streamline
+gidnumber: 1038
+homedirectory: /home/streamline
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: streamline
+uid: streamline
+uidnumber: 1038
+
+dn: uid=uxip,ou=People,dc=example,dc=com
+cn: uxip
+gidnumber: 1039
+homedirectory: /home/uxip
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: uxip
+uid: uxip
+uidnumber: 1039
+
+dn: uid=yarn,ou=People,dc=example,dc=com
+cn: yarn
+gidnumber: 1040
+homedirectory: /home/yarn
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: yarn
+uid: yarn
+uidnumber: 1040
+
+dn: uid=zeppelin,ou=People,dc=example,dc=com
+cn: zeppelin
+gidnumber: 1041
+homedirectory: /home/zeppelin
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: zeppelin
+uid: zeppelin
+uidnumber: 1041
+
+dn: uid=zookeeper,ou=People,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1042
+homedirectory: /home/zookeeper
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: zookeeper
+uid: zookeeper
+uidnumber: 1042
+
+dn: cn=opentsdb,ou=Group,dc=example,dc=com
+cn: opentsdb
+gidnumber: 1043
+objectclass: posixGroup
+objectclass: top
+
+dn: uid=opentsdb,ou=People,dc=example,dc=com
+cn: opentsdb
+gidnumber: 1043
+homedirectory: /home/opentsdb
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: opentsdb
+uid: opentsdb
+uidnumber: 1043
+
+dn: cn=tez,ou=Group,dc=example,dc=com
+cn: tez
+gidnumber: 1044
+objectclass: posixGroup
+objectclass: top
+
+dn: uid=tez,ou=People,dc=example,dc=com
+cn: tez
+gidnumber: 1044
+homedirectory: /home/tez
+loginshell: /bin/bash
+objectclass: person
+objectclass: posixAccount
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: top
+sn: tez
+uid: tez
+uidnumber: 1044
+
+dn: cn=etl,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1045
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=analyst,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1047
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=algo,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1048
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=ad_bj,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1046
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=anystream,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1050
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=data_platform,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1049
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=XMapp_bi,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1051
+objectclass: posixGroup
+objectclass: top
+
+dn: cn=tech_plantform,ou=Group,dc=example,dc=com
+cn: zookeeper
+gidnumber: 1052
+objectclass: posixGroup
+objectclass: top

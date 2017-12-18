@@ -1,0 +1,35 @@
+{
+  "name": "default",
+  "description": "default quick links configuration",
+  "configuration": {
+    "protocol": {
+      "type": "HTTP_ONLY"
+    },
+    "links": [
+      {
+        "name": "Airflow Webserver",
+        "label": "Airflow Webserver UI",
+        "requires_user_name": "false",
+        "component_name": "AIRFLOW_WEBSERVER",
+        "url": "%@://%@:%@",
+        "port": {
+          "http_default_port": "8082",
+          "https_default_port": "8082",
+          "regex": "^(\\d+)$"
+        }
+      },
+      {
+        "name": "Airflow Flower",
+        "label": "Airflow Flower UI",
+        "requires_user_name": "false",
+        "component_name": "AIRFLOW_FLOWER",
+        "url": "%@://%@:%@",
+        "port": {
+          "http_default_port": "5555",
+          "https_default_port": "5555",
+          "regex": "^(\\d+)$"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>kibana_user</name>
+    <value>kibana</value>
+    <property-type>USER</property-type>
+    <description>Service User for Kibana</description>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+    </value-attributes>
+  </property>
+  <property>
+    <name>kabana_group</name>
+    <value>kibana</value>
+    <property-type>GROUP</property-type>
+    <description>Service Group for Kibana</description>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+    </value-attributes>
+  </property>
+  <property require-input="true">
+    <name>kibana_log_dir</name>
+    <value>/var/log/kibana</value>
+    <description>Log directory for Kibana</description>
+  </property>
+  <property require-input="true">
+    <name>kibana_pid_dir</name>
+    <value>/var/run/kibana</value>
+    <description>PID directory for Kibana</description>
+  </property>
+  <property require-input="true">
+    <name>kibana_es_url</name>
+    <value></value>
+    <description>The Elasticsearch instance to use for all your queries. (http://eshost:9200)</description>
+  </property>
+  <property require-input="true">
+    <name>kibana_server_port</name>
+    <value>5000</value>
+    <description>Kibana back end server port to use.</description>
+  </property>
+  <property require-input="true">
+    <name>kibana_default_application</name>
+    <value>default</value>
+    <description>The default application to load.</description>
+  </property>
+</configuration>

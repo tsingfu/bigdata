@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+    <property>
+        <name>download_url</name>
+        <value>http://yum.example.com/hadoop/flink-1.3.2-bin-hadoop27-scala_2.11.tgz</value>
+        <description>Snapshot download location. Downloaded when setup_prebuilt is true</description>
+    </property>
+
+    <property>
+        <name>install_dir</name>
+        <value>/opt/flink</value>
+        <description>Location to install Flink</description>
+    </property>
+
+    <property>
+        <name>flink_log_dir</name>
+        <value>/var/log/flink</value>
+        <description>flink Log dir</description>
+    </property>
+
+    <property>
+        <name>flink_hdfs_dir</name>
+        <value>/user/flink</value>
+        <description>flink hdfs dir</description>
+    </property>
+
+    <property>
+        <name>flink_checkpoints_dir</name>
+        <value>/flink/checkpoints</value>
+        <description>flink hdfs dir</description>
+    </property>
+
+    <property>
+        <name>flink_recovery_dir</name>
+        <value>/flink/recovery</value>
+        <description>flink hdfs dir</description>
+    </property>
+
+    <property>
+        <name>flink_pid_dir</name>
+        <value>/var/run/flink</value>
+        <description>Dir containing process ID file</description>
+    </property>
+
+    <property>
+        <name>flink_user</name>
+        <value>flink</value>
+        <property-type>USER</property-type>
+        <description>User flink daemon runs as</description>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+    <property>
+        <name>flink_group</name>
+        <value>hadoop</value>
+        <property-type>GROUP</property-type>
+        <description>flink group</description>
+    </property>
+
+    <property>
+        <name>flink.principal</name>
+        <value/>
+        <value-attributes>
+            <empty-value-valid>true</empty-value-valid>
+        </value-attributes>
+        <description>
+            Kerberos principal name for the flink.
+        </description>
+        <property-type>KERBEROS_PRINCIPAL</property-type>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>flink.keytab</name>
+        <value/>
+        <value-attributes>
+            <empty-value-valid>true</empty-value-valid>
+        </value-attributes>
+        <description>
+            Location of the kerberos keytab file for the flink.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+
+    <property>
+        <name>content</name>
+        <value>
+#==============================================================================
+#  Common
+#==============================================================================
+jobmanager.rpc.port: 6123
+jobmanager.heap.mb: 6192
+taskmanager.heap.mb: 8192
+taskmanager.numberOfTaskSlots: 8
+taskmanager.memory.preallocate: false
+taskmanager.memory.fraction: 0.6
+env.java.opts: -XX:+UseG1GC -Dzookeeper.sasl.client=true -Dzookeeper.sasl.client.username=zookeeper -Djava.security.auth.login.config={zk_jaas_file} -Dzookeeper.sasl.clientconfig=Client
+#==============================================================================
+# Web Frontend
+#==============================================================================
+jobmanager.web.port: 8081
+
+#==============================================================================
+# Streaming state checkpointing
+#==============================================================================
+state.backend: filesystem
+state.backend.fs.checkpointdir: hdfs:///flink/checkpoints
+
+#==============================================================================
+# Advanced
+#==============================================================================
+taskmanager.network.numberOfBuffers: 64000
+fs.hdfs.hadoopconf: /etc/hadoop
+
+#==============================================================================
+# Master High Availability (required configuration)
+#==============================================================================
+recovery.mode: zookeeper
+recovery.zookeeper.quorum: {{zookeeper_quorum}}
+recovery.zookeeper.storageDir: hdfs:///flink/recovery
+recovery.zookeeper.path.root: /flinkOnYarn
+recovery.zookeeper.path.namespace: /cluster_yarn
+
+
+#==============================================================================
+# Yarn
+#==============================================================================
+yarn.application-attempts: 4
+
+
+#==============================================================================
+# Yarn will overwrite following parameters
+# 1. jobmanager.rpc.address
+# 2. taskmanager.tmp.dirs
+# 3. parallelism.default
+#==============================================================================
+        </value>
+        <description>Template for flink-conf.yaml</description>
+    </property>
+</configuration>
+

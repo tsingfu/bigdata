@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="false">
+  <!-- These are the Atlas Hooks properties specific to this service. This file is then merged with common properties
+  that apply to all services. -->
+  <property>
+    <name>atlas.hook.hive.synchronous</name>
+    <value>false</value>
+    <description/>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>atlas.hook.hive.numRetries</name>
+    <value>3</value>
+    <description/>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>atlas.hook.hive.minThreads</name>
+    <value>5</value>
+    <description/>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>atlas.hook.hive.maxThreads</name>
+    <value>5</value>
+    <description/>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>atlas.hook.hive.keepAliveTime</name>
+    <value>10</value>
+    <description/>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>atlas.hook.hive.queueSize</name>
+    <value>1000</value>
+    <description/>
+    <on-ambari-upgrade add="true"/>
+  </property>
+</configuration>

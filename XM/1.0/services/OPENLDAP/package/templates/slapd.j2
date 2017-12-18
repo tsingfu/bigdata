@@ -1,0 +1,104 @@
+include		/etc/openldap/schema/corba.schema
+include		/etc/openldap/schema/core.schema
+include		/etc/openldap/schema/cosine.schema
+include		/etc/openldap/schema/duaconf.schema
+include		/etc/openldap/schema/dyngroup.schema
+include		/etc/openldap/schema/inetorgperson.schema
+include		/etc/openldap/schema/java.schema
+include		/etc/openldap/schema/misc.schema
+include		/etc/openldap/schema/nis.schema
+include		/etc/openldap/schema/openldap.schema
+include		/etc/openldap/schema/ppolicy.schema
+include		/etc/openldap/schema/collective.schema
+include     /etc/openldap/schema/kerberos.schema
+
+access to attrs=userPassword
+    by self read
+    by dn.exact="{{binddn}}" write
+    by anonymous auth
+
+access to dn.subtree="{{ldap_kerberos_container_dn}}"
+    by dn.exact="{{ldap_kadmind_dn}}" write
+    by dn.exact="{{ldap_kdc_dn}}" read
+    by * none
+
+access to dn.base=""
+    by * read
+
+access to *
+    by self write
+    by dn.base="{{binddn}}" write
+    by users read
+    by anonymous read
+    by * break
+
+authz-regexp
+    uid([^,]+),cn={{kdc_realm}},{{ldap_kerberos_container_dn}}
+    uid($1),{{people_dn}}
+
+authz-regexp
+    uid=(.*),cn={{kdc_realm}},{{ldap_kerberos_container_dn}}
+    ldap:///{{people_dn}}??sub?(&(uid=$1)(objectClass=inetOrgPerson))
+
+allow bind_v2
+
+
+pidfile		/var/run/openldap/slapd.pid
+argsfile	/var/run/openldap/slapd.args
+
+
+modulepath /usr/lib64/openldap
+moduleload syncprov.la
+
+TLSCACertificatePath /etc/openldap/certs
+TLSCertificateFile "\"OpenLDAP Server\""
+TLSCertificateKeyFile /etc/openldap/certs/password
+
+database config
+access to *
+	by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
+	by * none
+
+database monitor
+access to *
+	by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" read
+        by dn.exact="{{binddn}}" read
+        by * none
+
+
+database	bdb
+suffix		"{{ldap_domain}}"
+checkpoint	1024 15
+rootdn		"{{binddn}}"
+rootpw		{SSHA}G6Aw3/FdtOYECh74qDkyp1WoCFvnWJ1Q
+
+directory	/var/lib/ldap
+
+index objectClass                       eq,pres
+index ou,cn,mail,surname,givenname      eq,pres,sub
+index uidNumber,gidNumber,loginShell    eq,pres
+index uid,memberUid                     eq,pres,sub
+index nisMapName,nisMapEntry            eq,pres,sub
+index krbPrincipalName            eq,pres,sub
+
+index entryCSN,entryUUID             eq
+
+overlay syncprov
+
+syncprov-checkpoint 10 5
+syncprov-sessionlog 100
+
+serverID    {{server_id}}
+
+syncrepl    rid=001
+            provider=ldap://{{other_host}}:389
+            bindmethod=simple
+            binddn="{{binddn}}"
+            credentials={{ldap_password}}
+            searchbase="{{ldap_domain}}"
+            schemachecking=on
+            type=refreshAndPersist
+            retry="5 5 300 +"
+            interval=00:00:00:01
+
+mirrormode  on

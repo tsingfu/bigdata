@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<metainfo>
+  <schemaVersion>2.0</schemaVersion>
+  <services>
+    <service>
+      <name>INFRA_SOLR_METRICS</name>
+      <displayName>Ambari Infra Solr Metrics</displayName>
+      <comment>External AMS Sink for Solr 5</comment>
+      <version>1.0.0</version>
+      <components>
+        <component>
+          <name>INFRA_SOLR_METRICS</name>
+          <timelineAppid>infra-solr-metrics</timelineAppid>
+          <displayName>Ambari Infra Solr Metrics Sink</displayName>
+          <category>MASTER</category>
+          <cardinality>1+</cardinality>
+          <versionAdvertised>false</versionAdvertised>
+          <commandScript>
+            <script>scripts/infra_solr_metrics.py</script>
+            <scriptType>PYTHON</scriptType>
+          </commandScript>
+          <dependencies>
+            <dependency>
+              <name>AMBARI_INFRA/INFRA_SOLR</name>
+              <scope>host</scope>
+              <auto-deploy>
+                <enabled>false</enabled>
+              </auto-deploy>
+            </dependency>
+            <dependency>
+              <name>AMBARI_METRICS/METRICS_COLLECTOR</name>
+              <scope>cluster</scope>
+              <auto-deploy>
+                <enabled>false</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
+
+          <configuration-dependencies>
+            <config-type>infra-solr-metrics-properties</config-type>
+            <config-type>infra-solr-metrics-env</config-type>
+            <config-type>infra-solr-env</config-type>
+            <config-type>infra-solr-security-json</config-type>
+            <config-type>ams-site</config-type>
+          </configuration-dependencies>
+        </component>
+
+      </components>
+
+      <requiredServices>
+        <service>AMBARI_INFRA</service>
+        <service>AMBARI_METRICS</service>
+      </requiredServices>
+
+    </service>
+  </services>
+</metainfo>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>ALLUXIO</name>
+            <displayName>Alluxio</displayName>
+            <comment>Memory Centric Reliable Distributed Storage</comment>
+            <version>1.5.0</version>
+            <components>
+                <component>
+                    <name>ALLUXIO_MASTER</name>
+                    <displayName>Alluxio Master</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>500</timeout>
+                    </commandScript>
+                    <dependencies>
+                        <dependency>
+                            <name>HDFS/HDFS_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                </component>
+                <component>
+                    <name>ALLUXIO_SLAVE</name>
+                    <displayName>Alluxio Worker</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/worker.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>300</timeout>
+                    </commandScript>
+                    <dependencies>
+                        <dependency>
+                            <name>HDFS/HDFS_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                </component>
+            </components>
+
+            <commandScript>
+                <script>scripts/service_check.py</script>
+                <scriptType>PYTHON</scriptType>
+                <timeout>300</timeout>
+            </commandScript>
+
+            <configuration-dependencies>
+                <config-type>alluxio-config</config-type>
+                <config-type>alluxio-env</config-type>
+                <config-type>core-site</config-type>
+                <config-type>hdfs-site</config-type>
+            </configuration-dependencies>
+        </service>
+    </services>
+</metainfo>

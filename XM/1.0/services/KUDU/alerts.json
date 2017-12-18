@@ -1,0 +1,59 @@
+{
+  "KUDU": {
+    "service": [],
+    "KUDU_TSERVER": [
+      {
+        "name": "kudu_tserver_process",
+        "label": "kudu tserver Process",
+        "description": "This host-level alert is triggered if the impala catalog cannot be determined to be up.",
+        "interval": 1,
+        "scope": "HOST",
+        "source": {
+          "type": "PORT",
+          "uri": "8050",
+          "default_port": 8050,
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ],
+    "KUDU_MASTER": [
+      {
+        "name": "kudu_master_process",
+        "label": "kudu master Process",
+        "description": "This host-level alert is triggered if the impala daemon cannot be determined to be up.",
+        "interval": 1,
+        "scope": "HOST",
+        "source": {
+          "type": "PORT",
+          "uri": "7051",
+          "default_port": 7051,
+          "reporting": {
+            "ok": {
+              "text": "TCP OK - {0:.3f}s response on port {1}"
+            },
+            "warning": {
+              "text": "TCP OK - {0:.3f}s response on port {1}",
+              "value": 1.5
+            },
+            "critical": {
+              "text": "Connection failed: {0} to {1}:{2}",
+              "value": 5.0
+            }
+          }
+        }
+      }
+    ]
+  }
+}

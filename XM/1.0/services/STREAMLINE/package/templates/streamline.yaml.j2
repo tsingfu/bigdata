@@ -1,0 +1,88 @@
+# Pluggable modules
+
+modules:
+  - name: tag-registry
+    className: com.hortonworks.streamline.registries.tag.service.TagRegistryModule
+  - name: dashboard-registry
+    className: com.hortonworks.streamline.registries.dashboard.service.DashboardRegistryModule
+  - name: model-registry
+    className: com.hortonworks.streamline.registries.model.service.MLModelRegistryModule
+  - name: streams
+    className: com.hortonworks.streamline.streams.service.StreamsModule
+    config:
+      stormHomeDir: "{{storm_client_home}}"
+      schemaRegistryUrl: "{{registry_url}}"
+      mavenRepoUrl: "{{maven_repo_url}}"
+      topologyTestRunResultDir: "{{topology_test_results}}"
+{% if http_proxy_server %}
+      proxyUrl: "{{http_proxy_server}}"
+{%endif%}
+{% if http_proxy_username %}
+      proxyUsername: "{{http_proxy_username}}"
+{%endif%}
+{% if http_proxy_password %}
+      proxyPassword: "{{http_proxy_password}}"
+{%endif%}
+
+catalogRootUrl: {{streamline_catalog_root_url}}
+
+# Filesystem based jar storage
+fileStorageConfiguration:
+  className: {{jar_storage_class}}
+  properties:
+    directory: {{jar_storage}}
+  {% if jar_remote_storage_enabled %}
+  fsUrl: {{jar_storage_hdfs_url}}
+  {%endif%}
+
+dashboardConfiguration:
+  url: "{{streamline_dashboard_url}}"
+
+storageProviderConfiguration: 
+  properties: 
+    db.properties: 
+      dataSource.password: "{{streamline_storage_connector_password}}"
+      dataSource.url: "{{streamline_storage_connector_connectorURI}}"
+      dataSource.user: "{{streamline_storage_connector_user}}"
+      dataSourceClassName: "{{streamline_storage_java_class}}"
+    db.type: {{streamline_storage_type}}
+    queryTimeoutInSecs: {{streamline_storage_query_timeout}}
+  providerClass: com.hortonworks.streamline.storage.impl.jdbc.JdbcStorageManager
+
+{% if security_enabled %}
+authorizerConfiguration:
+  className: {{streamline_authorizer_class}}
+  adminPrincipals: {{streamline_admin_principals}}    
+
+loginConfiguration:
+  className: "com.hortonworks.registries.auth.KerberosLogin"
+  params:
+    kinit.cmd: {{streamline_kinit_cmd}}
+    ticket.renew.window.factor: {{streamline_ticket_renew_window_factor}}
+    ticket.renew.jitter: {{streamline_ticket_renew_jitter}}
+    min.time.before.relogin: {{streamline_min_time_before_login}}
+{%endif%}
+
+server:
+  rootPath: '/api/*'
+  applicationConnectors:
+    - type: http
+      port: {{streamline_port}}
+  adminConnectors:
+    - type: http
+      port: {{streamline_admin_port}}
+
+{% if security_enabled %}
+servletFilters:
+  - className: {{streamline_servlet_filter}}
+    params:
+      type: "kerberos"
+      kerberos.principal: "{{streamline_ui_jaas_principal}}"
+      kerberos.keytab: "{{streamline_ui_keytab_path}}"
+      kerberos.name.rules: "{{streamline_servlet_kerberos_name_rules}}"
+      token.validity: "{{streamline_servlet_token_validity}}"
+      cookie.path: "/"
+{%endif%}
+
+logging:
+    {{streamline_log_template}}

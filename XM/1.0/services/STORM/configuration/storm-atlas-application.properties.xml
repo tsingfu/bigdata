@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="false">
+  <!-- These are the Atlas Hooks properties specific to this service. This file is then merged with common properties
+  that apply to all services. -->
+  <property>
+    <name>atlas.hook.storm.numRetries</name>
+    <value>3</value>
+    <description/>
+    <on-ambari-upgrade add="false"/>
+  </property>
+</configuration>

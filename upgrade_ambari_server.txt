@@ -1,0 +1,18 @@
+#2.5.1->2.5.2
+
+    rpm -ivh ambari-server-2.5.2.0-298.x86_64.rpm --force # or yum upgrade ambari-server
+
+    rm -rf /var/lib/ambari-server/resources/stacks/HDP /var/lib/ambari-server/resources/stacks/BigInsights
+
+    cp -r /var/lib/ambari-server/resources/stacks_*.old/XM /var/lib/ambari-server/resources/stacks/
+    cp -f /var/lib/ambari-server/resources/stacks_*.old/stack_advisor.py /var/lib/ambari-server/resources/stacks/stack_advisor.py
+
+    sed -i 's|<value>/opt</value>|<value>{"XM":"/opt"}</value>|g' /var/lib/ambari-server/resources/stacks/XM/1.0/configuration/cluster-env.xml
+
+    ambari-server upgrade
+
+    rm -rf /usr/lib/ambari-server/ambari-views-2.5.1.0.159.jar /usr/lib/ambari-server/jna-4.1.0.jar /usr/lib/ambari-server/ambari-metrics-common-2.5.1.0.159.jar
+    /etc/init.d/ambari-server restart
+
+    rpm -ivh ambari-agent-2.5.2.0-298.x86_64.rpm --force # or yum upgrade ambari-agent
+    ambari-agent restart

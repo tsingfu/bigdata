@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>KYLIN</name>
+            <displayName>KYLIN</displayName>
+            <comment>Apache Kylin™ is an open source Distributed Analytics Engine designed to provide SQL interface and multi-dimensional analysis (OLAP) on Hadoop supporting extremely large datasets</comment>
+            <version>2.0.0</version>
+            <components>
+                <component>
+                    <name>KYLIN_JOB</name>
+                    <displayName>Kylin Job</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <commandScript>
+                        <script>scripts/job.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>5000</timeout>
+                    </commandScript>
+                    <dependencies>
+                        <dependency>
+                            <name>HBASE/HBASE_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                        <dependency>
+                            <name>HIVE/HIVE_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                </component>
+                <component>
+                    <name>KYLIN_QUERY</name>
+                    <displayName>Kylin Query</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>2+</cardinality>
+                    <commandScript>
+                        <script>scripts/query.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>5000</timeout>
+                    </commandScript>
+                    <dependencies>
+                        <dependency>
+                            <name>HBASE/HBASE_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                        <dependency>
+                            <name>HIVE/HIVE_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                </component>
+            </components>
+
+            <configuration-dependencies>
+                <config-type>kylin-env</config-type>
+                <config-type>kylin-kafka-consumer</config-type>
+                <config-type>kylin_job_conf</config-type>
+                <config-type>kylin_job_conf_inmem</config-type>
+                <config-type>kylin_hive_conf</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
+
+            <requiredServices>
+                <service>HBASE_CLIENT</service>
+                <service>HIVE_CLIENT</service>
+            </requiredServices>
+
+            <quickLinksConfigurations>
+                <quickLinksConfiguration>
+                    <fileName>quicklinks.json</fileName>
+                    <default>true</default>
+                </quickLinksConfiguration>
+            </quickLinksConfigurations>
+
+        </service>
+    </services>
+</metainfo>

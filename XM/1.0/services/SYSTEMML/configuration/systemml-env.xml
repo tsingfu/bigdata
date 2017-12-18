@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="true">
+    <property require-input="true">
+        <name>download_url</name>
+        <value>http://yum.example.com/hadoop/systemml-0.14.0-incubating-bin.tgz</value>
+        <description>下载路径</description>
+    </property>
+    <property require-input="true">
+        <name>install_dir</name>
+        <value>/opt/systemml</value>
+        <description>安装目录</description>
+    </property>
+
+    <property>
+        <name>systemml_user</name>
+        <display-name>systemml User</display-name>
+        <description>User to run systemml as</description>
+        <property-type>USER</property-type>
+        <value>systemml</value>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    
+</configuration>

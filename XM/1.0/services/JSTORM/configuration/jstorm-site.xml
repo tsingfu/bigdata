@@ -1,0 +1,80 @@
+<?xml version="1.1"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration supports_final="true">
+  <property>
+    <name>java.library.path</name>
+    <value>/usr/local/lib:/opt/local/lib:/usr/lib</value>
+    <description>JVM path</description>
+  </property>
+  <property>
+    <name>storm.local.dir</name>
+    <value>/opt/jstorm</value>
+    <description>Jstorm 本地路径</description>
+  </property>
+  <property>
+    <name>_storm.conf.dir</name>
+    <value>/etc/jstorm</value>
+    <description>Jstorm 配置文件本地路径</description>
+  </property>
+  <property>
+    <name>_storm.tomcat.dir</name>
+    <value>/opt/tomcat</value>
+    <description>Jstorm UI 依赖的Tomcat根路径</description>
+  </property>
+  <property>
+    <name>storm.zookeeper.servers</name>
+    <value>['bj-zk-1.example.com','bj-zk-2.example.com','bj-zk-3.example.com']</value>
+    <description>zk 服务主机名列表</description>
+  </property>
+  <property>
+    <name>storm.zookeeper.port</name>
+    <value>2181</value>
+    <description>zk 服务端口名列表</description>
+  </property>
+  <property>
+    <name>storm.zookeeper.root</name>
+    <value>/jstorm</value>
+    <description>jstorm服务在zk中的根路径</description>
+  </property>
+  <property>
+    <name>storm.zookeeper.session.timeout</name>
+    <value>20000</value>
+    <description>zk客户端回话超时时间(ms)</description>
+  </property>
+  <property>
+    <name>storm.zookeeper.connection.timeout</name>
+    <value>15000</value>
+    <description>zk客户端连接超时时间(ms)</description>
+  </property>
+  <property>
+    <name>nimbus.host</name>
+    <value>127.0.0.1</value>
+    <description>nimbus主机地址</description>
+  </property>
+  <property>
+    <name>supervisor.slots.ports</name>
+    <value>[6800, 6801,6802,6803]</value>
+    <description>supervisor slot 端口号</description>
+  </property>
+  <property>
+    <name>supervisor.slots.ports.base</name>
+    <value>6800</value>
+    <description>supervisor slot 端口号起始值</description>
+  </property>
+  <property>
+    <name>supervisor.slots.port.cpu.weight</name>
+    <value>1</value>
+    <description>supervisor slot cpu权重</description>
+  </property>
+  <property>
+    <name>worker.memory.size</name>
+    <value>536870912</value>
+    <description>worker的jvm内存大小(byte)</description>
+  </property>
+  <property>
+    <name>topology.performance.metrics</name>
+    <value>true</value>
+    <description>是否开启性能监控</description>
+  </property>
+</configuration>

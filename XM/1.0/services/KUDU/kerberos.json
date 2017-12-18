@@ -1,0 +1,42 @@
+{
+  "services": [
+    {
+      "name": "KUDU",
+      "identities": [
+        {
+          "name": "/smokeuser"
+        },
+        {
+          "name": "kudu_user",
+          "principal": {
+            "value": "${kudu-env/kudu_user}/_HOST@${realm}",
+            "type" : "user",
+            "configuration": "kudu-env/kudu.principal",
+            "local_username" : "${kudu-env/kudu_user}"
+          },
+          "keytab": {
+            "file": "${keytab_dir}/kudu.keytab",
+            "owner": {
+              "name": "${kudu-env/kudu_user}",
+              "access": "r"
+            },
+            "group": {
+              "name": "${cluster-env/user_group}",
+              "access": ""
+            },
+            "configuration": "kudu-env/kudu.keytab"
+          }
+        }
+      ],
+      "components": [
+        {
+          "name": "KUDU_MASTER"
+        },
+        {
+          "name": "KUDU_TSERVER"
+        }
+      ]
+
+    }
+  ]
+}

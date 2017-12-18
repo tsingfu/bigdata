@@ -1,0 +1,44 @@
+{
+  "services": [
+    {
+      "name": "ANGEL",
+      "components": [
+        {
+          "name": "ANGEL",
+          "identities": [
+            {
+              "name": "angel_principal",
+              "principal": {
+                "value": "${angel-env/angel_user}/_HOST@${realm}",
+                "type" : "service",
+                "configuration": "angel-env/angel_principal_name",
+                "local_username": "${angel-env/angel_user}"
+
+              },
+              "keytab": {
+                "file": "${keytab_dir}/angel.service.keytab",
+                "owner": {
+                  "name": "${angel-env/angel_user}",
+                  "access": "r"
+                },
+                "group": {
+                  "name": "${cluster-env/user_group}",
+                  "access": ""
+                },
+                "configuration": "angel-env/angel_keytab_path"
+              }
+            }
+          ],
+          "configurations": [
+            {
+              "core-site": {
+                "hadoop.proxyuser.angel.groups": "${hadoop-env/proxyuser_group}",
+                "hadoop.proxyuser.angel.hosts": "*"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

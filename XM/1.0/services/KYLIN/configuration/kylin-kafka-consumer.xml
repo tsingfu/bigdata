@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>session.timeout.ms</name>
+        <value>30000</value>
+    </property>
+</configuration>

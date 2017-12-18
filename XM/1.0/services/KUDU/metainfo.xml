@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>KUDU</name>
+            <displayName>KUDU</displayName>
+            <comment>A new addition to the open source Apache Hadoop ecosystem, Apache Kudu completes Hadoop's storage layer to enable fast analytics on fast data</comment>
+            <version>1.3</version>
+            <components>
+                <component>
+                    <name>KUDU_MASTER</name>
+                    <displayName>kudu_master</displayName>
+                    <category>MASTER</category>
+                    <cardinality>2+</cardinality>
+                    <commandScript>
+                        <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>10000</timeout>
+                    </commandScript>
+                </component>
+
+                <component>
+                    <name>KUDU_TSERVER</name>
+                    <displayName>kudu_tserver</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>3+</cardinality>
+                    <commandScript>
+                        <script>scripts/tserver.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>10000</timeout>
+                    </commandScript>
+                </component>
+            </components>
+
+            <osSpecifics>
+                <osSpecific>
+                    <osFamily>any</osFamily>
+                    <packages>
+                        <package><name>kudu</name></package>
+                        <package><name>kudu-master</name></package>
+                        <package><name>kudu-tserver</name></package>
+                    </packages>
+                </osSpecific>
+            </osSpecifics>
+        </service>
+    </services>
+</metainfo>

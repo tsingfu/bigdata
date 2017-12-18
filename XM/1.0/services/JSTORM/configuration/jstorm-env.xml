@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+  <property require-input="true">
+    <name>download_url</name>
+    <value>http://yum.example.com/hadoop/jstorm-2.4.0.tgz</value>
+    <description>下载路径</description>
+  </property>
+  <property require-input="true">
+    <name>install_dir</name>
+    <value>/opt/jstorm</value>
+    <description>安装目录</description>
+  </property>
+
+  <property>
+    <name>jstorm_user</name>
+    <value>jstorm</value>
+    <property-type>USER</property-type>
+    <description></description>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>jstorm_log_dir</name>
+    <value>/var/log/jstorm</value>
+    <description></description>
+  </property>
+  <property>
+    <name>jstorm_pid_dir</name>
+    <value>/var/run/jstorm</value>
+    <description></description>
+  </property>
+
+  <property>
+    <name>storm_principal_name</name>
+    <description>Storm principal name</description>
+    <property-type>KERBEROS_PRINCIPAL</property-type>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>storm_keytab</name>
+    <description>Storm keytab path</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>storm_ui_principal_name</name>
+    <description>Storm UI principal name</description>
+    <property-type>KERBEROS_PRINCIPAL</property-type>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>storm_ui_keytab</name>
+    <description>Storm UI keytab path</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>nimbus_keytab</name>
+    <description>Nimbus keytab path</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>nimbus_principal_name</name>
+    <description>Nimbus principal name</description>
+    <property-type>KERBEROS_PRINCIPAL</property-type>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <!-- jstorm-env.sh -->
+  <property>
+    <name>content</name>
+    <description>This is the jinja template for jstorm-env.sh file</description>
+    <value>
+#!/bin/bash
+
+# Set Storm specific environment variables here.
+
+# The java implementation to use.
+export JAVA_HOME={{java64_home}}
+
+# export STORM_CONF_DIR=""
+    </value>
+  </property>
+</configuration>

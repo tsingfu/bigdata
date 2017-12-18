@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>crate_user</name>
+        <value>crate</value>
+        <property-type>USER</property-type>
+        <description></description>
+    </property>
+    <property>
+        <name>user_group</name>
+        <value>crate</value>
+        <description></description>
+    </property>
+    <property>
+        <name>crate_log_dir</name>
+        <value>/var/log/crate</value>
+        <description>Log directory for crate</description>
+    </property>
+    <property>
+        <name>crate_pid_dir</name>
+        <value>/var/run/crate</value>
+        <description></description>
+    </property>
+    <property>
+        <name>es_heap_size</name>
+        <value>1g</value>
+        <description>es_heap_size</description>
+    </property>
+    <!-- crate-env.sh -->
+    <property>
+        <name>content</name>
+        <description>This is the jinja template for crate-env.sh file</description>
+        <value>
+            #!/bin/bash
+
+            # Set crate specific environment variables here.
+
+            # The java implementation to use.
+            export JAVA_HOME={{java64_home}}
+            export PATH=$PATH:$JAVA_HOME/bin
+        </value>
+    </property>
+</configuration>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>druid.service</name>
+    <value>druid/overlord</value>
+    <description>The druid.service name of overlord node.</description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.port</name>
+    <value>8090</value>
+    <description>The port on which the overlord will accept connections.</description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.indexer.runner.type</name>
+    <value>remote</value>
+    <description>Choices "local" or "remote". Indicates whether tasks should be run locally or in a distributed
+      environment.
+    </description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.indexer.storage.type</name>
+    <value>metadata</value>
+    <description>Choices are "local" or "metadata". Indicates whether incoming tasks should be stored locally (in heap)
+      or in metadata storage. Storing incoming tasks in metadata storage allows for tasks to be resumed if the overlord
+      should fail.
+    </description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+</configuration>

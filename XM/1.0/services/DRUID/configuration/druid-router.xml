@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property>
+    <name>druid.service</name>
+    <value>druid/router</value>
+    <description>The druid.service name of router node.</description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.port</name>
+    <value>8888</value>
+    <description>The port on which the broker will accept connections.</description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.router.http.numConnections</name>
+    <value>20</value>
+    <description>
+      Size of connection pool for the router to connect to historical and real-time nodes. If there are more
+      queries than this number that all need to speak to the same node, then they will queue up.
+    </description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.server.http.numThreads</name>
+    <value>50</value>
+    <description>Number of threads for HTTP requests.</description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.router.tierToBrokerMap</name>
+    <value>{"_default_tier":"druid/broker"}</value>
+    <description>
+      Used to route queries for a certain tier of data to their appropriate broker. An ordered JSON map of
+      tiers to broker names. The priority of brokers is based on the ordering.
+    </description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+</configuration>

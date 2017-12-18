@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration supports_final="true">
+    <property>
+        <name>metron_management_ui_port</name>
+        <value>4200</value>
+        <description>Port the Management UI runs on</description>
+        <display-name>Management UI port</display-name>
+    </property>
+</configuration>

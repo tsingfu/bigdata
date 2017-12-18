@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<metainfo>
+  <schemaVersion>2.0</schemaVersion>
+  <services>
+    <service>
+      <name>KAFKA</name>
+      <displayName>Kafka</displayName>
+      <comment>A high-throughput distributed messaging system</comment>
+      <version>0.10.1.0</version>
+      <components>
+        <component>
+          <name>KAFKA_BROKER</name>
+          <displayName>Kafka Broker</displayName>
+          <category>MASTER</category>
+          <cardinality>3+</cardinality>
+          <versionAdvertised>true</versionAdvertised>
+          <dependencies>
+            <dependency>
+              <name>ZOOKEEPER/ZOOKEEPER_SERVER</name>
+              <scope>cluster</scope>
+              <auto-deploy>
+                <enabled>true</enabled>
+              </auto-deploy>
+            </dependency>
+          </dependencies>
+          <commandScript>
+            <script>scripts/kafka_broker.py</script>
+            <scriptType>PYTHON</scriptType>
+            <timeout>1200</timeout>
+          </commandScript>
+          <logs>
+            <log>
+              <logId>kafka_server</logId>
+              <primary>true</primary>
+            </log>
+            <log>
+              <logId>kafka_controller</logId>
+            </log>
+            <log>
+              <logId>kafka_request</logId>
+            </log>
+            <log>
+              <logId>kafka_logcleaner</logId>
+            </log>
+            <log>
+              <logId>kafka_statechange</logId>
+            </log>
+          </logs>
+        </component>
+      </components>
+      <commandScript>
+        <script>scripts/service_check.py</script>
+        <scriptType>PYTHON</scriptType>
+        <timeout>300</timeout>
+      </commandScript>
+
+      <requiredServices>
+        <service>ZOOKEEPER</service>
+      </requiredServices>
+
+      <configuration-dependencies>
+        <config-type>kafka-broker</config-type>
+        <config-type>kafka-env</config-type>
+        <config-type>kafka-log4j</config-type>
+        <config-type>zookeeper-env</config-type>
+        <config-type>zoo.cfg</config-type>
+        <config-type>kafka_jaas_conf</config-type>
+        <config-type>kafka_client_jaas_conf</config-type>
+        <config-type>ranger-kafka-plugin-properties</config-type>
+        <config-type>ranger-kafka-audit</config-type>
+        <config-type>ranger-kafka-policymgr-ssl</config-type>
+        <config-type>ranger-kafka-security</config-type>
+      </configuration-dependencies>
+      <restartRequiredAfterChange>true</restartRequiredAfterChange>
+    </service>
+  </services>
+</metainfo>

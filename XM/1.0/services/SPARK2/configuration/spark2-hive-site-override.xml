@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="true">
+  <property>
+    <name>hive.server2.enable.doAs</name>
+    <value>false</value>
+    <description>
+      Disable impersonation in Hive Server 2.
+    </description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hive.metastore.client.socket.timeout</name>
+    <value>1800</value>
+    <description>MetaStore Client socket timeout in seconds</description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hive.metastore.client.connect.retry.delay</name>
+    <value>5</value>
+    <description>
+      Expects a time value - number of seconds for the client to wait between consecutive connection attempts
+    </description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hive.server2.thrift.port</name>
+    <value>10016</value>
+    <description>
+      TCP port number to listen on, default 10015.
+    </description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>hive.server2.transport.mode</name>
+    <value>binary</value>
+    <description>
+      Expects one of [binary, http].
+      Transport mode of HiveServer2.
+    </description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+</configuration>

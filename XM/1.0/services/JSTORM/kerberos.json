@@ -1,0 +1,121 @@
+{
+  "services": [
+    {
+      "name": "JSTORM",
+      "identities": [
+        {
+          "name": "/spnego"
+        },
+        {
+          "name": "/smokeuser"
+        },
+        {
+          "name": "jstorm_components",
+          "principal": {
+            "value": "${jstorm-env/jstorm_user}-${cluster_name|toLower()}@${realm}",
+            "type": "user",
+            "configuration": "jstorm-env/storm_principal_name"
+          },
+          "keytab": {
+            "file": "${keytab_dir}/jstorm.headless.keytab",
+            "owner": {
+              "name": "${jstorm-env/jstorm_user}",
+              "access": "r"
+            },
+            "group": {
+              "name": "${cluster-env/user_group}",
+              "access": ""
+            },
+            "configuration": "jstorm-env/storm_keytab"
+          }
+        }
+      ],
+      "configurations": [
+        {
+          "jstorm-site": {
+            "nimbus.authorizer": "backtype.storm.security.auth.authorizer.SimpleACLAuthorizer",
+            "drpc.authorizer": "backtype.storm.security.auth.authorizer.DRPCSimpleACLAuthorizer",
+            "storm.principal.tolocal": "backtype.storm.security.auth.KerberosPrincipalToLocal",
+            "supervisor.enable": "true",
+            "storm.zookeeper.superACL": "sasl:{{storm_bare_jaas_principal}}",
+            "java.security.auth.login.config": "{{conf_dir}}/storm_jaas.conf",
+            "nimbus.impersonation.authorizer": "backtype.storm.security.auth.authorizer.ImpersonationAuthorizer",
+            "nimbus.impersonation.acl": "{ {{storm_bare_jaas_principal}} : {hosts: ['*'], groups: ['*']}}",
+            "nimbus.admins": "['{{storm_bare_jaas_principal}}', '{{ambari_bare_jaas_principal}}']",
+            "nimbus.supervisor.users": "['{{storm_bare_jaas_principal}}']",
+            "ui.filter.params": "{'type': 'kerberos', 'kerberos.principal': '{{storm_ui_jaas_principal}}', 'kerberos.keytab': '{{storm_ui_keytab_path}}', 'kerberos.name.rules': 'DEFAULT'}"
+          }
+        }
+      ],
+      "components": [
+        {
+          "name": "JSTORM_UI_SERVER",
+          "identities": [
+            {
+              "name": "/spnego",
+              "principal": {
+                "configuration": "jstorm-env/storm_ui_principal_name"
+              },
+              "keytab": {
+                "configuration": "jstorm-env/storm_ui_keytab"
+              }
+            }
+          ]
+        },
+        {
+          "name": "JNIMBUS",
+          "identities": [
+            {
+              "name": "jnimbus_server",
+              "principal": {
+                "value": "jnimbus/_HOST@${realm}",
+                "type": "service",
+                "configuration": "jstorm-env/nimbus_principal_name"
+              },
+              "keytab": {
+                "file": "${keytab_dir}/jnimbus.service.keytab",
+                "owner": {
+                  "name": "${jstorm-env/jstorm_user}",
+                  "access": "r"
+                },
+                "group": {
+                  "name": "${cluster-env/user_group}",
+                  "access": ""
+                },
+                "configuration": "jstorm-env/nimbus_keytab"
+              }
+            }
+          ]
+        },
+        {
+          "name": "JDRPC_SERVER",
+          "identities": [
+            {
+              "name": "jnimbus_server",
+              "principal": {
+                "value": "jnimbus/_HOST@${realm}",
+                "type": "service",
+                "configuration": "jstorm-env/nimbus_principal_name"
+              },
+              "keytab": {
+                "file": "${keytab_dir}/jnimbus.service.keytab",
+                "owner": {
+                  "name": "${jstorm-env/jstorm_user}",
+                  "access": "r"
+                },
+                "group": {
+                  "name": "${cluster-env/user_group}",
+                  "access": ""
+                },
+                "configuration": "jstorm-env/nimbus_keytab"
+              }
+            }
+          ]
+        },
+        {
+          "name" : "JSUPERVISOR"
+        }
+      ]
+    }
+  ]
+}

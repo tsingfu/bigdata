@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration supports_final="true">
+    <property require-input="true">
+        <name>download_url</name>
+        <value>http://yum.example.com/hadoop/metron-0.4.1.tar.gz</value>
+        <description>下载路径</description>
+    </property>
+    <property require-input="true">
+        <name>install_dir</name>
+        <value>/opt/metron</value>
+        <description>安装目录</description>
+    </property>
+    <property>
+        <name>metron_home</name>
+        <value>/opt/metron</value>
+        <description>Metron home directory</description>
+        <display-name>Metron home</display-name>
+    </property>
+    <property>
+        <!-- This is for internal use in jar names, since Ambari doesn't appear to expose it -->
+        <name>metron_version</name>
+        <value>0.4.1</value>
+        <description>Metron version</description>
+        <display-name>Metron home</display-name>
+        <value-attributes>
+            <read-only>true</read-only>
+            <overridable>false</overridable>
+            <visible>false</visible>
+        </value-attributes>
+    </property>
+    <property>
+        <name>metron_apps_hdfs_dir</name>
+        <value>/apps/metron</value>
+        <description>Metron apps HDFS dir</description>
+        <display-name>Metron apps HDFS dir</display-name>
+    </property>
+    <property>
+        <name>metron_zookeeper_config_dir</name>
+        <value>config/zookeeper</value>
+        <description>Metron Zookeeper config dir. Relative path to Metron home.</description>
+        <display-name>Metron Zookeeper config dir</display-name>
+    </property>
+    <property>
+        <name>metron_user</name>
+        <value>metron</value>
+        <property-type>USER</property-type>
+        <description>Service User for Metron</description>
+        <display-name>Metron User Name</display-name>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+    <property>
+        <name>metron_group</name>
+        <value>metron</value>
+        <property-type>GROUP</property-type>
+        <description>Service Group for Metron</description>
+        <display-name>Metron Group Name</display-name>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+    <property>
+        <name>metron_log_dir</name>
+        <value>/var/log/metron</value>
+        <description>Log directory for metron</description>
+        <display-name>Metron log dir</display-name>
+    </property>
+    <property>
+        <name>metron_pid_dir</name>
+        <value>/var/run/metron</value>
+        <description>The directory for metron pid files</description>
+        <display-name>Metron pid dir</display-name>
+    </property>
+    <property>
+        <name>metron_topic_retention</name>
+        <description>Kafka Retention in GB</description>
+        <value>10</value>
+        <display-name>Topic Retention</display-name>
+    </property>
+    <property>
+        <name>es_cluster_name</name>
+        <value>metron</value>
+        <description>Name of Elasticsearch Cluster</description>
+        <display-name>Elasticsearch Cluster Name</display-name>
+    </property>
+    <property require-input="true">
+        <name>es_hosts</name>
+        <value></value>
+        <description>Comma delimited list of Elasticsearch Master Hosts: eshost1,eshost2</description>
+        <display-name>Elasticsearch Hosts</display-name>
+    </property>
+    <property>
+        <name>es_binary_port</name>
+        <value>9300</value>
+        <description>Elasticsearch binary port. (9300)</description>
+        <display-name>Elasticsearch Binary Port</display-name>
+    </property>
+    <property>
+        <name>es_http_port</name>
+        <value>9200</value>
+        <description>Elasticsearch HTTP port. (9200)</description>
+        <display-name>Elasticsearch HTTP port</display-name>
+    </property>
+    <property require-input="true">
+        <name>storm_rest_addr</name>
+        <display-name>Storm Rest Server Address</display-name>
+        <description>URL of Storm UI (http://storm.ui.hostname:8744). If no protocol is provided, http is assumed.
+        </description>
+        <value></value>
+    </property>
+    <property require-input="true">
+        <name>zeppelin_server_url</name>
+        <display-name>Zeppelin Server Address</display-name>
+        <description>URL of Zeppelin (zeppelin.server.addr:zeppelin.server.port)</description>
+        <value></value>
+    </property>
+    <property>
+        <name>metron_principal_name</name>
+        <display-name>Metron Principal Name</display-name>
+        <description>Metron principal name</description>
+        <property-type>KERBEROS_PRINCIPAL</property-type>
+        <value/>
+        <value-attributes>
+            <empty-value-valid>true</empty-value-valid>
+        </value-attributes>
+    </property>
+    <property>
+        <name>metron_service_keytab</name>
+        <display-name>Metron Service User Keytab</display-name>
+        <description>Metron Service user keytab path</description>
+        <value/>
+        <value-attributes>
+            <empty-value-valid>true</empty-value-valid>
+        </value-attributes>
+    </property>
+    <property>
+        <name>es_date_format</name>
+        <description>Elasticsearch Date Format</description>
+        <value>yyyy.MM.dd.HH</value>
+        <display-name>Elasticsearch Date Format</display-name>
+    </property>
+
+
+</configuration>

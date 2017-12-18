@@ -1,0 +1,19 @@
+{% if stack_supports_storm_kerberos %}
+StreamlineServer {
+   com.sun.security.auth.module.Krb5LoginModule required
+   useKeyTab=true
+   keyTab="{{streamline_keytab_path}}"
+   storeKey=true
+   useTicketCache=false
+   principal="{{streamline_jaas_principal}}";
+};
+StormClient {
+   com.sun.security.auth.module.Krb5LoginModule required
+   useKeyTab=true
+   keyTab="{{streamline_keytab_path}}"
+   storeKey=true
+   useTicketCache=false
+   serviceName="nimbus-streamline"
+   principal="{{streamline_jaas_principal}}";
+};
+{% endif %}

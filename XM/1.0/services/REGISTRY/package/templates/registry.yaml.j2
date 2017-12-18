@@ -1,0 +1,64 @@
+# Pluggable modules
+
+modules:
+  - name: schema-registry
+    className: com.hortonworks.registries.schemaregistry.webservice.SchemaRegistryModule
+    config:
+      schemaProviders:
+        - providerClass: "com.hortonworks.registries.schemaregistry.avro.AvroSchemaProvider"
+          defaultSerializerClass: "com.hortonworks.registries.schemaregistry.serdes.avro.AvroSnapshotSerializer"
+          defaultDeserializerClass: "com.hortonworks.registries.schemaregistry.serdes.avro.AvroSnapshotDeserializer"
+
+      # schema cache properties
+      # inmemory schema versions cache size
+      schemaCacheSize: {{registry_schema_cache_size}}
+      # inmemory schema version cache entry expiry interval after access
+      schemaCacheExpiryInterval: {{registry_schema_cache_expiry_interval}}
+
+# Filesystem based jar storage
+fileStorageConfiguration:
+  className: {{jar_storage_class}}
+  properties:
+    directory: {{jar_storage}}
+  {% if jar_remote_storage_enabled %}
+  fsUrl: {{jar_storage_hdfs_url}}
+  {%endif%}
+
+storageProviderConfiguration: 
+  properties: 
+    db.properties: 
+      dataSource.password: "{{registry_storage_connector_password}}"
+      dataSource.url: "{{registry_storage_connector_connectorURI}}"
+      dataSource.user: "{{registry_storage_connector_user}}"
+      dataSourceClassName: "{{registry_storage_java_class}}"
+    db.type: "{{registry_storage_type}}"
+    queryTimeoutInSecs: {{registry_storage_query_timeout}}
+  providerClass: com.hortonworks.registries.storage.impl.jdbc.JdbcStorageManager
+
+swagger:
+  resourcePackage: com.hortonworks.registries.schemaregistry.webservice
+
+enableCors: true
+
+server:
+  rootPath: '/api/*'
+  applicationConnectors:
+    - type: http
+      port: {{registry_port}}
+  adminConnectors:
+    - type: http
+      port: {{registry_admin_port}}
+
+{% if security_enabled %}
+servletFilters:
+  - className: {{registry_servlet_filter}}
+    params:
+      type: "kerberos"
+      kerberos.principal: "{{registry_ui_jaas_principal}}"
+      kerberos.keytab: "{{registry_ui_keytab_path}}"
+      kerberos.name.rules: "{{registry_servlet_kerberos_name_rules}}"
+      token.validity: "{{registry_servlet_token_validity}}"
+{%endif%}
+
+logging:
+  {{registry_log_template}}

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>SCHEMAREGISTRY</name>
+            <displayName>Schema Registry</displayName>
+            <comment>Schema Registry provides a serving layer for your metadata.
+                It provides a RESTful interface for storing and retrieving Avro schemas.
+                It stores a versioned history of all schemas,
+                provides multiple compatibility settings and allows evolution of schemas according to the configured
+                compatibility setting.
+                It provides serializers that plug into Kafka clients that handle schema storage and retrieval for Kafka
+                messages that are sent in the Avro format.
+            </comment>
+            <version>3.3.0</version>
+            <components>
+                <component>
+                    <name>SCHEMA_REGISTRY</name>
+                    <displayName>Schema Registry</displayName>
+                    <comment>Schema Registry provides a serving layer for your metadata.
+                        It provides a RESTful interface for storing and retrieving Avro schemas.
+                        It stores a versioned history of all schemas,
+                        provides multiple compatibility settings and allows evolution of schemas according to the
+                        configured compatibility setting.
+                        It provides serializers that plug into Kafka clients that handle schema storage and retrieval
+                        for Kafka messages that are sent in the Avro format.
+                    </comment>
+                    <category>MASTER</category>
+                    <cardinality>1+</cardinality>
+                    <timelineAppid>SCHEMA_REGISTRY</timelineAppid>
+                    <commandScript>
+                        <script>scripts/schema-registry.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>10000</timeout>
+                    </commandScript>
+                    <recovery_enabled>true</recovery_enabled>
+                    <dependencies>
+                        <dependency>
+                            <name>KAFKA/KAFKA_BROKER</name>
+                            <scope>cluster</scope>
+                        </dependency>
+                    </dependencies>
+                </component>
+            </components>
+
+            <requiredServices>
+                <service>KAFKA</service>
+            </requiredServices>
+
+            <configuration-dependencies>
+                <config-type>ams-site</config-type>
+                <config-type>schema-registry-env</config-type>
+                <config-type>zoo.cfg</config-type>
+            </configuration-dependencies>
+            <restartRequiredAfterChange>true</restartRequiredAfterChange>
+
+            <widgetsFileName>widgets.json</widgetsFileName>
+            <metricsFileName>metrics.json</metricsFileName>
+        </service>
+
+    </services>
+</metainfo>

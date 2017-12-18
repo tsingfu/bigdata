@@ -1,0 +1,403 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+  <property require-input="true">
+    <name>download_url</name>
+    <value>http://yum.example.com/hadoop/eagle-0.5.tar.gz</value>
+    <description>下载路径(只支持.tar.gz)</description>
+  </property>
+  <property require-input="true">
+    <name>install_dir</name>
+    <value>/opt/eagle</value>
+    <description>安装目录</description>
+  </property>
+
+  <property require-input="true">
+    <name>eagle_user</name>
+    <value>eagle</value>
+    <description>eagle_user</description>
+    <property-type>USER</property-type>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>eagle_log_dir</name>
+    <value>/var/log/eagle</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+
+  <property>
+    <name>eagle_pid_dir</name>
+    <value>/opt/eagle/temp</value>
+    <display-name>Eagle PID dir</display-name>
+    <description></description>
+    <value-attributes>
+      <type>directory</type>
+      <editable-only-at-install>true</editable-only-at-install>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+
+  <!-- eagle-env.sh -->
+  <property>
+    <name>content</name>
+    <display-name>eagle-env template</display-name>
+    <description>This is simple template for eagle-env.sh file</description>
+    <value>
+#!/bin/bash
+
+# The java implementation to use.
+export JAVA_HOME={{java8_home}}
+export PATH=$PATH:$JAVA_HOME/bin
+
+# set EAGLE_HOME
+export EAGLE_HOME={{install_dir}}
+
+# nimbus.host, default is localhost
+export EAGLE_NIMBUS_HOST=localhost
+
+# EAGLE_SERVICE_HOST, default is `hostname -f`
+export EAGLE_SERVICE_HOST=localhost
+
+# EAGLE_SERVICE_PORT, default is 9099
+export EAGLE_SERVICE_PORT=9099
+
+# EAGLE_SERVICE_USER
+export EAGLE_SERVICE_USER=admin
+
+# EAGLE_SERVICE_PASSWORD
+export EAGLE_SERVICE_PASSWD=secret
+
+export EAGLE_CLASSPATH=$EAGLE_HOME/conf
+# Add eagle shared library jars
+for file in $EAGLE_HOME/lib/share/*;do
+  EAGLE_CLASSPATH=$EAGLE_CLASSPATH:$file
+done
+
+# Add eagle storm library jars
+# Separate out of share directory because of asm version conflict
+export EAGLE_STORM_CLASSPATH=$EAGLE_CLASSPATH
+for file in $EAGLE_HOME/lib/storm/*;do
+  EAGLE_STORM_CLASSPATH=$EAGLE_STORM_CLASSPATH:$file
+done
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+
+  <property>
+    <name>application</name>
+    <display-name>application content template</display-name>
+    <description>application content file</description>
+    <value>
+  {
+    "deployInstanceIdentifier" : {
+    "programId": "hdfsAuditLogMonitoring"
+    },
+    "envContextConfig" : {
+    "env" : "storm",
+    "mode" : "cluster",
+    "topologyName" : "auditLogProcessTology",
+    "stormConfigFile" : "storm.yaml.1",
+    "parallelismConfig" : {
+      "msgConsumer" : 2,
+      "downsampling" : 3
+      }
+    },
+    "dataSourceConfig": {
+    "flavor" : "stormkafka",
+    "topic" : "hdfs_audit_log",
+    "zkConnection" : "localhost:2181",
+    "zkConnectionTimeoutMS" : 15000,
+    "consumerGroupId" : "EagleConsumer",
+    "fetchSize" : 1048586,
+    "deserializerClass" : "eagle.security.auditlog.AuditLogKafkaDeserializer",
+    "transactionZKServers" : "localhost",
+    "transactionZKPort" : 2181,
+    "transactionZKRoot" : "/brokers/topics",
+    "transactionStateUpdateMS" : 2000
+    },
+    "alertExecutorConfigs" : {
+    "hdfsAuditLogAlertExecutor" : {
+      "parallelism" : 2,
+      "partitioner" : "eagle.alert.policy.DefaultPolicyPartitioner",
+      "sourceStreams" : ["hdfsAuditLogEventStream"]
+    }
+    },
+    "eagleProps" : {
+    "ipLocationLoadFrom" : "jmx",
+    "namenodeUrl" : "https://dc1-nn.vip.xyz.com:50070",
+    "ipLocationLoadIntervalSeconds" : "300",
+    "eagleService": {
+      "host": "localhost",
+      "port": 9099,
+      "username": "admin",
+      "password": "secret"
+      }
+    },
+    "metadataJoinConfigs" : {
+    "ipZoneJoin" : {
+      "ipLocationLoadFrom" : "jmx",
+      "namenodeUrl" : "https://dc1-nn.vip.xyz.com:50070",
+      "ipLocationLoadIntervalSeconds" : "300"
+      },
+      "fileMetadataJoin" : {
+
+      }
+    },
+    "dynamicConfigSource" : {
+      "enabled" : true,
+      "initDelayMillis" : 0,
+      "delayMillis" : 30000,
+      "ignoreDeleteFromSource" : true
+      }
+  }
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>eagle_service</name>
+    <display-name>eagle-service template</display-name>
+    <description>eagle-service file</description>
+    <value>
+eagle {
+  service {
+    storage-type="hbase"
+    hbase-zookeeper-quorum="{{hbase_zookeeper_quorum}}"
+    hbase-zookeeper-property-clientPort={{hbase_zookeeper_property_clientPort}}
+    zookeeper-znode-parent="/hbase2"
+    security {
+      authentication="kerberos"
+      authentication-kbr-type="keytab"
+      core-site-file="/etc/hadoop/core-site.xml"
+      hdfs-site-file="/etc/hadoop/hdfs-site.xml"
+      hbase-site-file="/etc/hbase/hbase-site.xml"
+      kerberos-principal="{{eagle_kerberos_principal}}"
+      keytab-file="{{eagle_kerberos_keytab}}"
+    }
+  }
+}
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>eagle_scheduler</name>
+    <display-name>eagle scheduler template</display-name>
+    <description>eagle scheduler file</description>
+    <value>
+### scheduler propertise
+appCommandLoaderEnabled = false
+appCommandLoaderIntervalSecs = 1
+appHealthCheckIntervalSecs = 5
+
+### execution platform properties
+envContextConfig.env = "storm"
+envContextConfig.url = "http://bj-storm-32-98.example.com:8744"
+envContextConfig.nimbusHost = "bj-storm-32-98.example.com"
+envContextConfig.nimbusThriftPort = 6627
+envContextConfig.jarFile = "/opt/eagle/lib/topology/eagle-topology-0.4.0-incubating-assembly.jar"
+
+### default topology properties
+eagleProps.mailHost = "172.16.1.231"
+eagleProps.mailSmtpPort = "25"
+eagleProps.mailDebug = "true"
+eagleProps.eagleService.host = "10.4.32.98"
+eagleProps.eagleService.port = 9099
+eagleProps.eagleService.username = "admin"
+eagleProps.eagleService.password = "secret"
+eagleProps.dataJoinPollIntervalSec = 30
+
+dynamicConfigSource.enabled = true
+dynamicConfigSource.initDelayMillis = 0
+dynamicConfigSource.delayMillis = 30000
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>kafka_server</name>
+    <display-name>kafka-server template</display-name>
+    <description>kafka-server file</description>
+    <value>
+############################# Server Basics #############################
+
+# The id of the broker. This must be set to a unique integer for each broker.
+broker.id=0
+
+############################# Socket Server Settings #############################
+
+# The address the socket server listens on. It will get the value returned from
+# java.net.InetAddress.getCanonicalHostName() if not configured.
+#   FORMAT:
+#     listeners = security_protocol://host_name:port
+#   EXAMPLE:
+#     listeners = PLAINTEXT://your.host.name:9092
+#listeners=PLAINTEXT://:9092
+
+# Hostname and port the broker will advertise to producers and consumers. If not set,
+# it uses the value for "listeners" if configured.  Otherwise, it will use the value
+# returned from java.net.InetAddress.getCanonicalHostName().
+#advertised.listeners=PLAINTEXT://your.host.name:9092
+
+# The number of threads handling network requests
+num.network.threads=3
+
+# The number of threads doing disk I/O
+num.io.threads=8
+
+# The send buffer (SO_SNDBUF) used by the socket server
+socket.send.buffer.bytes=102400
+
+# The receive buffer (SO_RCVBUF) used by the socket server
+socket.receive.buffer.bytes=102400
+
+# The maximum size of a request that the socket server will accept (protection against OOM)
+socket.request.max.bytes=104857600
+
+
+############################# Log Basics #############################
+
+# A comma seperated list of directories under which to store log files
+log.dirs=/tmp/eagle-kafka-logs
+
+# The default number of log partitions per topic. More partitions allow greater
+# parallelism for consumption, but this will also result in more files across
+# the brokers.
+num.partitions=1
+
+# The number of threads per data directory to be used for log recovery at startup and flushing at shutdown.
+# This value is recommended to be increased for installations with data dirs located in RAID array.
+num.recovery.threads.per.data.dir=1
+
+############################# Log Flush Policy #############################
+
+# Messages are immediately written to the filesystem but by default we only fsync() to sync
+# the OS cache lazily. The following configurations control the flush of data to disk.
+# There are a few important trade-offs here:
+#    1. Durability: Unflushed data may be lost if you are not using replication.
+#    2. Latency: Very large flush intervals may lead to latency spikes when the flush does occur as there will be a lot of data to flush.
+#    3. Throughput: The flush is generally the most expensive operation, and a small flush interval may lead to exceessive seeks.
+# The settings below allow one to configure the flush policy to flush data after a period of time or
+# every N messages (or both). This can be done globally and overridden on a per-topic basis.
+
+# The number of messages to accept before forcing a flush of data to disk
+#log.flush.interval.messages=10000
+
+# The maximum amount of time a message can sit in a log before we force a flush
+#log.flush.interval.ms=1000
+
+############################# Log Retention Policy #############################
+
+# The following configurations control the disposal of log segments. The policy can
+# be set to delete segments after a period of time, or after a given size has accumulated.
+# A segment will be deleted whenever *either* of these criteria are met. Deletion always happens
+# from the end of the log.
+
+# The minimum age of a log file to be eligible for deletion
+log.retention.hours=168
+
+# A size-based retention policy for logs. Segments are pruned from the log as long as the remaining
+# segments don't drop below log.retention.bytes.
+#log.retention.bytes=1073741824
+
+# The maximum size of a log segment file. When this size is reached a new log segment will be created.
+log.segment.bytes=1073741824
+
+# The interval at which log segments are checked to see if they can be deleted according
+# to the retention policies
+log.retention.check.interval.ms=300000
+
+############################# Zookeeper #############################
+
+# Zookeeper connection string (see zookeeper docs for details).
+# This is a comma separated host:port pairs, each corresponding to a zk
+# server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".
+# You can also append an optional chroot string to the urls to specify the
+# root directory for all kafka znodes.
+zookeeper.connect=localhost:2181
+
+# Timeout in ms for connecting to zookeeper
+zookeeper.connection.timeout.ms=6000
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>log4j</name>
+    <display-name>log4j template</display-name>
+    <description>log4j file</description>
+    <value>
+log4j.rootLogger=INFO, stdout
+
+eagle.log.dir=/data/log
+eagle.log.file=eagle.log
+
+# standard output
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{ISO8601} %p [%t] %c{2}[%L]: %m%n
+
+# Daily Rolling File Appender
+log4j.appender.DRFA=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.DRFA.File=${eagle.log.dir}/${eagle.log.file}
+log4j.appender.DRFA.DatePattern=.yyyy-MM-dd
+## 30-day backup
+# log4j.appender.DRFA.MaxBackupIndex=30
+log4j.appender.DRFA.layout=org.apache.log4j.PatternLayout
+
+# Pattern format: Date LogLevel LoggerName LogMessage
+log4j.appender.DRFA.layout.ConversionPattern=%d{ISO8601} %p [%t] %c{2}[%L]: %m%n
+    </value>
+    <value-attributes>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+  <property>
+    <name>eagle.server.kerberos.principal</name>
+    <value/>
+    <value-attributes>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>
+    <description>
+      Kerberos principal name for the eagle.
+    </description>
+    <property-type>KERBEROS_PRINCIPAL</property-type>
+    <on-ambari-upgrade add="true"/>
+  </property>
+  <property>
+    <name>eagle.server.kerberos.keytab</name>
+    <value/>
+    <value-attributes>
+      <empty-value-valid>true</empty-value-valid>
+    </value-attributes>
+    <description>
+      Location of the kerberos keytab file for the eagle.
+    </description>
+    <on-ambari-upgrade add="true"/>
+  </property>
+
+</configuration>

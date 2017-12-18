@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>EAGLE</name>
+            <displayName>Eagle</displayName>
+            <comment>Eagle monitoring framework to secure hadoop platform in realtime</comment>
+            <version>0.5</version>
+            <components>
+                <component>
+                    <name>EAGLE_SERVICE</name>
+                    <displayName>Eagle Server</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <versionAdvertised>true</versionAdvertised>
+                    <commandScript>
+                        <script>scripts/eagle_service.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                    <dependencies>
+                        <dependency>
+                            <name>HBASE/HBASE_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                        <dependency>
+                            <name>HDFS/HDFS_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                </component>
+
+                <!--<component>-->
+                    <!--<name>EAGLE_DAM_HDFS_TOPOLOGY</name>-->
+                    <!--<displayName>Eagle DAM HDFS</displayName>-->
+                    <!--<category>MASTER</category>-->
+                    <!--<cardinality>1+</cardinality>-->
+                    <!--<versionAdvertised>true</versionAdvertised>-->
+                    <!--<commandScript>-->
+                        <!--<script>scripts/eagle_hdfs_topology.py</script>-->
+                        <!--<scriptType>PYTHON</scriptType>-->
+                        <!--<timeout>600</timeout>-->
+                    <!--</commandScript>-->
+                <!--</component>-->
+
+                <!--<component>-->
+                    <!--<name>EAGLE_DAM_HIVE_TOPOLOGY</name>-->
+                    <!--<displayName>Eagle DAM Hive</displayName>-->
+                    <!--<category>MASTER</category>-->
+                    <!--<cardinality>1+</cardinality>-->
+                    <!--<versionAdvertised>true</versionAdvertised>-->
+                    <!--<commandScript>-->
+                        <!--<script>scripts/eagle_hive_topology.py</script>-->
+                        <!--<scriptType>PYTHON</scriptType>-->
+                        <!--<timeout>600</timeout>-->
+                    <!--</commandScript>-->
+                <!--</component>-->
+
+                <!--<component>-->
+                    <!--<name>EAGLE_USERPROFILE_TOPOLOGY</name>-->
+                    <!--<displayName>Eagle UserProfile</displayName>-->
+                    <!--<category>MASTER</category>-->
+                    <!--<cardinality>1+</cardinality>-->
+                    <!--<versionAdvertised>true</versionAdvertised>-->
+                    <!--<commandScript>-->
+                        <!--<script>scripts/eagle_userprofile_topology.py</script>-->
+                        <!--<scriptType>PYTHON</scriptType>-->
+                        <!--<timeout>600</timeout>-->
+                    <!--</commandScript>-->
+                <!--</component>-->
+
+                <!--<component>-->
+                    <!--<name>EAGLE_USERPROFILE_DAEMON</name>-->
+                    <!--<displayName>Eagle UserProfile DAEMON</displayName>-->
+                    <!--<category>MASTER</category>-->
+                    <!--<cardinality>1+</cardinality>-->
+                    <!--<versionAdvertised>true</versionAdvertised>-->
+                    <!--<commandScript>-->
+                        <!--<script>scripts/eagle_userprofile_scheduler.py</script>-->
+                        <!--<scriptType>PYTHON</scriptType>-->
+                        <!--<timeout>600</timeout>-->
+                    <!--</commandScript>-->
+                <!--</component>-->
+
+                <!--<component>-->
+                    <!--<name>EAGLE_AUDIT2KAFKA_CLIENT</name>-->
+                    <!--<displayName>Eagle Audit2Kafka Client</displayName>-->
+                    <!--<category>CLIENT</category>-->
+                    <!--<cardinality>1+</cardinality>-->
+                    <!--<commandScript>-->
+                    <!--<script>scripts/eagle_audit_kafka.py</script>-->
+                    <!--<scriptType>PYTHON</scriptType>-->
+                    <!--<timeout>600</timeout>-->
+                    <!--</commandScript>-->
+                <!--</component>-->
+
+                <!--<component>-->
+                    <!--<name>EAGLE_CLIENT</name>-->
+                    <!--<displayName>Eagle Client</displayName>-->
+                    <!--<category>CLIENT</category>-->
+                    <!--<cardinality>1+</cardinality>-->
+                    <!--<commandScript>-->
+                        <!--<script>scripts/eagle_client.py</script>-->
+                        <!--<scriptType>PYTHON</scriptType>-->
+                        <!--<timeout>600</timeout>-->
+                    <!--</commandScript>-->
+                <!--</component>-->
+            </components>
+
+            <requiredServices>
+                <service>HBASE</service>
+                <service>STORM</service>
+                <service>KAFKA</service>
+            </requiredServices>
+            <configuration-dependencies>
+                <config-type>eagle-service</config-type>
+                <config-type>data-process-runtime</config-type>
+            </configuration-dependencies>
+
+            <quickLinksConfigurations>
+                <quickLinksConfiguration>
+                    <fileName>quicklinks.json</fileName>
+                    <default>true</default>
+                </quickLinksConfiguration>
+            </quickLinksConfigurations>
+        </service>
+    </services>
+</metainfo>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_adding_forbidden="true">
+  <property>
+    <name>content</name>
+    <display-name>solr-xml template</display-name>
+    <description>This is the jinja template for Solr's solr.xml file</description>
+    <value/>
+    <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+    <value-attributes>
+      <property-file-name>solr.xml.j2</property-file-name>
+      <property-file-type>xml</property-file-type>
+      <type>content</type>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+</configuration>

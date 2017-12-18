@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_final="true">
+    <property>
+        <name>hive.metastore.metrics.enabled</name>
+        <value>true</value>
+        <value-attributes>
+            <type>boolean</type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>hive.server2.metrics.enabled</name>
+        <value>true</value>
+        <value-attributes>
+            <type>boolean</type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>hive.service.metrics.reporter</name>
+        <value>HADOOP2</value>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>hive.service.metrics.hadoop2.component</name>
+        <value>hiveserver2</value>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>hive.async.log.enabled</name>
+        <value>true</value>
+        <description>Whether to enable Log4j2's asynchronous logging. Asynchronous logging can give significant
+            performance improvement as logging will be handled in separate thread that uses LMAX disruptor queue for
+            buffering log messages. Refer https://logging.apache.org/log4j/2.x/manual/async.html for benefits and
+            drawbacks.
+        </description>
+        <value-attributes>
+            <type>boolean</type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+</configuration>

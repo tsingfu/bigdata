@@ -1,0 +1,25 @@
+{
+    "name": "default",
+    "description": "default quick links configuration",
+    "configuration": {
+        "protocol":
+        {
+            "type":"HTTP_ONLY"
+        },
+        "links": [
+            {
+                "name": "registry_ui",
+                "label": "Registry UI",
+                "requires_user_name": "false",
+                "component_name": "REGISTRY_SERVER",
+                "url":"%@://%@:%@/",
+                "port":{
+                    "http_property": "port",
+                    "http_default_port": "8080",
+                    "regex": "^(\\d+)$",
+                    "site": "registry-common"
+                }
+            }
+        ]
+    }
+}

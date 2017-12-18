@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration supports_adding_forbidden="true">
+    <property>
+        <name>app_user</name>
+        <display-name>Kafka Feeder User</display-name>
+        <value>schema-registry</value>
+        <property-type>USER</property-type>
+        <description/>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>user_group</name>
+        <display-name>Kafka Feeder User Group</display-name>
+        <value>hadoop</value>
+        <property-type>GROUP</property-type>
+        <description/>
+        <value-attributes>
+            <type>group</type>
+            <overridable>false</overridable>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>data_dir</name>
+        <value>/data/schema-registry</value>
+        <value-attributes>
+            <type>directories</type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>conf_dir</name>
+        <value>/etc/schema-registry</value>
+        <value-attributes>
+            <type>directories</type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>port</name>
+        <value>50007</value>
+        <description>
+            The port on which the server accepts client connections.
+        </description>
+        <value-attributes>
+            <type>int</type>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>kafkastore.connection.url</name>
+        <display-name>Zookeeper url for the Kafka cluster
+        <description>Will be set only if ambari can't find zookeeper service, byt it's own</description>
+        </display-name>
+        <value>Changeonlyifzookeepernotfind</value>
+        <on-ambari-upgrade add="false"/>
+    </property>
+</configuration>

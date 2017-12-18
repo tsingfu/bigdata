@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>OPENLDAP</name>
+            <displayName>OpenLDAP</displayName>
+            <comment>OpenLDAP is the free, open source implementation of the Lightweight Directory Access Protocol (LDAP) developed by the OpenLDAP Project</comment>
+            <version>1.0.0</version>
+            <components>
+                <component>
+                  <name>OPENLDAP_MASTER</name>
+                  <displayName>OpenLDAP</displayName>
+                  <category>MASTER</category>
+                  <cardinality>3+</cardinality>
+                  <commandScript>
+                    <script>scripts/master.py</script>
+                    <scriptType>PYTHON</scriptType>
+                    <timeout>5000</timeout>
+                  </commandScript>
+                </component>
+            </components>
+            <osSpecifics>
+              <osSpecific>
+                <osFamily>any</osFamily>
+                <packages>
+                   <package><name>openldap-servers</name></package>  
+                   <package><name>openldap-clients</name></package>  
+                   <package><name>krb5-server-ldap</name></package>                           
+                </packages>
+              </osSpecific>
+            </osSpecifics>
+      	    <configuration-dependencies>
+        	<config-type>openldap-config</config-type>
+      	    </configuration-dependencies>
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
+
+            <quickLinksConfigurations>
+                <quickLinksConfiguration>
+                    <fileName>quicklinks.json</fileName>
+                    <default>true</default>
+                </quickLinksConfiguration>
+            </quickLinksConfigurations>
+
+        </service>
+    </services>
+</metainfo>
