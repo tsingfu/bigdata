@@ -13,6 +13,9 @@ fi
 
 ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
 
+sed -i -e 's/-Xmx2048m/-Xmx32g/g' /var/lib/ambari-server/ambari-env.sh
+sed -i -e 's/-Xms512m/-Xmx32g/g' /var/lib/ambari-server/ambari-env.sh
+
 wget http://yum.example.com/hadoop/XM.zip -O /tmp/XM.zip
 cd /var/lib/ambari-server/resources/stacks &&sudo rm -rf HDP && unzip /tmp/XM.zip && rm -rf /tmp/XM.zip
 cp /var/lib/ambari-server/resources/stacks/XM/stack_advisor.py /var/lib/ambari-server/resources/stacks/stack_advisor.py
