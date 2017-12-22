@@ -144,67 +144,73 @@
         <on-ambari-upgrade add="false"/>
     </property>
 
-    <!-- JavaOpts Tune GC related configs here-->
-    <property>
-        <name>druid.broker.jvm.opts</name>
-        <value>-Duser.timezone=UTC</value>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid.coordinator.jvm.opts</name>
-        <value>-Duser.timezone=UTC</value>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid.middlemanager.jvm.opts</name>
-        <value>-Duser.timezone=UTC</value>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid.historical.jvm.opts</name>
-        <value>-Duser.timezone=UTC</value>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid.overlord.jvm.opts</name>
-        <value>-Duser.timezone=UTC</value>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid.router.jvm.opts</name>
-        <value>-Duser.timezone=UTC</value>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid_user</name>
-        <display-name>Druid User</display-name>
-        <value>druid</value>
-        <property-type>USER</property-type>
-        <description></description>
-        <value-attributes>
-            <type>user</type>
-            <overridable>false</overridable>
-        </value-attributes>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid_log_dir</name>
-        <value>/data1/druidio/logs/jvm</value>
-        <description></description>
-        <on-ambari-upgrade add="false"/>
-    </property>
-    <property>
-        <name>druid_pid_dir</name>
-        <value>/var/run/druid</value>
-        <display-name>Druid PID dir</display-name>
-        <description></description>
-        <value-attributes>
-            <type>directory</type>
-            <editable-only-at-install>true</editable-only-at-install>
-            <overridable>false</overridable>
-        </value-attributes>
-        <on-ambari-upgrade add="false"/>
-    </property>
+  <!-- JavaOpts Tune GC related configs here-->
+  <property>
+    <name>druid.broker.jvm.opts</name>
+    <value>-Duser.timezone=UTC -Dfile.encoding=UTF-8</value>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.coordinator.jvm.opts</name>
+    <value>-Duser.timezone=UTC -Dfile.encoding=UTF-8</value>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.middlemanager.jvm.opts</name>
+    <value>-Duser.timezone=UTC -Dfile.encoding=UTF-8</value>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.historical.jvm.opts</name>
+    <value>-Duser.timezone=UTC -Dfile.encoding=UTF-8</value>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.overlord.jvm.opts</name>
+    <value>-Duser.timezone=UTC -Dfile.encoding=UTF-8</value>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid.router.jvm.opts</name>
+    <value>-Duser.timezone=UTC -Dfile.encoding=UTF-8</value>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid_user</name>
+    <display-name>Druid User</display-name>
+    <value>druid</value>
+    <property-type>USER</property-type>
+    <description></description>
+    <value-attributes>
+      <type>user</type>
+      <overridable>false</overridable>
+      <user-groups>
+        <property>
+          <type>cluster-env</type>
+          <name>user_group</name>
+        </property>
+      </user-groups>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid_log_dir</name>
+    <value>/var/log/druid</value>
+    <description></description>
+    <on-ambari-upgrade add="false"/>
+  </property>
+  <property>
+    <name>druid_pid_dir</name>
+    <value>/var/run/druid</value>
+    <display-name>Druid PID dir</display-name>
+    <description></description>
+    <value-attributes>
+      <type>directory</type>
+      <editable-only-at-install>true</editable-only-at-install>
+      <overridable>false</overridable>
+    </value-attributes>
+    <on-ambari-upgrade add="false"/>
+  </property>
 
     <!-- druid-env.sh -->
     <property>
@@ -266,7 +272,6 @@
                     fi
                 fi
 
-                #nohup java `cat conf/druid/$nodeType/jvm.config | xargs` -cp conf/druid/_common:conf/druid/$nodeType:lib/* io.druid.cli.Main server $nodeType > log/$nodeType.log &
                 nohup java `cat /opt/druid/conf/druid/$nodeType/jvm.config | xargs` -cp /opt/druid/conf/druid/_common:/etc/hadoop:/opt/druid/conf/druid/$nodeType:/opt/druid/lib/* io.druid.cli.Main server $nodeType > $DRUID_LOG_DIR/$nodeType.log&
                 nodeType_PID=$!
                 echo $nodeType_PID > $pid

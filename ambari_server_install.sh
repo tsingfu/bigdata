@@ -28,4 +28,6 @@ chkconfig ambari-server on
 
 ambari-server start
 
+#sed -i "s/yum.example.com/assets.example.com/g"  `grep yum.example.com -rl .`
+
 #/usr/sbin/authconfig --enablekrb5 --enableshadow --useshadow --enablelocauthorize --enableldap --enableldapauth --ldapserver="ldap://XM-eagle-32-137.example.com/ ldap://XM-eagle-32-138.example.com/" --ldapbasedn="dc=example,dc=com" --update

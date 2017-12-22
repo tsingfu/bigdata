@@ -22,7 +22,7 @@
       <name>DRUID</name>
       <displayName>Druid</displayName>
       <comment>A fast column-oriented distributed data store.</comment>
-      <version>1.0.0</version>
+      <version>0.10.1</version>
       <components>
         <component>
           <name>DRUID_COORDINATOR</name>
@@ -100,7 +100,7 @@
           <name>DRUID_BROKER</name>
           <displayName>Druid Broker</displayName>
           <category>MASTER</category>
-          <cardinality>0+</cardinality>
+          <cardinality>1+</cardinality>
           <versionAdvertised>true</versionAdvertised>
           <dependencies>
             <dependency>
@@ -168,23 +168,6 @@
             <config-type>druid-router</config-type>
           </configuration-dependencies>
         </component>
-        <!--
-        <component>
-          <name>DRUID_SUPERSET</name>
-          <displayName>Druid Superset</displayName>
-          <category>MASTER</category>
-          <cardinality>0+</cardinality>
-          <versionAdvertised>true</versionAdvertised>
-          <commandScript>
-            <script>scripts/superset.py</script>
-            <scriptType>PYTHON</scriptType>
-            <timeout>600</timeout>
-          </commandScript>
-          <configuration-dependencies>
-            <config-type>druid-superset</config-type>
-          </configuration-dependencies>
-        </component>
-        -->
       </components>
 
       <themes>

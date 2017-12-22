@@ -29,10 +29,6 @@ from resource_management.core.logger import Logger
 
 def install_druid(first=False):
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.druid_conf_dir)
     print "install dir:" + params.install_dir
     Directory(
         [params.druid_conf_dir],

@@ -15,7 +15,7 @@
   </property>
   <property>
     <name>druid.extensions.loadList</name>
-    <value>["mysql-metadata-storage","druid-kafka-indexing-service","druid-hdfs-storage", "druid-lucene-extensions","druid-orc-extensions"]
+    <value>["mysql-metadata-storage","druid-kafka-indexing-service","druid-hdfs-storage","druid-orc-extensions"]
     </value>
     <depends-on>
       <property>
@@ -180,7 +180,7 @@
   </property>
   <property require-input="true">
     <name>druid.metadata.storage.connector.connectURI</name>
-    <value>jdbc:mysql://10.3.140.121:3306/druid</value>
+    <value>jdbc:mysql://127.0.0.1:3306/druid</value>
     <display-name>Metadata storage connector url</display-name>
     <description>Metadata storage connector url</description>
     <on-ambari-upgrade add="false"/>
