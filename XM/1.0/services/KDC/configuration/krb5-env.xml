@@ -19,6 +19,8 @@
  ticket_lifetime = 24h
  renew_lifetime = 7d
  forwardable = true
+ rdns = false
+ allow_weak_crypto = true
 
 [domain_realm]
  .{{kdc_domain}} = {{kdc_realm}}

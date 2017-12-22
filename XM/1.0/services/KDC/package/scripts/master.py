@@ -1,5 +1,4 @@
 # encoding=utf8
-import sys, os, pwd, signal, time
 from resource_management import *
 from resource_management.core.resources.system import Directory, Execute, File
 from resource_management.core.source import InlineTemplate, Template
@@ -25,6 +24,7 @@ def turn_on_maintenance():
 def kdc_nginx_conf():
     import params
     kdc_hosts = params.kdc_hosts
+    upstream = ''
     for kdc_host in kdc_hosts:
         upstream += 'server ' + kdc_host + ':88;\n        '
 
@@ -119,10 +119,11 @@ class Master(Script):
 
         Execute('echo "*/admin@' + params.kdc_realm +
                 ' *" > /var/kerberos/krb5kdc/kadm5.acl')
+        Execute("echo 'KRB5KDC_ARGS= -w 64'> /etc/sysconfig/krb5kdc")
         Execute('yum install -y nginx')
         kdc_nginx_conf()
         Execute('chkconfig nginx on')
-	Execute('service nginx start')        
+        Execute('service nginx start')
 
     def configure(self, env):
         import params
