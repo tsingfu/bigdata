@@ -13,7 +13,7 @@
   </property>
   <property>
     <name>nimbus.childopts</name>
-    <value>-Xmx1024m _JAAS_PLACEHOLDER -javaagent:/opt/storm/lib/jmxetric-1.0.4.jar=host=localhost,port=8649,wireformat31x=true,mode=multicast,config=/etc/storm/jmxetric-conf.xml,process=Nimbus_JVM</value>
+    <value>-Xmx8192m _JAAS_PLACEHOLDER -javaagent:/opt/storm/lib/jmxetric-1.0.4.jar=host=localhost,port=8649,wireformat31x=true,mode=multicast,config=/etc/storm/jmxetric-conf.xml,process=Nimbus_JVM</value>
     <description>This parameter is used by the storm-deploy project to configure the jvm options for the nimbus daemon.</description>
     <value-attributes>
       <overridable>false</overridable>
@@ -638,13 +638,13 @@
   </property>
   <property>
     <name>topology.executor.receive.buffer.size</name>
-    <value>1024</value>
+    <value>8192</value>
     <description>The size of the Disruptor receive queue for each executor. Must be a power of 2.</description>
     <on-ambari-upgrade add="true"/>
   </property>
   <property>
     <name>topology.executor.send.buffer.size</name>
-    <value>1024</value>
+    <value>8192</value>
     <description>The size of the Disruptor send queue for each executor. Must be a power of 2.</description>
     <on-ambari-upgrade add="true"/>
   </property>
@@ -657,7 +657,7 @@
   </property>
   <property>
     <name>topology.transfer.buffer.size</name>
-    <value>1024</value>
+    <value>8192</value>
     <description>The size of the Disruptor transfer queue for each worker.</description>
     <on-ambari-upgrade add="true"/>
   </property>
@@ -684,7 +684,7 @@
   </property>
   <property>
     <name>topology.executor.send.buffer.size</name>
-    <value>1024</value>
+    <value>8192</value>
     <description>The size of the Disruptor send queue for each executor. Must be a power of 2.</description>
     <on-ambari-upgrade add="true"/>
   </property>
@@ -697,7 +697,7 @@
   </property>
   <property>
     <name>topology.transfer.buffer.size</name>
-    <value>1024</value>
+    <value>8192</value>
     <description>The size of the Disruptor transfer queue for each worker.</description>
     <on-ambari-upgrade add="true"/>
   </property>
