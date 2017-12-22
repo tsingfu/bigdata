@@ -521,47 +521,6 @@
     </depends-on>
     <on-ambari-upgrade add="true"/>
   </property>
-  <property>
-    <name>yarn.nodemanager.linux-container-executor.group</name>
-    <value>yarn</value>
-    <description>Unix group of the NodeManager</description>
-    <depends-on>
-      <property>
-        <type>yarn-env</type>
-        <name>yarn_cgroups_enabled</name>
-      </property>
-      <property>
-        <type>cluster-env</type>
-        <name>user_group</name>
-      </property>
-    </depends-on>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>yarn.resourcemanager.scheduler.monitor.enable</name>
-    <description>
-      Enable a set of periodic monitors (specified in
-      yarn.resourcemanager.scheduler.monitor.policies) that affect the
-      scheduler.
-    </description>
-    <value>false</value>
-    <display-name>Pre-emption</display-name>
-    <value-attributes>
-      <type>value-list</type>
-      <entries>
-        <entry>
-          <value>true</value>
-          <label>Enabled</label>
-        </entry>
-        <entry>
-          <value>false</value>
-          <label>Disabled</label>
-        </entry>
-      </entries>
-      <selection-cardinality>1</selection-cardinality>
-    </value-attributes>
-    <on-ambari-upgrade add="true"/>
-  </property>
 
   <!-- ResourceManager -->
   <property>

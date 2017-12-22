@@ -116,7 +116,7 @@
   </property>
   <property>
     <name>spark.dynamicAllocation.initialExecutors</name>
-    <value>0</value>
+    <value>1</value>
     <description>
       Initial number of executors to run if dynamic allocation is enabled.
     </description>
@@ -124,7 +124,7 @@
   </property>
   <property>
     <name>spark.dynamicAllocation.maxExecutors</name>
-    <value>10</value>
+    <value>1000</value>
     <description>
       Upper bound for the number of executors if dynamic allocation is enabled.
     </description>
@@ -132,7 +132,7 @@
   </property>
   <property>
     <name>spark.dynamicAllocation.minExecutors</name>
-    <value>0</value>
+    <value>1</value>
     <description>
       Lower bound for the number of executors if dynamic allocation is enabled.
     </description>

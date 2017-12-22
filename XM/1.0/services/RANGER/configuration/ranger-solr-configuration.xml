@@ -24,7 +24,7 @@
     <name>ranger_audit_max_retention_days</name>
     <display-name>Max Retention Days</display-name>
     <description>Days to retain audit logs in Solr</description>
-    <value>90</value>
+    <value>30</value>
     <value-attributes>
       <type>int</type>
     </value-attributes>

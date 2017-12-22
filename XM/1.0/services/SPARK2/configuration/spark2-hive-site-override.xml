@@ -3,7 +3,7 @@
 <configuration supports_final="true">
   <property>
     <name>hive.server2.enable.doAs</name>
-    <value>false</value>
+    <value>true</value>
     <description>
       Disable impersonation in Hive Server 2.
     </description>

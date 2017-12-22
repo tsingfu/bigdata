@@ -72,7 +72,7 @@
   </property>
   <property>
     <name>metrics_collector_heapsize</name>
-    <value>512</value>
+    <value>12288</value>
     <description>Metrics Collector Heap Size</description>
     <value-attributes>
       <type>int</type>

@@ -28,7 +28,7 @@
     <value-attributes>
       <type>int</type>
       <minimum>1</minimum>
-      <maximum>1000</maximum>
+      <maximum>256</maximum>
       <unit>int</unit>
       <increment-step>1</increment-step>
     </value-attributes>
@@ -56,7 +56,7 @@
     <value-attributes>
       <type>int</type>
       <minimum>1</minimum>
-      <maximum>1000</maximum>
+      <maximum>256</maximum>
       <unit>int</unit>
       <increment-step>1</increment-step>
     </value-attributes>

@@ -95,7 +95,7 @@
   </property>
   <property>
     <name>spark.hadoop.yarn.timeline-service.enabled</name>
-    <value>false</value>
+    <value>true</value>
     <description>disable the YARN Timeline Service in spark-defaults.conf</description>
     <on-ambari-upgrade add="true"/>
   </property>

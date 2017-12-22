@@ -861,20 +861,6 @@
     <description>The port for the HBase Master web UI.</description>
     <on-ambari-upgrade add="true"/>
   </property>
-  <!--
-  <property>
-    <name>hbase.regionserver.port</name>
-    <value>16020</value>
-    <description>The port the HBase RegionServer binds to.</description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>hbase.regionserver.info.port</name>
-    <value>16030</value>
-    <description>The port for the HBase RegionServer web UI.</description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  -->
   <property>
     <name>hbase.regionserver.global.memstore.lowerLimit</name>
     <value>0.38</value>
@@ -884,7 +870,7 @@
 
   <property>
     <name>hbase.master.ui.readonly</name>
-    <value>false</value>
+    <value>true</value>
     <on-ambari-upgrade add="true"/>
   </property>
   <property>

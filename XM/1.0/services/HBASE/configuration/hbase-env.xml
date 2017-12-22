@@ -622,7 +622,7 @@ exit $?
 
   <property>
     <name>hbase_regionserver_xmn_max</name>
-    <value>4000</value>
+    <value>4096</value>
     <description>
       Sets the upper bound on HBase RegionServers' young generation size.
       This value is used in case the young generation size (-Xmn) calculated based on the max heapsize (hbase_regionserver_heapsize)

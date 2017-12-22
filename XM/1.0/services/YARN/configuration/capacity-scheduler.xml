@@ -162,9 +162,6 @@
     <on-ambari-upgrade add="false"/>
   </property>
 
-  <!-- In HDP 2.3, yarn.scheduler.capacity.root.default-node-label-expression was deleted -->
-
-  <!-- These configs were inherited from HDP 2.5 -->
   <property>
     <name>capacity-scheduler</name>
     <description>Enter key=value (one per line) for all properties of capacity-scheduler.xml</description>
