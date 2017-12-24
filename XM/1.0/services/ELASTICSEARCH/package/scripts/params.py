@@ -24,7 +24,7 @@ elastic_env_sh_template = config['configurations']['elastic-env']['content']
 sysconfig_template = config['configurations']['elastic-sysconfig']['content']
 
 master_content = config['configurations']['elastic-env']['master_content']
-slave_content = config['configurations']['elastic-env']['slave_content']
+data_content = config['configurations']['elastic-env']['data_content']
 tribe_content = config['configurations']['elastic-env']['tribe_content']
 client_content = config['configurations']['elastic-env']['client_content']
 
@@ -34,7 +34,7 @@ cluster_name = config['configurations']['elastic-env']['cluster_name']
 zen_discovery_ping_unicast_hosts = config['configurations']['elastic-env']['zen_discovery_ping_unicast_hosts']
 
 from resource_management.libraries.functions import default
-data_hosts= default("/clusterHostInfo/es_slave_hosts", [])
+data_hosts= default("/clusterHostInfo/es_data_hosts", [])
 master_hosts= default("/clusterHostInfo/es_master_hosts", [])
 client_hosts= default("/clusterHostInfo/es_client_hosts", [])
 tribe_hosts= default("/clusterHostInfo/es_tribe_hosts", [])

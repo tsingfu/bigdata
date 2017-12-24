@@ -20,7 +20,7 @@
                     </commandScript>
                 </component>
                 <component>
-                    <name>ES_SLAVE</name>
+                    <name>ES_DATA</name>
                     <displayName>ES Data Node</displayName>
                     <category>SLAVE</category>
                     <cardinality>0+</cardinality>
@@ -70,7 +70,6 @@
             </commandScript>
             <configuration-dependencies>
                 <config-type>elastic-env</config-type>
-                <config-type>elastic-site</config-type>
                 <config-type>elastic-sysconfig</config-type>
             </configuration-dependencies>
             <restartRequiredAfterChange>true</restartRequiredAfterChange>

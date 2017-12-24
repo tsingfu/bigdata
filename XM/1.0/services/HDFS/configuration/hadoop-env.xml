@@ -389,7 +389,7 @@
       # Makes sense to fix only when runing DN as root
       if [ "$command" == "datanode" ] &amp;&amp; [ "$EUID" -eq 0 ] &amp;&amp; [ -n "$HADOOP_SECURE_DN_USER" ]; then
       ulimit -l {{datanode_max_locked_memory}}
-      ulimit -n 128000
+      ulimit -n 1280000
       fi
       {% endif %}
 

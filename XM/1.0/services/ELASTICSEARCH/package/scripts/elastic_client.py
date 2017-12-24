@@ -23,14 +23,12 @@ def elastic():
               group=params.elastic_group
               )
 
-    print "Master env: ""{0}/elastic-env.sh".format(params.conf_dir)
     File("{0}/elastic-env.sh".format(params.conf_dir),
          owner=params.elastic_user,
          group=params.elastic_group,
          content=InlineTemplate(params.elastic_env_sh_template)
          )
 
-    print "Tribe yml: ""{0}/elasticsearch.yml".format(params.conf_dir)
     File(format(params.conf_dir + "/elasticsearch.yml"),
          content=InlineTemplate(params.client_content),
          mode=0755,
@@ -45,7 +43,6 @@ def elastic():
          group=params.elastic_group
          )
 
-    print "sysconfig: /etc/sysconfig/elasticsearch"
     File("/etc/sysconfig/elasticsearch",
          owner=params.elastic_user,
          group=params.elastic_group,
@@ -73,7 +70,6 @@ class Elasticsearch(Script):
         import params
         env.set_params(params)
         stop_cmd = "source " + params.conf_dir + "/elastic-env.sh;service elasticsearch stop"
-        print 'Stop the Tribe'
         Execute(stop_cmd)
 
     def start(self, env, upgrade_type=None):
@@ -82,19 +78,18 @@ class Elasticsearch(Script):
 
         self.configure(env)
         start_cmd = "source " + params.conf_dir + "/elastic-env.sh;service elasticsearch start"
-        print 'Start the Tribe'
         Execute(start_cmd)
 
     def status(self, env):
         from resource_management.libraries.functions.check_process_status import check_process_status
-        check_process_status('/var/run/elasticsearch/elasticsearch.pid')
+        import status_params
+        check_process_status(status_params.elastic_pid_file)
 
     def restart(self, env):
         import params
         env.set_params(params)
         self.configure(env)
         restart_cmd = "source " + params.conf_dir + "/elastic-env.sh;service elasticsearch restart"
-        print 'Restarting the Tribe'
         Execute(restart_cmd)
 
 

@@ -31,7 +31,7 @@ def slave():
          )
 
     File(format(params.conf_dir + "/elasticsearch.yml"),
-         content=InlineTemplate(params.slave_content),
+         content=InlineTemplate(params.data_content),
          mode=0755,
          owner=params.elastic_user,
          group=params.elastic_group
@@ -42,7 +42,6 @@ def slave():
          owner=params.elastic_user,
          group=params.elastic_group
          )
-    print "sysconfig: /etc/sysconfig/elasticsearch"
     File(format("/etc/sysconfig/elasticsearch"),
          owner=params.elastic_user,
          group=params.elastic_group,
@@ -69,7 +68,6 @@ class Elasticsearch(Script):
         import params
         env.set_params(params)
         stop_cmd = "source " + params.conf_dir + "/elastic-env.sh;service elasticsearch stop"
-        print 'Stop the Slave'
         Execute(stop_cmd)
 
     def start(self, env, upgrade_type=None):
@@ -77,18 +75,17 @@ class Elasticsearch(Script):
         env.set_params(params)
         self.configure(env)
         start_cmd = "source " + params.conf_dir + "/elastic-env.sh;service elasticsearch start"
-        print 'Start the Slave'
         Execute(start_cmd)
 
     def status(self, env):
-        check_process_status('/var/run/elasticsearch/elasticsearch.pid')
+        import status_params
+        check_process_status(status_params.elastic_pid_file)
 
     def restart(self, env):
         import params
         env.set_params(params)
         self.configure(env)
         restart_cmd = "source " + params.conf_dir + "/elastic-env.sh;service elasticsearch restart"
-        print 'Restarting the Slave'
         Execute(restart_cmd)
 
 

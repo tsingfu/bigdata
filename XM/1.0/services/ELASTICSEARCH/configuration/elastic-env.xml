@@ -65,20 +65,20 @@
         <value/>
         <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
         <value-attributes>
-            <property-file-name>elasticsearch.master.yaml.j2</property-file-name>
+            <property-file-name>master.yaml.j2</property-file-name>
             <property-file-type>text</property-file-type>
         </value-attributes>
         <on-ambari-upgrade add="false"/>
     </property>
 
     <property>
-        <name>slave_content</name>
-        <display-name>slave template</display-name>
-        <description>This is the jinja template for slave elasticsearch.yaml file</description>
+        <name>data_content</name>
+        <display-name>data template</display-name>
+        <description>This is the jinja template for data elasticsearch.yaml file</description>
         <value/>
         <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
         <value-attributes>
-            <property-file-name>elasticsearch.slave.yaml.j2</property-file-name>
+            <property-file-name>data.yaml.j2</property-file-name>
             <property-file-type>text</property-file-type>
         </value-attributes>
         <on-ambari-upgrade add="false"/>
@@ -91,7 +91,7 @@
         <value/>
         <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
         <value-attributes>
-            <property-file-name>elasticsearch.tribe.yaml.j2</property-file-name>
+            <property-file-name>tribe.yaml.j2</property-file-name>
             <property-file-type>text</property-file-type>
         </value-attributes>
         <on-ambari-upgrade add="false"/>
@@ -104,7 +104,7 @@
         <value/>
         <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
         <value-attributes>
-            <property-file-name>elasticsearch.client.yaml.j2</property-file-name>
+            <property-file-name>client.yaml.j2</property-file-name>
             <property-file-type>text</property-file-type>
         </value-attributes>
         <on-ambari-upgrade add="false"/>
