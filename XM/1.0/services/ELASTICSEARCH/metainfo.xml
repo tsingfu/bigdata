@@ -6,7 +6,7 @@
             <name>ELASTICSEARCH</name>
             <displayName>Elasticsearch</displayName>
             <comment>Indexing and Search</comment>
-            <version>6.0</version>
+            <version>6.1</version>
             <components>
                 <component>
                     <name>ES_MASTER</name>
@@ -26,17 +26,6 @@
                     <cardinality>0+</cardinality>
                     <commandScript>
                         <script>scripts/elastic_slave.py</script>
-                        <scriptType>PYTHON</scriptType>
-                        <timeout>600</timeout>
-                    </commandScript>
-                </component>
-                <component>
-                    <name>ES_TRIBE</name>
-                    <displayName>ES Tribe Node</displayName>
-                    <category>SLAVE</category>
-                    <cardinality>0+</cardinality>
-                    <commandScript>
-                        <script>scripts/elastic_tribe.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>600</timeout>
                     </commandScript>

@@ -85,22 +85,9 @@
     </property>
 
     <property>
-        <name>tribe_content</name>
-        <display-name>tribe template</display-name>
-        <description>This is the jinja template for tribe elasticsearch.yaml file</description>
-        <value/>
-        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
-        <value-attributes>
-            <property-file-name>tribe.yaml.j2</property-file-name>
-            <property-file-type>text</property-file-type>
-        </value-attributes>
-        <on-ambari-upgrade add="false"/>
-    </property>
-
-    <property>
         <name>client_content</name>
-        <display-name>tribe template</display-name>
-        <description>This is the jinja template for tribe elasticsearch.yaml file</description>
+        <display-name>client template</display-name>
+        <description>This is the jinja template for client elasticsearch.yaml file</description>
         <value/>
         <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
         <value-attributes>
