@@ -7,10 +7,6 @@ import os
 
 def install_opentsdb(first=False):
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     Directory(
         [params.conf_dir, params.opentsdb_pid_dir, params.opentsdb_log_dir],
         owner=params.opentsdb_user,

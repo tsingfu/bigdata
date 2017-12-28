@@ -1,0 +1,23 @@
+{
+  "name": "default",
+  "description": "default quick links configuration",
+  "configuration": {
+    "protocol": {
+      "type": "HTTP_ONLY"
+    },
+    "links": [
+      {
+        "name": "xlearning",
+        "label": "xlearning History UI",
+        "requires_user_name": "false",
+        "component_name": "XLEARNING_HISTORY",
+        "url": "%@://%@:%@",
+        "port": {
+          "http_default_port": "19886",
+          "https_default_port": "19886",
+          "regex": "^(\\d+)$"
+        }
+      }
+    ]
+  }
+}

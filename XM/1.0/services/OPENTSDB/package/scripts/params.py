@@ -13,7 +13,7 @@ conf_dir = '/etc/opentsdb'
 opentsdb_user = opentsdb_group = config['configurations']['opentsdb-env']['opentsdb_user']
 opentsdb_log_dir = config['configurations']['opentsdb-env']['opentsdb_log_dir']
 
-opentsdb_principal = default('configurations/opentsdb-env/opentsdb_principal', 'airflow')
+opentsdb_principal = default('configurations/opentsdb-env/opentsdb_principal', 'opentsdb')
 opentsdb_keytab = default('configurations/opentsdb-env/opentsdb_keytab', '')
 
 opentsdb_pid_dir = config['configurations']['opentsdb-env']['opentsdb_pid_dir']
@@ -35,19 +35,6 @@ opentsdb_hosts = default('clusterHostInfo/opentsdb_master_hosts', [])
 opentsdb_hosts = sorted(opentsdb_hosts)
 opentsdb_hosts_dict = {}
 hostname = config['hostname']
-for k, item in enumerate(opentsdb_hosts):
-    opentsdb_hosts_dict.update({item: k})
-
-tree_table_default = 'tsdb-tree'
-meta_table_default = 'tsdb-meta'
-data_table_default = 'tsdb'
-uid_table_default = 'tsdb-uid'
-
-data_table = data_table_default #+ '.instance' + str(opentsdb_hosts_dict.get(hostname))
-uid_table = uid_table_default #+ '.instance' + str(opentsdb_hosts_dict.get(hostname))
-tree_table = tree_table_default #+ '.instance' + str(opentsdb_hosts_dict.get(hostname))
-meta_table = meta_table_default #+ '.instance' + str(opentsdb_hosts_dict.get(hostname))
-
 
 if security_enabled:
     _hostname_lowercase = config['hostname'].lower()

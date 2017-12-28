@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<metainfo>
+    <schemaVersion>2.0</schemaVersion>
+    <services>
+        <service>
+            <name>XLEARNING</name>
+            <displayName>XLEARNING</displayName>
+            <comment>AI on Hadoop  https://github.com/Qihoo360/XLearning
+            </comment>
+            <version>1.0</version>
+            <components>
+                <component>
+                    <name>XLEARNING_HISTORY</name>
+                    <displayName>XLearning History Server</displayName>
+                    <category>MASTER</category>
+                    <cardinality>1</cardinality>
+                    <dependencies>
+                        <dependency>
+                            <name>HDFS/HDFS_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                    <commandScript>
+                        <script>scripts/xlearning.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>5000</timeout>
+                    </commandScript>
+                </component>
+                <component>
+                    <name>XLEARNING_CLIENT</name>
+                    <displayName>XLearning Client</displayName>
+                    <category>CLIENT</category>
+                    <cardinality>1+</cardinality>
+                    <dependencies>
+                        <dependency>
+                            <name>HDFS/HDFS_CLIENT</name>
+                            <scope>host</scope>
+                            <auto-deploy>
+                                <enabled>true</enabled>
+                            </auto-deploy>
+                        </dependency>
+                    </dependencies>
+                    <commandScript>
+                        <script>scripts/client.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>5000</timeout>
+                    </commandScript>
+                </component>
+            </components>
+
+            <configuration-dependencies>
+                <config-type>xlearning-env</config-type>
+                <config-type>xlearning-site</config-type>
+            </configuration-dependencies>
+
+            <quickLinksConfigurations>
+                <quickLinksConfiguration>
+                    <fileName>quicklinks.json</fileName>
+                    <default>true</default>
+                </quickLinksConfiguration>
+            </quickLinksConfigurations>
+
+            <restartRequiredAfterChange>false</restartRequiredAfterChange>
+        </service>
+    </services>
+</metainfo>

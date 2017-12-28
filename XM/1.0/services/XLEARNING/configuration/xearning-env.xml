@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property require-input="true">
+        <name>install_dir</name>
+        <value>/opt/xlearning</value>
+        <description>安装目录</description>
+    </property>
+
+    <property require-input="true">
+        <name>download_url</name>
+        <value>http://yum.example.com/hadoop/xlearning-1.0.tar.gz</value>
+        <description>下载路径</description>
+    </property>
+
+    <property>
+        <name>xlearning_pid_dir</name>
+        <value>/var/run/xlearning</value>
+        <description>Process ID Directory</description>
+    </property>
+
+    <property>
+        <name>xlearning_log_dir</name>
+        <value>/var/log/xlearning</value>
+        <description>XLearning Log Dir</description>
+    </property>
+
+    <property>
+        <name>xlearning_user</name>
+        <value>xlearning</value>
+        <property-type>USER</property-type>
+        <description>User XLearning daemon runs as</description>
+    </property>
+
+    <property>
+        <name>xlearning_principal</name>
+        <description>Kerberos principal name for the xlearning.</description>
+        <property-type>KERBEROS_PRINCIPAL</property-type>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>xlearning_keytab</name>
+        <description>Location of the kerberos keytab file for the xlearning.</description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+    <property>
+        <name>env_content</name>
+        <display-name>XLearning env template</display-name>
+        <description>XLearning env template</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>xlearning-env.sh</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+    <property>
+        <name>log_content</name>
+        <display-name>log4j.properties template</display-name>
+        <description>log4j.properties template</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>log4j.properties</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+    <property>
+        <name>jaas_content</name>
+        <display-name>xlearning jaas template</display-name>
+        <description>xlearning jaas template</description>
+        <value/>
+        <property-type>VALUE_FROM_PROPERTY_FILE</property-type>
+        <value-attributes>
+            <property-file-name>xlearning_jaas.conf</property-file-name>
+            <property-file-type>text</property-file-type>
+        </value-attributes>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+</configuration>  

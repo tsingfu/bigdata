@@ -1,0 +1,35 @@
+{
+  "services": [
+    {
+      "name": "XLEARNING",
+      "components": [
+        {
+          "name": "XLEARNING_HISTORY",
+          "identities": [
+            {
+              "name": "xlearning_user",
+              "principal": {
+                "value": "${xlearning-env/xlearning_user}/_HOST@${realm}",
+                "type": "user",
+                "configuration": "xlearning-env/xlearning_principal",
+                "local_username": "${xlearning-env/xlearning_user}"
+              },
+              "keytab": {
+                "file": "${keytab_dir}/xlearning_keytab",
+                "owner": {
+                  "name": "${xlearning-env/xlearning_user}",
+                  "access": "r"
+                },
+                "group": {
+                  "name": "${cluster-env/user_group}",
+                  "access": ""
+                },
+                "configuration": "xlearning-env/xlearning_keytab"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
