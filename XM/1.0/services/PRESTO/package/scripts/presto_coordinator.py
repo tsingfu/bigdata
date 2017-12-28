@@ -98,11 +98,27 @@ class Coordinator(Script):
             f.write(key_val_template.format('coordinator', 'true'))
             f.write(key_val_template.format('discovery-server.enabled', 'true'))
 
+        security_list = []
+        security = ''
+        if params.security_enabled:
+            security_list.append("'hive.metastore.authentication.type=KERBEROS'")
+            security_list.append("'hive.metastore.service.principal=" + params.hive_metastore_principal + "'")
+            security_list.append("'hive.metastore.client.principal=" + params.presto_principal + "'")
+            security_list.append("'hive.metastore.client.keytab=" + params.presto_keytab + "'")
+            security_list.append("'hive.hdfs.authentication.type=KERBEROS'")
+            security_list.append("'hive.hdfs.impersonation.enabled=true'")
+            security_list.append("'hive.hdfs.presto.principal=" + params.presto_principal + "'")
+            security_list.append("'hive.hdfs.presto.keytab=" + params.presto_keytab + "'")
+            security = ','.join(security_list)
+
         create_connectors(node_properties, connectors_to_add)
         delete_connectors(node_properties, connectors_to_delete)
         create_connectors(node_properties,
-                          "{'hive': ['connector.name=hive-hadoop2', 'hive.metastore.uri=" + params.hive_metastore_uri + "','hive.config.resources=/etc/hadoop/core-site.xml,/etc/hadoop/hdfs-site.xml','hive.allow-drop-table=true']}")
+                          "{'hive': ['connector.name=hive-hadoop2', 'hive.metastore.uri=" + params.hive_metastore_uri + "','hive.config.resources=/etc/hadoop/core-site.xml,/etc/hadoop/hdfs-site.xml','hive.allow-drop-table=true'," + security + "]}")
 
-
+        if len(params.kafka_broker_hosts) > 0:
+            create_connectors(node_properties,
+                              "{'kafka': ['connector.name=kafka', 'kafka.table-names=*','kafka.nodes=" + ','.join(
+                                  params.kafka_broker_hosts) + "']}")
 if __name__ == '__main__':
     Coordinator().execute()

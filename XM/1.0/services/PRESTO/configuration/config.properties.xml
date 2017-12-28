@@ -74,7 +74,7 @@
 
     <property require-input="true">
         <name>discovery.uri</name>
-        <value/>
+        <value>{{discovery_uri}}</value>
         <description>
             The URI to the Discovery server. Because we have enabled the embedded
             version of Discovery in the Presto coordinator, this should be the URI of

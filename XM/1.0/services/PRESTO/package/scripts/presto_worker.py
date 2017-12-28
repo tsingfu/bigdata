@@ -84,8 +84,11 @@ class Worker(Script):
         create_connectors(node_properties,
                           "{'hive': ['connector.name=hive-hadoop2', 'hive.metastore.uri=" + params.hive_metastore_uri + "','hive.config.resources=/etc/hadoop/core-site.xml,/etc/hadoop/hdfs-site.xml','hive.allow-drop-table=true'," + security + "]}")
 
-        # if len(params.kafka_broker_hosts)>0:
-        #     create_connectors(node_properties,
-        #                       "{'kafka': ['connector.name=kafka', 'kafka.table-names=*','kafka.nodes='" + ','.join(params.kafka_broker_hosts) + "]}")
+        if len(params.kafka_broker_hosts) > 0:
+            create_connectors(node_properties,
+                              "{'kafka': ['connector.name=kafka', 'kafka.table-names=*','kafka.nodes=" + ','.join(
+                                  params.kafka_broker_hosts) + "']}")
+
+
 if __name__ == '__main__':
     Worker().execute()

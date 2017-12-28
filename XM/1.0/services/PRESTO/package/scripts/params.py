@@ -12,6 +12,8 @@ config_properties = config['configurations']['config.properties']
 
 http_port = config_properties['http-server.http.port']
 
+discovery_uri = 'http://127.0.0.1' + ':' + str(http_port)
+
 presto_coordinator_host = default('clusterHostInfo/presto_coordinator_hosts',[])
 if len(presto_coordinator_host)>0:
     discovery_uri = 'http://' + presto_coordinator_host[0] + ':' + str(http_port)
