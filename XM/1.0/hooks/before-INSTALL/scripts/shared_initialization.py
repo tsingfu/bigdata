@@ -56,7 +56,7 @@ def install_packages():
     import params
     if params.host_sys_prepped:
         return
-    packages = ['unzip', 'curl', 'jdk1.8.0_144', 'openssl-devel', 'openldap-clients', 'nss-pam-ldapd', 'pam_ldap',
+    packages = ['unzip', 'curl', 'jdk', 'openssl-devel', 'openldap-clients', 'nss-pam-ldapd', 'pam_ldap',
                 'pam_krb5', 'authconfig', 'lzo', 'krb5-workstation',
                 'krb5-libs', 'libcgroup', 'lz4', 'lz4-devel', 'zstd-devel', 'libisal']  # , 'java-1.8.0-openjdk-devel']
     Package(
