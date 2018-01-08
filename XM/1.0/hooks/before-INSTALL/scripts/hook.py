@@ -135,10 +135,11 @@ class BeforeInstallHook(Hook):
         install_repos()
         install_packages()
         ldap_client_conf()
-	try:
-	    Execute('service nslcd start')
-	except Exception as e:
-	    print 'nslcd restart error'
+
+        try:
+            Execute('service nslcd start')
+        except Exception as e:
+            print 'nslcd restart error'
 
         link_libjvm()
         install_jce_policy()

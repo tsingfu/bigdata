@@ -2,7 +2,7 @@
 wget http://yum.example.com/hadoop/hadoop.repo -O /etc/yum.repos.d/hadoop.repo
 
 yum install -y ambari-server krb5-workstation
-yum install -y jdk1.8.0_144 unzip curl jdk openldap-clients nss-pam-ldapd pam_ldap pam_krb5 authconfig krb5-libs libcgroup
+yum install -y jdk unzip curl jdk openldap-clients nss-pam-ldapd pam_ldap pam_krb5 authconfig krb5-libs libcgroup
 if [ ! -f /usr/lib/ambari-server/mysql-connector-java-5.1.40-bin.jar ]; then
     wget http://yum.example.com/hadoop/mysql-connector-java-5.1.40-bin.jar -O /usr/lib/ambari-server/mysql-connector-java-5.1.40-bin.jar
 fi
