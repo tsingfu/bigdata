@@ -25,7 +25,8 @@ class Cassandra_Master(Script):
         import params
         env.set_params(params)
         stop_cmd = format("service cassandra stop")
-        start_opscenter = format("service opscenterd stop")
+        stop_opscenter = format("service opscenterd stop")
+        Execute(stop_opscenter)
         Execute(stop_cmd)
         print 'Stop the Master'
 
@@ -45,7 +46,6 @@ class Cassandra_Master(Script):
         status_cmd = format("service cassandra status")
         Execute(status_cmd)
         print 'Status of the Master'
-
 
 if __name__ == "__main__":
     Cassandra_Master().execute()

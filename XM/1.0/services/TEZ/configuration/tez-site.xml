@@ -403,7 +403,7 @@
 
     <property>
         <name>tez.use.cluster.hadoop-libs</name>
-        <value>false</value>
+        <value>true</value>
         <description>This being true implies that the deployment is relying on hadoop jars being available on the
             cluster on all nodes.
         </description>

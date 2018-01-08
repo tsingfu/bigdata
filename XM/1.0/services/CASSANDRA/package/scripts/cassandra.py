@@ -7,6 +7,10 @@ from resource_management.core.source import InlineTemplate, Template
 from resource_management.libraries.functions.format import format
 
 
+# wget http://rpm.datastax.com/community/noarch/opscenter-5.2.5-1.noarch.rpm
+# wget http://rpm.datastax.com/community/noarch/cassandra30-3.0.9-1.noarch.rpm
+# wget http://rpm.datastax.com/community/noarch/cassandra30-tools-3.0.9-1.noarch.rpm
+
 def cassandra():
     import params
 
@@ -20,6 +24,6 @@ def cassandra():
     File(
         format("{conf_dir}/cassandra.yaml"),
         content=Template(
-            "cassandra.master.yaml.j2", configurations=configurations),
+            "cassandra.yaml.j2", configurations=configurations),
         owner=params.cassandra_user,
         group=params.user_group)

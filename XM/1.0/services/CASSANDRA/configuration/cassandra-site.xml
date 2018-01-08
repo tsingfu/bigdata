@@ -378,11 +378,6 @@
 		<description></description>
 	</property>
 	<property>
-		<name>request_scheduler</name>
-		<value>org.apache.cassandra.scheduler.NoScheduler</value>
-		<description></description>
-	</property>
-	<property>
 		<name>server_encryption_options_internode_encryption</name>
 		<value>none</value>
 		<description></description>

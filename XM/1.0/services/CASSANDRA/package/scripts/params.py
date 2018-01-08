@@ -6,7 +6,7 @@ from resource_management.libraries.script.script import Script
 # server configurations
 config = Script.get_config()
 
-cassandra_home = '/etc/cassandra/'
+cassandra_home = '/usr/share/cassandra'
 cassandra_bin = '/usr/sbin/cassandra'
 cassandra_pid_dir = config['configurations']['cassandra-env'][
     'cassandra_pid_dir']
@@ -175,7 +175,5 @@ counter_cache_size_in_mb = config['configurations']['cassandra-site'][
     'counter_cache_size_in_mb']
 seed_provider_class_name = config['configurations']['cassandra-site'][
     'seed_provider_class_name']
-seed_provider_parameters_seeds = config['configurations']['cassandra-site'][
-    'seed_provider_parameters_seeds']
 index_summary_capacity_in_mb = config['configurations']['cassandra-site'][
     'index_summary_capacity_in_mb']
