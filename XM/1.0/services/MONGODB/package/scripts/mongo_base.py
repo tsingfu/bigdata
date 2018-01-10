@@ -1,7 +1,11 @@
 import os
 from time import sleep
 from resource_management import *
-import ambari_simplejson as json  # simplejson is much faster comparing to Python 2.6 json module and has the same functions set.
+import ambari_simplejson as json
+from resource_management.core.resources.system import Execute
+from resource_management.libraries.script import Script
+from resource_management.core.resources.system import File
+from resource_management.core.source import InlineTemplate
 
 
 class MongoBase(Script):
@@ -22,10 +26,10 @@ class MongoBase(Script):
     def configureMongo(self, env):
         import params
         env.set_params(params)
-        #db.conf
+        # db.conf
         mongod_db_content = InlineTemplate(params.mongod_db_content)
         File(self.db_file_path, content=mongod_db_content)
-        #config.conf
+        # config.conf
         mongod_config_content = InlineTemplate(params.mongod_config_content)
         File(self.config_file_path, content=mongod_config_content)
 

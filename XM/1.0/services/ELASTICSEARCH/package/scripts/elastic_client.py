@@ -5,7 +5,7 @@ from resource_management.core.logger import Logger
 from resource_management.core.resources.system import Directory
 from resource_management.core.resources.system import File
 from resource_management.core.source import InlineTemplate
-
+from resource_management.libraries.functions.check_process_status import check_process_status
 
 def elastic():
     import params
@@ -55,7 +55,7 @@ class Elasticsearch(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        Logger.info('Install ES Tribe Node')
+        Logger.info('Install ES Client Node')
         self.install_packages(env)
         Execute('echo "* soft nproc 8192" > /etc/security/limits.d/es.conf')
         Execute('mkdir -p /etc/sysctl.d && echo "vm.max_map_count=655360" > /etc/sysctl.d/11-es.conf ')
@@ -63,7 +63,6 @@ class Elasticsearch(Script):
     def configure(self, env, upgrade_type=None, config_dir=None):
         import params
         env.set_params(params)
-
         elastic()
 
     def stop(self, env, upgrade_type=None):
@@ -81,7 +80,6 @@ class Elasticsearch(Script):
         Execute(start_cmd)
 
     def status(self, env):
-        from resource_management.libraries.functions.check_process_status import check_process_status
         import status_params
         check_process_status(status_params.elastic_pid_file)
 

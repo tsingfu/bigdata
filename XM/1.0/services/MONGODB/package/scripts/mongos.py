@@ -17,7 +17,7 @@ class MongoMaster(MongoBase):
         import params
         env.set_params(params)
         sleep(3)
-        #waiting for mongod start
+        # waiting for mongod start
         auth_pattern = ''
         if params.auth:
             print 'add keyFile'
@@ -27,7 +27,7 @@ class MongoMaster(MongoBase):
             auth_pattern = ' --keyFile ' + keyfile_name
 
         self.configure(env)
-        #print "start mongodb"
+        # print "start mongodb"
         Execute('rm -rf /tmp/mongodb-30000.sock', logoutput=True)
         config = Script.get_config()
         nodes = config['clusterHostInfo']['mongodc_hosts']
@@ -45,12 +45,12 @@ class MongoMaster(MongoBase):
         import socket
         current_host_name = socket.getfqdn(socket.gethostname())
 
-        #Add Shards to the Cluster
+        # Add Shards to the Cluster
         shard_param = ''
 
-        #node_group = ','.join(config['clusterHostInfo']['mongodb_hosts'])
+        # node_group = ','.join(config['clusterHostInfo']['mongodb_hosts'])
 
-        #groups = node_group.split(';')
+        # groups = node_group.split(';')
         db_hosts = config['clusterHostInfo']['mongodb_hosts']
         if len(params.node_group) > 0:
             db_hosts = self.getdbhosts(db_hosts, params.node_group)
@@ -93,7 +93,7 @@ class MongoMaster(MongoBase):
         Execute(cmd, logoutput=True)
 
     def stop(self, env):
-        #no need stop
+        # no need stop
         print("stop mongos")
         import params
         params.shutdown_port = params.mongos_tcp_port
@@ -101,13 +101,13 @@ class MongoMaster(MongoBase):
         self.shutDown(env)
 
     def restart(self, env):
-        #no need restart
+        # no need restart
         print("restart")
         self.stop(env)
         self.start(env)
 
     def status(self, env):
-        #use built-in method to check status using pidfile
+        # use built-in method to check status using pidfile
         check_process_status(self.PID_FILE)
 
 

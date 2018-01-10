@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>graphite_user</name>
+        <value>graphite</value>
+        <property-type>USER</property-type>
+        <description>Service user for Graphite</description>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+    <property>
+        <name>graphite_group</name>
+        <value>graphite</value>
+        <property-type>GROUP</property-type>
+        <description>Service group for Graphite</description>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+        </value-attributes>
+    </property>
+    <property>
+        <name>graphite_log_dir</name>
+        <value>/var/log/graphite</value>
+        <description>Log directory for graphite</description>
+    </property>
+    <property>
+        <name>graphite_pid_dir</name>
+        <value>/var/run/graphite</value>
+        <description>The directory for pid files</description>
+    </property>
+
+</configuration>

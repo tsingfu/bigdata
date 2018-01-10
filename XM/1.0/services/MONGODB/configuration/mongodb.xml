@@ -2,8 +2,6 @@
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 
 <configuration supports_adding_forbidden="true">
-
-
     <property>
         <name>mongos_tcp_port</name>
         <value>30000</value>
@@ -12,10 +10,9 @@
             The Web Status page is always 1000 higher than this port number.
         </description>
     </property>
-
     <property>
         <name>db_path</name>
-        <value>/data/mongo</value>
+        <value>/data/db</value>
         <description>Path where the mongodb is stored.</description>
         <value-attributes>
             <type>directory</type>
@@ -35,92 +32,93 @@
     </property>
     <property>
         <name>mongod_db_content</name>
-        <value>systemLog:
-            destination: file
-            logAppend: true
-            path: /var/log/mongodb/mongod.log
-            # Where and how to store data.
-            storage:
-            dbPath: {{ db_path }}/shard
-            journal:
-            enabled: true
-            directoryPerDB: true
-            syncPeriodSecs: 60
-            engine: wiredTiger
-            wiredTiger:
-            engineConfig:
-            cacheSizeGB: 1
-            statisticsLogDelaySecs: 0
-            journalCompressor: snappy
-            directoryForIndexes: true
-            collectionConfig:
-            blockCompressor: snappy
-            indexConfig:
-            prefixCompression: true
-            # how the process runs
-            processManagement:
-            fork: true
-            pidFilePath: /var/run/mongodb/mongod.pid
-            # network interfaces
-            net:
-            bindIp: {{ bind_ip }}
-            #sharding:
-            # clusterRole: configsvr
-            #replication:
-            # replSetName: configReplSet
-            #security:
-            #operationProfiling:
-            #replication:
-            #sharding:
-            ## Enterprise-Only Options
-            #auditLog:
-            #snmp:
+        <value><![CDATA[
+sharding:
+   configDB: "{{ config_server }}:8000"
+systemLog:
+   destination: file
+   path: /var/log/mongodb/mongod.log
+   logAppend: true
+   logRotate: "rename"
+storage:
+   dbPath: {{ db_path }}/db
+   journal:
+      enabled: true
+   directoryPerDB: true
+   syncPeriodSecs: 60
+   engine: wiredTiger
+   wiredTiger:
+      engineConfig:
+         cacheSizeGB: 16
+         statisticsLogDelaySecs: 0
+         journalCompressor: snappy
+         directoryForIndexes: true
+      collectionConfig:
+         blockCompressor: snappy
+      indexConfig:
+         prefixCompression: true
+operationProfiling:
+   slowOpThresholdMs: 200
+   mode: slowOp
+security:
+   keyFile: /etc/mongodb/mkeyfile
+   authorization: enabled
+processManagement:
+   fork: true
+   pidFilePath: /var/run/mongodb/mongodb.pid
+net:
+   bindIp: {{ bind_ip }}
+   port: 27017
+replication:
+   oplogSizeMB: 10240
+   replSetName: rs1
+        ]]>
         </value>
         <description>This is the jinja template for mongod.conf file</description>
     </property>
     <property>
         <name>mongod_config_content</name>
-        <value>systemLog:
-            destination: file
-            logAppend: true
-            path: /var/log/mongodb/mongod.log
-            # Where and how to store data.
-            storage:
-            dbPath: {{ db_path }}/config
-            journal:
-            enabled: true
-            directoryPerDB: true
-            syncPeriodSecs: 60
-            engine: wiredTiger
-            wiredTiger:
-            engineConfig:
-            cacheSizeGB: 1
-            statisticsLogDelaySecs: 0
-            journalCompressor: snappy
-            directoryForIndexes: true
-            collectionConfig:
-            blockCompressor: snappy
-            indexConfig:
-            prefixCompression: true
-            processManagement:
-            fork: true
-            pidFilePath: /var/run/mongodb/mongod-config.pid
-
-            # network interfaces
-            net:
-            port: 20000
-            bindIp: {{ bind_ip }}
-            sharding:
-            clusterRole: configsvr
-            #replication:
-            # replSetName: configReplSet
-            #security:
-            #operationProfiling:
-            #replication:
-            #sharding:
-            ## Enterprise-Only Options
-            #auditLog:
-            #snmp:
+        <value><![CDATA[
+sharding:
+   clusterRole: configsvr
+systemLog:
+   destination: file
+   path: /var/log/mongodb/mongod.log
+   logAppend: true
+   logRotate: "rename"
+storage:
+   dbPath: {{ db_path }}/db
+   journal:
+      enabled: true
+   directoryPerDB: true
+   syncPeriodSecs: 60
+   engine: wiredTiger
+   wiredTiger:
+      engineConfig:
+         cacheSizeGB: 16
+         statisticsLogDelaySecs: 0
+         journalCompressor: snappy
+         directoryForIndexes: true
+      collectionConfig:
+         blockCompressor: snappy
+      indexConfig:
+         prefixCompression: true
+operationProfiling:
+   slowOpThresholdMs: 200
+   mode: slowOp
+security:
+   keyFile: /etc/mongodb/mkeyfile
+   authorization: enabled
+processManagement:
+   fork: true
+   pidFilePath: /var/run/mongodb/mongodb.pid
+net:
+   bindIp: {{ bind_ip }}
+   port: 27017
+replication:
+   oplogSizeMB: 10240
+   replSetName: rs1
+        ]]>
         </value>
         <description>This is the jinja template for mongod-config.conf file</description>
     </property>

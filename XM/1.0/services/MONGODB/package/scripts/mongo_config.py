@@ -1,14 +1,14 @@
-import os
-from time import sleep
 from resource_management import *
 from mongo_base import MongoBase
+from resource_management.core.resources.system import Execute
+from resource_management.libraries.functions.check_process_status import check_process_status
 
 
 class MongoMaster(MongoBase):
     PID_CONFIG_FILE = '/var/run/mongodb/mongod-config.pid'
 
     def install(self, env):
-        #no need
+        # no need
         print 'install mongodb'
 
     def configure(self, env):

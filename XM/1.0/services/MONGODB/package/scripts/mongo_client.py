@@ -1,6 +1,6 @@
 from resource_management import *
 from mongo_base import MongoBase
-
+from resource_management.core.resources.system import File
 
 class MongoClient(MongoBase):
     client_config_path = "/etc/mongoclient.conf"

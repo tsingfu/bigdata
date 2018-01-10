@@ -2,8 +2,10 @@ import os
 from time import sleep
 from resource_management import *
 from mongo_base import MongoBase
-from resource_management.core.logger import Logger
-from resource_management.libraries.script.script import Script
+from resource_management.core.resources.system import Execute
+from resource_management.libraries.script import Script
+from resource_management.libraries.functions.check_process_status import check_process_status
+from resource_management.core.resources.system import File
 
 
 class MongoMaster(MongoBase):
@@ -56,21 +58,21 @@ class MongoMaster(MongoBase):
 
         if len(params.node_group) > 0:
             db_hosts = self.getdbhosts(db_hosts, params.node_group)
-        #start shard service
+        # start shard service
         for index, item in enumerate(db_hosts, start=0):
             if item == current_host_name:
-                #foreach db_ports
+                # foreach db_ports
                 for index_p, p in enumerate(params.db_ports, start=0):
-                    #rm mongo_*.sock
+                    # rm mongo_*.sock
                     Execute(
                         format('rm -rf /tmp/mongodb-{p}.sock'), logoutput=True)
-                    #get shard_name
+                    # get shard_name
                     shard_name = shard_prefix + str(
                         (index - index_p) % len_host)
-                    #pid_file_name = params.shard_prefix + str((index-index_p)%len_host)
-                    #pid_file_name not the same to log,easy to status
+                    # pid_file_name = params.shard_prefix + str((index-index_p)%len_host)
+                    # pid_file_name not the same to log,easy to status
                     pid_file_name = params.shard_prefix + str(index_p)
-                    #get db_path
+                    # get db_path
                     db_path = params.db_path + '/' + shard_name
 
                     if os.path.exists(db_path):
@@ -135,9 +137,9 @@ class MongoMaster(MongoBase):
                 current_index = current_index + 1
                 current_shard = (current_shard + 1) % len(db_hosts)
 
-            #if len(groups) > 1 and current_host_name in groups[-1]:            
+            # if len(groups) > 1 and current_host_name in groups[-1]:
             #    replica_param ='rs.initiate( {_id:'+format('"{shard_name}",version: 1,members:') + '[' + members + ']})'
-            #else:
+            # else:
             replica_param = 'rs.initiate( {_id:' + format(
                 '"{shard_name}",version: 1,members:') + '[' + members + ']},{force:1})'
 

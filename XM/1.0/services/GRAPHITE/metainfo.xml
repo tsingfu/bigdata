@@ -3,40 +3,40 @@
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
-            <name>ELASTICSEARCH</name>
-            <displayName>Elasticsearch</displayName>
-            <comment>Indexing and Search</comment>
-            <version>6.1</version>
+            <name>GRAPHITE</name>
+            <displayName>Graphite</displayName>
+            <comment>Metrics</comment>
+            <version>1.2</version>
             <components>
                 <component>
-                    <name>ES_MASTER</name>
-                    <displayName>ES Master Node</displayName>
-                    <category>MASTER</category>
+                    <name>KENSHIN</name>
+                    <displayName>kenshin and rurouni cache storage</displayName>
+                    <category>SLAVE</category>
                     <cardinality>1+</cardinality>
                     <commandScript>
-                        <script>scripts/elastic_master.py</script>
+                        <script>scripts/kenshin.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>600</timeout>
                     </commandScript>
                 </component>
                 <component>
-                    <name>ES_DATA</name>
-                    <displayName>ES Data Node</displayName>
+                    <name>CARBON_C_RELAY</name>
+                    <displayName>carbon c relay</displayName>
                     <category>SLAVE</category>
-                    <cardinality>0+</cardinality>
+                    <cardinality>1+</cardinality>
                     <commandScript>
-                        <script>scripts/elastic_data.py</script>
+                        <script>scripts/relay.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>600</timeout>
                     </commandScript>
                 </component>
                 <component>
-                    <name>ES_CLIENT</name>
-                    <displayName>ES Client Node</displayName>
+                    <name>GRAPHITE_API</name>
+                    <displayName>graphite-api</displayName>
                     <category>SLAVE</category>
-                    <cardinality>0+</cardinality>
+                    <cardinality>1+</cardinality>
                     <commandScript>
-                        <script>scripts/elastic_client.py</script>
+                        <script>scripts/graphite_api.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>600</timeout>
                     </commandScript>
@@ -47,7 +47,7 @@
                     <osFamily>any</osFamily>
                     <packages>
                         <package>
-                            <name>elasticsearch</name>
+                            <name>cairo</name>
                         </package>
                     </packages>
                 </osSpecific>
@@ -58,8 +58,7 @@
                 <timeout>300</timeout>
             </commandScript>
             <configuration-dependencies>
-                <config-type>elastic-env</config-type>
-                <config-type>elastic-sysconfig</config-type>
+                <config-type>graphite-env</config-type>
             </configuration-dependencies>
             <restartRequiredAfterChange>true</restartRequiredAfterChange>
             <quickLinksConfigurations>

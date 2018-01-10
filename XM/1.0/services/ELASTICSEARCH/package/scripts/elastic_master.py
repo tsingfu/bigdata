@@ -7,7 +7,6 @@ from resource_management.core.resources.system import Directory
 from resource_management.core.resources.system import File
 from resource_management.core.source import InlineTemplate
 
-
 def elastic():
     import params
 
@@ -64,7 +63,6 @@ class Elasticsearch(Script):
     def configure(self, env, upgrade_type=None, config_dir=None):
         import params
         env.set_params(params)
-
         elastic()
 
     def stop(self, env, upgrade_type=None):
