@@ -1,103 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration supports_final="true">
-  <property>
-    <name>spark.yarn.queue</name>
-    <value>default</value>
-    <description>
-      The name of the YARN queue to which the application is submitted.
-    </description>
-    <depends-on>
-      <property>
-        <type>capacity-scheduler</type>
-        <name>yarn.scheduler.capacity.root.queues</name>
-      </property>
-    </depends-on>
-    <on-ambari-upgrade add="false"/>
-  </property>
-  <property>
-    <name>spark.driver.extraLibraryPath</name>
-    <value>{{spark_hadoop_lib_native}}</value>
-    <description>
-      Set a special library path to use when launching the driver JVM.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.executor.extraLibraryPath</name>
-    <value>{{spark_hadoop_lib_native}}</value>
-    <description>
-      Set a special library path to use when launching the executor JVM.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.history.provider</name>
-    <value>org.apache.spark.deploy.history.FsHistoryProvider</value>
-    <description>
-      Name of history provider
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.history.ui.port</name>
-    <value>18081</value>
-    <description>
-      The port to which the web interface of the History Server binds.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.history.fs.logDirectory</name>
-    <value>hdfs:///spark2-history/</value>
-    <description>
-      Base directory for history spark application log.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.history.kerberos.principal</name>
-    <value>none</value>
-    <description>
-      Kerberos principal name for the Spark History Server.
-    </description>
-    <property-type>KERBEROS_PRINCIPAL</property-type>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.history.kerberos.keytab</name>
-    <value>none</value>
-    <description>
-      Location of the kerberos keytab file for the Spark History Server.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.eventLog.enabled</name>
-    <value>true</value>
-    <description>
-        Whether to log Spark events, useful for reconstructing the Web UI after the application has finished.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.eventLog.dir</name>
-    <value>hdfs:///spark2-history/</value>
-    <description>
-        Base directory in which Spark events are logged, if spark.eventLog.enabled is true.
-    </description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.yarn.historyServer.address</name>
-    <value>{{spark_history_server_host}}:{{spark_history_ui_port}}</value>
-    <description>The address of the Spark history server (i.e. host.com:18081). The address should not contain a scheme (http://). Defaults to not being set since the history server is an optional service. This address is given to the YARN ResourceManager when the Spark application finishes to link the application from the ResourceManager UI to the Spark history server UI.</description>
-    <on-ambari-upgrade add="true"/>
-  </property>
-  <property>
-    <name>spark.hadoop.yarn.timeline-service.enabled</name>
-    <value>true</value>
-    <description>disable the YARN Timeline Service in spark-defaults.conf</description>
-    <on-ambari-upgrade add="true"/>
-  </property>
+    <property>
+        <name>spark.yarn.queue</name>
+        <value>default</value>
+        <description>
+            The name of the YARN queue to which the application is submitted.
+        </description>
+        <depends-on>
+            <property>
+                <type>capacity-scheduler</type>
+                <name>yarn.scheduler.capacity.root.queues</name>
+            </property>
+        </depends-on>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>spark.driver.extraLibraryPath</name>
+        <value>{{spark_hadoop_lib_native}}</value>
+        <description>
+            Set a special library path to use when launching the driver JVM.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.executor.extraLibraryPath</name>
+        <value>{{spark_hadoop_lib_native}}</value>
+        <description>
+            Set a special library path to use when launching the executor JVM.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.history.provider</name>
+        <value>org.apache.spark.deploy.history.FsHistoryProvider</value>
+        <description>
+            Name of history provider
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.history.ui.port</name>
+        <value>18081</value>
+        <description>
+            The port to which the web interface of the History Server binds.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.history.fs.logDirectory</name>
+        <value>hdfs:///spark2-history/</value>
+        <description>
+            Base directory for history spark application log.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.history.kerberos.principal</name>
+        <value>none</value>
+        <description>
+            Kerberos principal name for the Spark History Server.
+        </description>
+        <property-type>KERBEROS_PRINCIPAL</property-type>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.history.kerberos.keytab</name>
+        <value>none</value>
+        <description>
+            Location of the kerberos keytab file for the Spark History Server.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.eventLog.enabled</name>
+        <value>true</value>
+        <description>
+            Whether to log Spark events, useful for reconstructing the Web UI after the application has finished.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.eventLog.dir</name>
+        <value>hdfs:///spark2-history/</value>
+        <description>
+            Base directory in which Spark events are logged, if spark.eventLog.enabled is true.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.yarn.historyServer.address</name>
+        <value>{{spark_history_server_host}}:{{spark_history_ui_port}}</value>
+        <description>The address of the Spark history server (i.e. host.com:18081). The address should not contain a
+            scheme (http://). Defaults to not being set since the history server is an optional service. This address is
+            given to the YARN ResourceManager when the Spark application finishes to link the application from the
+            ResourceManager UI to the Spark history server UI.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.hadoop.yarn.timeline-service.enabled</name>
+        <value>true</value>
+        <description>disable the YARN Timeline Service in spark-defaults.conf</description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
+    <property>
+        <name>spark.streaming.backpressure.enabled</name>
+        <value>true</value>
+        <description>
+            Enables or disables Spark Streaming's internal backpressure mechanism (since 1.5). This enables the Spark
+            Streaming to control the receiving rate based on the current batch scheduling delays and processing times so
+            that the system receives only as fast as the system can process. Internally, this dynamically sets the
+            maximum receiving rate of receivers. This rate is upper bounded by the values
+            spark.streaming.receiver.maxRate and spark.streaming.kafka.maxRatePerPartition if they are set
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.streaming.backpressure.initialRate</name>
+        <value>10000</value>
+        <description>
+            This is the initial maximum receiving rate at which each receiver will receive data for the first batch when
+            the backpressure mechanism is enabled.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.streaming.receiver.maxRate</name>
+        <value>30000</value>
+        <description>
+            Maximum rate (number of records per second) at which each receiver will receive data. Effectively, each
+            stream will consume at most this number of records per second. Setting this configuration to 0 or a negative
+            number will put no limit on the rate. See the deployment guide in the Spark Streaming programing guide for
+            mode details.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.streaming.kafka.maxRatePerPartition</name>
+        <value>30000</value>
+        <description>
+            Maximum rate (number of records per second) at which data will be read from each Kafka partition when using
+            the new Kafka direct stream API. See the Kafka Integration guide for more details.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.streaming.stopGracefullyOnShutdown</name>
+        <value>true</value>
+        <description>
+            If true, Spark shuts down the StreamingContext gracefully on JVM shutdown rather than immediately.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.serializer</name>
+        <value>org.apache.spark.serializer.KryoSerializer</value>
+        <description>
+            Class to use for serializing objects that will be sent over the network or need to be cached in serialized
+            form. The default of Java serialization works with any Serializable Java object but is quite slow, so we
+            recommend using org.apache.spark.serializer.KryoSerializer and configuring Kryo serialization when speed is
+            necessary. Can be any subclass of org.apache.spark.Serializer.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
 
 </configuration>
