@@ -165,4 +165,46 @@
         <on-ambari-upgrade add="true"/>
     </property>
 
+    <property>
+        <name>spark.shuffle.service.enabled</name>
+        <value>true</value>
+        <description>
+            Enables the external shuffle service.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.dynamicAllocation.enabled</name>
+        <value>true</value>
+        <description>
+            Whether to use dynamic resource allocation, which scales the number of executors registered with this
+            application up and down based on the workload.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.dynamicAllocation.initialExecutors</name>
+        <value>1</value>
+        <description>
+            Initial number of executors to run if dynamic allocation is enabled.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.dynamicAllocation.maxExecutors</name>
+        <value>1000</value>
+        <description>
+            Upper bound for the number of executors if dynamic allocation is enabled.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+    <property>
+        <name>spark.dynamicAllocation.minExecutors</name>
+        <value>1</value>
+        <description>
+            Lower bound for the number of executors if dynamic allocation is enabled.
+        </description>
+        <on-ambari-upgrade add="true"/>
+    </property>
+
 </configuration>

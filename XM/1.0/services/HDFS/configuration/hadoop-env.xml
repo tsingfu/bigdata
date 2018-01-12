@@ -47,7 +47,7 @@
   </property>
   <property>
     <name>hadoop_heapsize</name>
-    <value>1024</value>
+    <value>8192</value>
     <description>Hadoop maximum Java heap size</description>
     <display-name>Hadoop maximum Java heap size</display-name>
     <value-attributes>
@@ -152,7 +152,7 @@
   </property>
   <property>
     <name>dtnode_heapsize</name>
-    <value>4096</value>
+    <value>8192</value>
     <description>DataNode maximum Java heap size</description>
     <display-name>DataNode maximum Java heap size</display-name>
     <value-attributes>

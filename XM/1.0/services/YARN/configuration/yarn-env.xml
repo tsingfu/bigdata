@@ -49,7 +49,7 @@
   </property>
   <property>
     <name>yarn_heapsize</name>
-    <value>1024</value>
+    <value>8192</value>
     <display-name>YARN Java heap size</display-name>
     <description>Max heapsize for all YARN components using a numerical value in the scale of MB</description>
     <value-attributes>
@@ -60,7 +60,7 @@
   </property>
   <property>
     <name>resourcemanager_heapsize</name>
-    <value>1024</value>
+    <value>8192</value>
     <display-name>ResourceManager Java heap size</display-name>
     <description>Max heapsize for ResourceManager using a numerical value in the scale of MB</description>
     <value-attributes>
@@ -72,7 +72,7 @@
   </property>
   <property>
     <name>nodemanager_heapsize</name>
-    <value>1024</value>
+    <value>8192</value>
     <display-name>NodeManager Java heap size</display-name>
     <description>Max heapsize for NodeManager using a numerical value in the scale of MB</description>
     <value-attributes>
