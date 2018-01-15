@@ -30,12 +30,8 @@ from resource_management.core.resources.system import Directory, Execute, File
 from resource_management.core.resources.system import Execute
 
 
-def install_hbase(first=False):
+def install_hbase():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.etc_prefix_dir)
     Directory(
         [params.etc_prefix_dir],
         owner=params.hbase_user,
@@ -62,11 +58,8 @@ def install_hbase(first=False):
         Execute('/bin/rm -f /tmp/' + params.filename)
 
 
-def install_phoenix(first=False):
+def install_phoenix():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.phoenix_version_dir)
-    #     Execute('rm -rf %s' % params.phoenix_install_dir)
     if not os.path.exists('/opt/' + params.phoenix_version_dir) or not os.path.exists(params.phoenix_install_dir):
         Execute('rm -rf %s' %  '/opt/' + params.phoenix_version_dir)
         Execute('rm -rf %s' % params.phoenix_install_dir)

@@ -39,7 +39,7 @@ class LivyServer(Script):
         import params
         env.set_params(params)
 
-        install_livy(first=True)
+        install_livy()
 
     def configure(self, env, upgrade_type=None, config_dir=None):
         import params

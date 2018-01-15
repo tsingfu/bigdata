@@ -34,7 +34,7 @@ class KafkaBroker(Script):
         return "kafka-broker"
 
     def install(self, env):
-        install_kafka(first=True)
+        install_kafka()
 
     def configure(self, env, upgrade_type=None):
         import params

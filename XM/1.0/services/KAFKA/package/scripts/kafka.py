@@ -32,12 +32,8 @@ from resource_management.core.logger import Logger
 from resource_management.core.resources.system import Execute
 
 
-def install_kafka(first=False):
+def install_kafka():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     Directory(
         [params.conf_dir],
         owner=params.kafka_user,

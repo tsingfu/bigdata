@@ -30,7 +30,7 @@ class Supervisor(Script):
         return "storm-supervisor"
 
     def install(self, env):
-        install_storm(first=True)
+        install_storm()
         self.configure(env)
 
     def configure(self, env):

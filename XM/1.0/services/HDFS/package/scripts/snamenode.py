@@ -33,7 +33,7 @@ class SNameNode(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def configure(self, env):
         import params

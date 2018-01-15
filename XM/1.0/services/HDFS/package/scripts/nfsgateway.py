@@ -37,7 +37,7 @@ class NFSGateway(Script):
 
         self.install_packages(env)
 
-        install_hadoop(first=True)
+        install_hadoop()
 
     def pre_upgrade_restart(self, env, upgrade_type=None):
         print 'todo'

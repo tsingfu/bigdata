@@ -23,12 +23,8 @@ from resource_management import Directory, File, PropertiesFile, InlineTemplate,
 from resource_management.core.resources.system import Execute
 
 
-def install_livy(first=False):
+def install_livy():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.livy_version_dir)
-    #     Execute('rm -rf %s' % params.livy_install_dir)
-    #     Execute('rm -rf %s' % params.livy2_conf)
     Directory(
         [params.livy2_conf],
         owner=params.livy2_user,

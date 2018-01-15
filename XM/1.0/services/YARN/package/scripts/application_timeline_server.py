@@ -35,7 +35,7 @@ from service import service
 class ApplicationTimelineServer(Script):
     def install(self, env):
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def start(self, env, upgrade_type=None):
         import params

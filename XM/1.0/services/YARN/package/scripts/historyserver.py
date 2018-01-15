@@ -34,7 +34,7 @@ def copy_to_hdfs(name, user_group, owner, custom_source_file=None, custom_dest_f
 class HistoryServer(Script):
     def install(self, env):
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def stop(self, env, upgrade_type=None):
         import params

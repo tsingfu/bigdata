@@ -26,7 +26,7 @@ from setup_spark import setup_spark, install_spark
 
 class SparkClient(Script):
     def install(self, env):
-        install_spark(first=True)
+        install_spark()
         self.configure(env)
 
     def configure(self, env, upgrade_type=None, config_dir=None):

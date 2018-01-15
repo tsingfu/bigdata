@@ -8,12 +8,8 @@ import os
 from resource_management.libraries.script.script import Script
 
 
-def install_flink(first=False):
+def install_flink():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     if not os.path.exists('/opt/' + params.version_dir) or not os.path.exists(params.install_dir):
         Execute('rm -rf %s' % '/opt/' + params.version_dir)
         Execute('rm -rf %s' % params.install_dir, ignore_failures=True)
@@ -41,7 +37,7 @@ def install_flink(first=False):
 
 class Client(Script):
     def install(self, env):
-        install_flink(first=True)
+        install_flink()
         self.configure(env, True)
 
     def configure(self, env, isInstall=False):

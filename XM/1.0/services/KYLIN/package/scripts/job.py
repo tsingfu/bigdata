@@ -10,12 +10,8 @@ from resource_management.libraries.script.script import Script
 from resource_management.libraries import XmlConfig
 
 
-def install_kylin(first=False):
+def install_kylin():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     if not os.path.exists('/opt/' + params.version_dir) or not os.path.exists(params.install_dir):
         Execute('rm -rf %s' % '/opt/' + params.version_dir)
         Execute('rm -rf %s' % params.install_dir)

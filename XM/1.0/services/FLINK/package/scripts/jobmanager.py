@@ -12,7 +12,7 @@ from client import install_flink
 
 class Master(Script):
     def install(self, env):
-        install_flink(first=True)
+        install_flink()
         self.configure(env, True)
 
     def configure(self, env, isInstall=False):

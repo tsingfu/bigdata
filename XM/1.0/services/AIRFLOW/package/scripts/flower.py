@@ -5,11 +5,8 @@ from resource_management.libraries.functions.check_process_status import check_p
 import os
 
 
-def install_airflow(first=False):
+def install_airflow():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
     Directory(
         [params.conf_dir, '/var/run/airflow', params.airflow_base_log_folder, params.airflow_dags_folder],
         owner=params.airflow_user,
@@ -39,7 +36,7 @@ def install_airflow(first=False):
 class Scheduler(Script):
     def install(self, env):
         print "Installing Airflow"
-        install_airflow(first=True)
+        install_airflow()
         Execute("yum install -y redis")
 
     def configure(self, env):

@@ -10,7 +10,7 @@ from titan import install_titan
 class TitanServer(Script):
     def install(self, env):
         self.install_packages(env)
-        install_titan(first=True)
+        install_titan()
 
     def configure(self, env, upgrade_type=None):
         import params

@@ -7,12 +7,8 @@ from resource_management.core.resources.system import Directory, Execute, File, 
 import os
 
 
-def install_solr(first=False):
+def install_solr():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.solr_conf)
     Directory(
         [params.solr_conf],
         owner=params.solr_user,

@@ -7,7 +7,7 @@ class PigClient(Script):
     def configure(self, env):
         import params
         env.set_params(params)
-        install_pig(first=True)
+        install_pig()
         pig()
 
     def status(self, env):

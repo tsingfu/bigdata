@@ -30,7 +30,7 @@ class HdfsClient(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
         self.configure(env)
 
     def configure(self, env):

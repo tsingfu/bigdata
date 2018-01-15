@@ -38,7 +38,7 @@ def copy_to_hdfs(name, user_group, owner, custom_source_file=None, custom_dest_f
                         )
     params.HdfsResource(None, action="execute")
 
-def install_hive(first=False):
+def install_hive():
     import params
     Directory(
         [params.config_dir, params.hcat_conf_dir],

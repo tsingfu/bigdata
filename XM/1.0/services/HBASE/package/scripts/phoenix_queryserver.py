@@ -27,7 +27,7 @@ class PhoenixQueryServer(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_phoenix(first=True)
+        install_phoenix()
 
     def get_component_name(self):
         return "phoenix-server"

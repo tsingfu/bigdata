@@ -37,7 +37,7 @@ class DruidBase(Script):
         return format("druid-{node_type_lower}")
 
     def install(self, env):
-        install_druid(first=True)
+        install_druid()
         self.configure(env)
 
     def configure(self, env, upgrade_type=None):

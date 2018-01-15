@@ -40,7 +40,7 @@ class KnoxGateway(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_knox(first=True)
+        install_knox()
 
         File(os.path.join(params.knox_conf_dir, 'topologies', 'sandbox.xml'),
              action="delete",

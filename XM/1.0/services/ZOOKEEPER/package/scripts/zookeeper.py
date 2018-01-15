@@ -28,12 +28,8 @@ from resource_management.core.source import InlineTemplate, Template
 from resource_management.core.resources.system import Execute
 
 
-def install_zookeeper(first=False):
+def install_zookeeper():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.config_dir)
     Directory(
         [params.config_dir],
         owner=params.zk_user,

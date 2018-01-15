@@ -27,9 +27,8 @@ from resource_management.libraries.functions.show_logs import show_logs
 from resource_management.core.logger import Logger
 
 
-def install_druid(first=False):
+def install_druid():
     import params
-    print "install dir:" + params.install_dir
     Directory(
         [params.druid_conf_dir],
         owner=params.druid_user,

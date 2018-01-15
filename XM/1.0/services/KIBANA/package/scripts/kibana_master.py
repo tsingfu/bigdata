@@ -73,32 +73,6 @@ class Kibana(Script):
 
         Execute("service kibana status")
 
-    def load_template(self, env):
-        from dashboard.dashboardindex import DashboardIndex
-
-        import params
-        env.set_params(params)
-
-        hostname = ambari_format("{es_host}")
-        port = int(ambari_format("{es_port}"))
-
-        Logger.info("Connecting to Elasticsearch on host: %s, port: %s" % (hostname, port))
-        di = DashboardIndex(host=hostname, port=port)
-
-        # Loads Kibana Dashboard definition from disk and replaces .kibana on index
-        templateFile = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dashboard', 'dashboard.p')
-        if not os.path.isfile(templateFile):
-            raise IOError(
-                errno.ENOENT, os.strerror(errno.ENOENT), templateFile)
-
-        Logger.info("Deleting .kibana index from Elasticsearch")
-
-        di.es.indices.delete(index='.kibana', ignore=[400, 404])
-
-        Logger.info("Loading .kibana index from %s" % templateFile)
-
-        di.put(data=di.load(filespec=templateFile))
-
 
 if __name__ == "__main__":
     Kibana().execute()

@@ -20,7 +20,7 @@ class TitanClient(Script):
 
     def install(self, env):
         self.install_packages(env)
-        install_titan(first=True)
+        install_titan()
         self.configure(env)
 
 

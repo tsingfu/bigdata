@@ -6,12 +6,8 @@ from resource_management.libraries.script.script import Script
 from resource_management.libraries.functions.check_process_status import check_process_status
 
 
-def install_doctor(first=False):
+def install_doctor():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     Directory(
         [params.conf_dir],
         owner=params.doctor_user,
@@ -49,7 +45,7 @@ class Doctor(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_doctor(first=True)
+        install_doctor()
 
     def configure(self, env, upgrade_type=None):
         import params

@@ -36,7 +36,7 @@ class ZookeeperClient(Script):
     def start(self, env, upgrade_type=None):
         import params
         env.set_params(params)
-        install_zookeeper(first=True)
+        install_zookeeper()
         self.configure(env)
 
     def stop(self, env, upgrade_type=None):

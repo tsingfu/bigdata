@@ -11,12 +11,8 @@ import os
 from resource_management.core.source import StaticFile, Template, InlineTemplate
 
 
-def install_presto(first=False):
+def install_presto():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.config_directory)
     Directory(
         [params.config_directory, params.node_properties['node.data-dir'], '/var/run/presto', '/var/log/presto'],
         owner=params.presto_user,
@@ -42,7 +38,7 @@ def install_presto(first=False):
 
 class Coordinator(Script):
     def install(self, env):
-        install_presto(first=True)
+        install_presto()
         self.configure(env)
 
     def stop(self, env):

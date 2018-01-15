@@ -32,7 +32,7 @@ class MapReduce2Client(Script):
     def install(self, env):
         import params
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
         self.configure(env)
 
     def configure(self, env, config_dir=None, upgrade_type=None):

@@ -27,7 +27,7 @@ from resource_management.core.resources.system import Directory, Execute, File, 
 import os
 
 
-def install_registry(first=False):
+def install_registry():
     import params
     Directory(
         [params.conf_dir],
@@ -57,7 +57,7 @@ class RegistryServer(Script):
         return "registry"
 
     def install(self, env):
-        install_registry(first=True)
+        install_registry()
 
     def configure(self, env, upgrade_type=None):
         import params

@@ -17,7 +17,7 @@ class Solr(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_solr(first=True)
+        install_solr()
 
     def configure(self, env, upgrade_type=None):
         import params

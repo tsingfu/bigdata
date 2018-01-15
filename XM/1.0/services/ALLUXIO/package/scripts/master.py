@@ -6,12 +6,8 @@ from resource_management.libraries.functions import check_process_status
 import os
 
 
-def install_alluxio(first=False):
+def install_alluxio():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    print "install dir:" + params.install_dir
     Directory(
         [params.alluxio_config_dir, params.pid_dir],
         owner=params.alluxio_user,

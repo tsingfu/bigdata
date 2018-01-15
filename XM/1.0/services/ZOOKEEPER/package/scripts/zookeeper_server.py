@@ -39,7 +39,7 @@ class ZookeeperServer(Script):
     def start(self, env, upgrade_type=None):
         import params
         env.set_params(params)
-        install_zookeeper(first=True)
+        install_zookeeper()
         self.configure(env, upgrade_type=upgrade_type)
         zookeeper_service(action='start', upgrade_type=upgrade_type)
 

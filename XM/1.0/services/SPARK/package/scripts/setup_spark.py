@@ -9,7 +9,7 @@ from resource_management.core.resources.system import Execute
 from resource_management import Directory
 
 
-def install_spark(first=False):
+def install_spark():
     import params
     Directory(
         [params.spark_conf, params.spark_logs_dir],

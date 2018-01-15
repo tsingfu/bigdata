@@ -37,12 +37,8 @@ from resource_management.core.resources.system import Directory, Execute, File, 
 
 
 class RangerAdmin(Script):
-    def install_ranger(self,first=False):
+    def install_ranger(self,):
         import os, params
-        # if first:
-        #     Execute('rm -rf %s' % '/opt/' + params.version_dir_admin)
-        #     Execute('rm -rf %s' % params.install_dir_admin)
-        #     Execute('rm -rf %s' % params.ranger_conf)
         Directory(
             [params.ranger_conf,params.admin_log_dir],
             owner=params.unix_user,
@@ -74,7 +70,7 @@ class RangerAdmin(Script):
         return "ranger-admin"
 
     def install(self, env):
-        self.install_ranger(first=True)
+        self.install_ranger()
         import params
         env.set_params(params)
         # call config and setup db only in case of HDP version < 2.6

@@ -34,7 +34,7 @@ class PaceMaker(Script):
         return "storm-client"
 
     def install(self, env):
-        install_storm(first=True)
+        install_storm()
         self.configure(env)
 
     def configure(self, env):

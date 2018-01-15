@@ -49,7 +49,7 @@ def copy_to_hdfs(name, user_group, owner, custom_source_file=None, custom_dest_f
     params.HdfsResource(None, action="execute")
 
 
-def install_slider(first=False):
+def install_slider():
     import params
     Directory(
         [params.slider_conf_dir],

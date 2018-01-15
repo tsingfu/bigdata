@@ -28,7 +28,7 @@ class HbaseClient(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_hbase(first=True)
+        install_hbase()
         self.configure(env)
 
     def configure(self, env):

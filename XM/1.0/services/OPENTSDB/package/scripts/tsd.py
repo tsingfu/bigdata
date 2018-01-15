@@ -5,7 +5,7 @@ from resource_management.core.source import Template, InlineTemplate
 import os
 
 
-def install_opentsdb(first=False):
+def install_opentsdb():
     import params
     Directory(
         [params.conf_dir, params.opentsdb_pid_dir, params.opentsdb_log_dir],
@@ -32,7 +32,7 @@ def install_opentsdb(first=False):
 class Master(Script):
     def install(self, env):
         self.install_packages(env)
-        install_opentsdb(first=True)
+        install_opentsdb()
         self.configure(env)
 
     def configure(self, env):

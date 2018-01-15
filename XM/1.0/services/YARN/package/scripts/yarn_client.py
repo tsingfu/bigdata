@@ -28,7 +28,7 @@ from yarn import yarn,install_hadoop
 class YarnClient(Script):
     def install(self, env):
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
         self.configure(env)
 
     def configure(self, env):

@@ -5,7 +5,7 @@ from resource_management.core.source import InlineTemplate
 from resource_management.core.resources.system import Execute
 
 
-def install_tez(first=False):
+def install_tez():
     import params
     Directory(
         [params.config_dir],

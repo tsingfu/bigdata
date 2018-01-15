@@ -38,7 +38,7 @@ class HbaseMaster(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_hbase(first=True)
+        install_hbase()
 
     def decommission(self, env):
         import params

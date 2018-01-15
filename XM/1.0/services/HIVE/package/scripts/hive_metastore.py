@@ -18,7 +18,7 @@ from hive_service import hive_service
 
 class HiveMetastore(Script):
     def install(self, env):
-        install_hive(first=True)
+        install_hive()
 
     def start(self, env, upgrade_type=None):
         import params

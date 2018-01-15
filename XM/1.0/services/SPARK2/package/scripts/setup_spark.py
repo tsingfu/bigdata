@@ -14,7 +14,7 @@ from resource_management.libraries.resources.xml_config import XmlConfig
 from resource_management.core.resources.system import Execute
 
 
-def install_spark(first=False):
+def install_spark():
     import params
     Directory(
         [params.spark_conf],

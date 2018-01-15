@@ -37,7 +37,7 @@ from resource_management.libraries.functions.mounted_dirs_helper import handle_m
 from resource_management.core.resources.system import Execute
 
 
-def install_hadoop(first=False):
+def install_hadoop():
     import params
     Directory(
         params.yarn_log_dir_prefix + '/' + params.yarn_user,

@@ -9,7 +9,7 @@ from flower import install_airflow
 class Scheduler(Script):
     def install(self, env):
         print "Installing Airflow"
-        install_airflow(first=True)
+        install_airflow()
         Execute("yum install -y redis")
 
     def configure(self, env):

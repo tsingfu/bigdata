@@ -55,7 +55,7 @@ class HiveServerInteractive(Script):
         return "hive-server2-hive2"
 
     def install(self, env):
-        install_hive(first=True)
+        install_hive()
 
     def configure(self, env):
         import params

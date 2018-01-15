@@ -32,12 +32,8 @@ from resource_management.core.resources.system import Directory, Execute, File, 
 
 
 class RangerTagsync(Script):
-    def install_ranger(self,first=False):
+    def install_ranger(self,):
         import os, params
-        # if first:
-        #     Execute('rm -rf %s' % '/opt/' + params.version_dir_tagsync)
-        #     Execute('rm -rf %s' % params.install_dir_tagsync)
-        #     Execute('rm -rf %s' % params.ranger_tagsync_conf)
         Directory(
             [params.ranger_tagsync_conf],
             owner=params.unix_user,
@@ -63,7 +59,7 @@ class RangerTagsync(Script):
             Execute('/bin/rm -f /tmp/' + params.filename_tagsync)
 
     def install(self, env):
-        self.install_ranger(first=True)
+        self.install_ranger()
         import params
         env.set_params(params)
 

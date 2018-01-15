@@ -9,7 +9,7 @@ from hive import install_hive
 class HCatClient(Script):
     def install(self, env):
         import params
-        install_hive(first=True)
+        install_hive()
         self.configure(env)
 
     def configure(self, env):

@@ -12,7 +12,7 @@ from resource_management.libraries.script.script import Script
 
 class Worker(Script):
     def install(self, env):
-        install_presto(first=True)
+        install_presto()
         self.configure(env)
 
     def stop(self, env):

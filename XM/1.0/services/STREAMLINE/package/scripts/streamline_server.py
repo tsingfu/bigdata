@@ -10,7 +10,7 @@ from resource_management.core.resources.system import Directory, Execute, File, 
 import os
 
 
-def install_streamline(first=False):
+def install_streamline():
     import params
     Directory(
         [params.conf_dir],
@@ -40,7 +40,7 @@ class StreamlineServer(Script):
         return "streamline"
 
     def install(self, env):
-        install_streamline(first=True)
+        install_streamline()
 
     def configure(self, env, upgrade_type=None):
         import params

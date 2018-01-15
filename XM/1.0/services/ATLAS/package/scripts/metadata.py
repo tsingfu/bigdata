@@ -15,12 +15,8 @@ from resource_management.libraries.functions.is_empty import is_empty
 from resource_management.libraries.resources.modify_properties_file import ModifyPropertiesFile
 
 
-def install_atlas(first=False):
+def install_atlas():
     import params,status_params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     Directory(
         [status_params.conf_dir],
         owner=status_params.metadata_user,

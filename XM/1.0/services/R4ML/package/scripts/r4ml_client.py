@@ -10,12 +10,8 @@ from resource_management.core.source import InlineTemplate, StaticFile
 from resource_management.core.resources import Directory
 
 
-def install_r4ml(first=False):
+def install_r4ml():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.r4ml_conf_dir)
     if not os.path.exists('/opt/' + params.version_dir) or not os.path.exists(params.install_dir):
         Execute('rm -rf %s' % '/opt/' + params.version_dir)
         Execute('rm -rf %s' % params.install_dir)
@@ -56,7 +52,7 @@ class R4MLClient(Script):
 
         # install R and R4ML
         self.install_packages(env)
-        install_r4ml(first=True)
+        install_r4ml()
 
         Execute("yum install R -y")
 

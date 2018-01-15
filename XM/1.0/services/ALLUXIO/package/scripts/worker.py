@@ -8,7 +8,7 @@ from master import install_alluxio
 class Slave(Script):
     # Call setup.sh to install the service
     def install(self, env):
-        install_alluxio(first=True)
+        install_alluxio()
         self.configure(env)
 
     def configure(self, env):

@@ -7,12 +7,8 @@ from resource_management.core.resources.system import Execute, File
 import os
 
 
-def install_systemml(first=False):
+def install_systemml():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     if not os.path.exists('/opt/' + params.version_dir) or not os.path.exists(params.install_dir):
         Execute('rm -rf %s' % '/opt/' + params.version_dir)
         Execute('rm -rf %s' % params.install_dir)
@@ -39,7 +35,7 @@ class SystemMLClient(Script):
         env.set_params(params)
 
     def install(self, env):
-        install_systemml(first=True)
+        install_systemml()
 
     def status(self, env):
         raise ClientComponentHasNoStatus()

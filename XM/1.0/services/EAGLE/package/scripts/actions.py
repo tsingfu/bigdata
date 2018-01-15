@@ -8,13 +8,8 @@ import os
 from resource_management.core.source import InlineTemplate
 from resource_management.libraries import XmlConfig
 
-def install_eagle(first=False):
+def install_eagle():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.eagle_conf)
-    print "install dir:" + params.install_dir
     if not os.path.exists('/opt/' + params.version_dir) or not os.path.exists(params.install_dir):
         Execute('rm -rf %s' %  '/opt/' + params.version_dir)
         Execute('rm -rf %s' % params.install_dir)

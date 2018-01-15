@@ -35,7 +35,7 @@ class JournalNode(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def get_component_name(self):
         return "hadoop-hdfs-journalnode"

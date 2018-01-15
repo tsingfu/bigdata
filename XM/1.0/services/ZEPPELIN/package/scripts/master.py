@@ -13,12 +13,8 @@ from resource_management.libraries.script.script import Script
 import os
 
 
-def install_zeppelin(first=False):
+def install_zeppelin():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     Directory(
         [params.conf_dir,params.zeppelin_log_dir,params.zeppelin_pid_dir],
         owner=params.zeppelin_user,
@@ -50,7 +46,7 @@ class Master(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
-        install_zeppelin(first=True)
+        install_zeppelin()
         self.create_zeppelin_log_dir(env)
 
         if params.spark_version:

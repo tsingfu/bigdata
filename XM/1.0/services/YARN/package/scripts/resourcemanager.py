@@ -23,7 +23,7 @@ from setup_ranger_yarn import setup_ranger_yarn
 class Resourcemanager(Script):
     def install(self, env):
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def stop(self, env, upgrade_type=None):
         import params

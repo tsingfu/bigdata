@@ -35,7 +35,7 @@ from resource_management.core.resources.system import Execute
 class Nodemanager(Script):
     def install(self, env):
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def stop(self, env, upgrade_type=None):
         import params

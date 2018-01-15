@@ -44,7 +44,7 @@ class MetadataServer(Script):
         Directory(format("{expanded_war_dir}/atlas"),
                   action="delete",
                   )
-        install_atlas(first=True)
+        install_atlas()
 
     def configure(self, env, upgrade_type=None, config_dir=None):
         import params

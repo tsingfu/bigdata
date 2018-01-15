@@ -10,7 +10,7 @@ from resource_management.libraries.functions import check_process_status
 
 class WebHCatServer(Script):
     def install(self, env):
-        install_hive(first=True)
+        install_hive()
 
     def start(self, env, upgrade_type=None):
         import params

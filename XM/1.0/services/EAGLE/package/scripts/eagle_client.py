@@ -8,7 +8,7 @@ from actions import *
 class EagleClient(Script):
     def install(self, env):
         print 'Install the eagle client'
-        install_eagle(first=True)
+        install_eagle()
 
     def configure(self, env):
         print 'Configure the eagle client'

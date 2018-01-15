@@ -32,7 +32,7 @@ class ZkfcSlave(Script):
         import params
         env.set_params(params)
         self.install_packages(env)
-        install_hadoop(first=True)
+        install_hadoop()
 
     def configure(env):
         ZkfcSlave.configure_static(env)

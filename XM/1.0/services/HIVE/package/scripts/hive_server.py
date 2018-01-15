@@ -35,7 +35,7 @@ def copy_to_hdfs(name, user_group, owner, custom_source_file=None, custom_dest_f
 
 class HiveServer(Script):
     def install(self, env):
-        install_hive(first=True)
+        install_hive()
 
     def configure(self, env):
         import params

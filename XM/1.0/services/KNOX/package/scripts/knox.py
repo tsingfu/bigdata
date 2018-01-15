@@ -31,12 +31,8 @@ from resource_management.core.source import InlineTemplate
 from resource_management.core.resources.system import Directory, Execute, File, Link
 
 
-def install_knox(first=False):
+def install_knox():
     import params
-    # if first:
-    #     Execute('rm -rf %s' % '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
     Directory(
         [params.knox_conf_dir],
         owner=params.knox_user,

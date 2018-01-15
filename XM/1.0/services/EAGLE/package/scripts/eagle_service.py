@@ -14,7 +14,7 @@ class EagleService(Script):
         Logger.info('Install the eagle service')
         import params
         env.set_params(params)
-        install_eagle(first=True)
+        install_eagle()
         self.configure(env)
 
     def configure(self, env):

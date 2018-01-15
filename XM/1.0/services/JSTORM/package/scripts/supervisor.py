@@ -11,7 +11,7 @@ class Supervisor(Script):
   def install(self, env):
     print 'install supervisor ...'
     self.configure(env)
-    install_storm(first=True)
+    install_storm()
 
   def configure(self, env):
     import params

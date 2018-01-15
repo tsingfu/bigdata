@@ -17,7 +17,7 @@ class SliderClient(Script):
         env.set_params(params)
 
     def install(self, env):
-        install_slider(first=True)
+        install_slider()
         self.configure(env)
 
     def configure(self, env):

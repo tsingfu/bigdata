@@ -32,7 +32,7 @@ def copy_to_hdfs(name, user_group, owner, custom_source_file=None, custom_dest_f
                         )
     params.HdfsResource(None, action="execute")
 
-def install_hadoop(first=False,is_master=False):
+def install_hadoop():
     import params
     Directory(
         params.hdfs_log_dir,

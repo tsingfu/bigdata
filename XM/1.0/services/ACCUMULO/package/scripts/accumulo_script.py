@@ -26,13 +26,8 @@ from resource_management.core.resources.system import Directory, Execute, File
 import os
 
 
-def install_accumulo(first=False):
+def install_accumulo():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.conf_dir)
-    print "install dir:" + params.install_dir
     Directory(
         [params.conf_dir],
         owner=params.accumulo_user,
@@ -88,7 +83,7 @@ class AccumuloScript(Script):
         return stack_component
 
     def install(self, env):
-        install_accumulo(first=True)
+        install_accumulo()
 
     def configure(self, env):
         import params

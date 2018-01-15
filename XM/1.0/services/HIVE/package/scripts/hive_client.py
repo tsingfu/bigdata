@@ -9,7 +9,7 @@ from resource_management.core.exceptions import ClientComponentHasNoStatus
 class HiveClient(Script):
     def install(self, env):
         import params
-        install_hive(first=True)
+        install_hive()
         self.configure(env)
 
     def status(self, env):

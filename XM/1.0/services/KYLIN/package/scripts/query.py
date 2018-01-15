@@ -15,7 +15,7 @@ class Query(Script):
     def install(self, env):
         import params
         env.set_params(params)
-        install_kylin(first=True)
+        install_kylin()
         self.create_kylin_log_dir(env)
         #self.create_kylin_dir()
 

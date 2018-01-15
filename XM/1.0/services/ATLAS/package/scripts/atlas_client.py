@@ -16,7 +16,7 @@ class AtlasClient(Script):
         env.set_params(params)
 
     def install(self, env):
-        install_atlas(first=True)
+        install_atlas()
         self.configure(env)
 
     def configure(self, env, upgrade_type=None, config_dir=None):

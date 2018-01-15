@@ -33,12 +33,8 @@ from resource_management.core.resources.system import Directory, Execute, File, 
 
 
 class RangerUsersync(Script):
-    def install_ranger(self,first=False):
+    def install_ranger(self,):
         import os, params
-        # if first:
-        #     Execute('rm -rf %s' % '/opt/' + params.version_dir_usersync)
-        #     Execute('rm -rf %s' % params.install_dir_usersync)
-        #     Execute('rm -rf %s' % params.ranger_ugsync_conf)
         Directory(
             [params.ranger_ugsync_conf],
             owner=params.unix_user,
@@ -64,7 +60,7 @@ class RangerUsersync(Script):
             Execute('/bin/rm -f /tmp/' + params.filename_usersync)
 
     def install(self, env):
-        self.install_ranger(first=True)
+        self.install_ranger()
         import params
         env.set_params(params)
 
