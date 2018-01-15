@@ -34,12 +34,8 @@ from resource_management.libraries.functions.flume_agent_helper import await_flu
 from resource_management.libraries.functions.show_logs import show_logs
 
 
-def install_flume(first=False):
+def install_flume():
     import params
-    # if first:
-    #     Execute('rm -rf %s' %  '/opt/' + params.version_dir)
-    #     Execute('rm -rf %s' % params.install_dir)
-    #     Execute('rm -rf %s' % params.flume_conf_dir)
     Directory(
         [params.flume_conf_dir],
         owner=params.flume_user,
@@ -74,6 +70,11 @@ def flume(action=None):
             File(os.path.join(params.flume_conf_dir, n, 'ambari-meta.json'),
                  action="delete",
                  )
+        if params.security_enabled:
+            File(
+                format("{conf_dir}/flume_jaas.conf"),
+                owner=params.flume_user,
+                content=InlineTemplate(params.flume_jaas_conf_template))
 
         Directory(params.flume_run_dir,
                   group=params.user_group,

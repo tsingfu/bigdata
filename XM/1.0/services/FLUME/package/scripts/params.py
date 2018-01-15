@@ -51,9 +51,12 @@ user_group = config['configurations']['cluster-env']['user_group']
 proxyuser_group = config['configurations']['hadoop-env']['proxyuser_group']
 
 security_enabled = config['configurations']['cluster-env']['security_enabled']
+
+flume_jaas_conf_template = default("/configurations/flume_jaas_conf/content",None)
+
 if security_enabled:
     _hostname_lowercase = config['hostname'].lower()
-    flume_jaas_princ = config['configurations']['flume-env']['flume_principal_name']
+    flume_jaas_princ = config['configurations']['flume-env']['flume_principal_name'].replace('_HOST',_hostname_lowercase)
     flume_keytab_path = config['configurations']['flume-env']['flume_keytab_path']
 
 # hadoop default parameters

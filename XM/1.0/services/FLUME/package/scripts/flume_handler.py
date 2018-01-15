@@ -37,7 +37,7 @@ class FlumeHandler(Script):
 
     def install(self, env):
         import params
-        install_flume(first=True)
+        install_flume()
         env.set_params(params)
 
     def start(self, env, upgrade_type=None):
@@ -62,9 +62,6 @@ class FlumeHandler(Script):
         json['processes'] = processes
         self.put_structured_out(json)
 
-        # only throw an exception if there are agents defined and there is a
-        # problem with the processes; if there are no agents defined, then
-        # the service should report STARTED (green) ONLY if the desired state is started.  otherwise, INSTALLED (red)
         if len(expected_agents) > 0:
             for proc in processes:
                 if not proc.has_key('status') or proc['status'] == 'NOT_RUNNING':
