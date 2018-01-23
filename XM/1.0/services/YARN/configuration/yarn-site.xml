@@ -1484,7 +1484,7 @@
       yarn.resourcemanager.scheduler.monitor.policies) that affect the
       scheduler.
     </description>
-    <value>false</value>
+    <value>true</value>
     <display-name>Pre-emption</display-name>
     <value-attributes>
       <type>value-list</type>
